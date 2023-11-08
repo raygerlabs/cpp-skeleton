@@ -58,12 +58,13 @@ jobs:
       - name: Setup Python environment
         uses: actions/setup-python@v2
 
-      - name: Install linux packages required by coverage
-        if: runner.os == 'Linux'
+      - name: Install coverage
+        if: startsWith(matrix.name, 'linux') || startsWith(matrix.name, 'macos')
         run: |
           sudo apt-get -y install lcov
 
-      - name: Install documentation tools
+      - name: Install doxygen and latex
+        if: startsWith(matrix.name, 'linux') || startsWith(matrix.name, 'macos')
         run: |
           sudo apt install -y doxygen graphviz texlive-latex-extra
 
@@ -88,7 +89,7 @@ jobs:
         run: ctest --preset ci-${{ matrix.compiler }} ${{ github.workspace }}
 
       - name: Post code coverage
-        if: startsWith(matrix.name, 'linux')
+        if: startsWith(matrix.name, 'linux') || startsWith(matrix.name, 'macos')
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -111,11 +112,11 @@ jobs:
           echo "::set-output name=path::$(find "${{ github.workspace }}/build" -maxdepth 1 -name "${{ steps.current_project.outputs.name }}*.zip" -or -name "${{ steps.current_project.outputs.name }}*.tar.gz")"
 
       - name: Generate API documentation
-        if: startsWith(matrix.name, 'linux')
+        if: startsWith(matrix.name, 'linux') || startsWith(matrix.name, 'macos')
         run: cmake --build --target doc 
 
       - name: Acquire user manual information
-        if: startsWith(matrix.name, 'linux')
+        if: startsWith(matrix.name, 'linux') || startsWith(matrix.name, 'macos')
         id: user_manual
         shell: bash
         run: |
@@ -123,7 +124,7 @@ jobs:
           echo "::set-output name=path::$(find "${{ github.workspace }}/build/doc" -maxdepth 1 -name "${{ steps.current_project.outputs.name }}*.pdf")"
 
       - name: Upload API documentation
-        if: startsWith(matrix.name, 'linux')
+        if: startsWith(matrix.name, 'linux') || startsWith(matrix.name, 'macos')
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
