@@ -31,7 +31,7 @@ jobs:
       - name: Install Conan
         run: pip3 install --upgrade conan
       - name: Update Conan profile
-        run: conan profile new --force default
+        run: conan profile detect -f
       - name: Pull Dependencies
         run: conan install -of build -s build_type ${{ env.BUILD_TYPE }} -pr:b=default
           -b=missing ${{ github.workspace }}
