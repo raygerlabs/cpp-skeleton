@@ -1,0 +1,7 @@
+find_package(GTest CONFIG REQUIRED)
+add_executable(unit_tests unit_tests.cpp)
+target_link_libraries(unit_tests GTest::gtest GTest::gtest_main PNGProcessor)
+set_target_properties(unit_tests PROPERTIES FOLDER "UnitTests")
+get_target_property(TESTS unit_tests SOURCES)
+source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${TESTS})
+gtest_discover_tests(unit_tests)

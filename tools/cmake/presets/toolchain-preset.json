@@ -1,0 +1,27 @@
+{
+  "version": 4,
+  "include": ["./platform-preset.json"],
+  "configurePresets": [
+    {
+      "name": "gcc",
+      "description": "Preset for GNU C/C++",
+      "toolchainFile": "${sourceDir}/tools/cmake/toolchains/toolchain-gcc.cmake",
+      "inherits": ["windows", "linux", "macos"],
+      "hidden": true
+    },
+    {
+      "name": "clang",
+      "description": "Preset for Clang C/C++ (LLVM)",
+      "toolchainFile": "${sourceDir}/tools/cmake/toolchains/toolchain-clang.cmake",
+      "inherits": ["windows", "linux", "macos"],
+      "hidden": true
+    },
+    {
+      "name": "msvc",
+      "description": "Preset for Visual Studio (MSVC)",
+      "toolchainFile": "${sourceDir}/tools/cmake/toolchains/toolchain-msvc.cmake",
+      "inherits": ["windows"],
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "version": 4,
+  "configurePresets": [
+    {
+      "name": "windows",
+      "description": "Preset for Windows platform",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "hidden": true
+    },
+    {
+      "name": "linux",
+      "description": "Preset for Linux platform",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "hidden": true
+    },
+    {
+      "name": "macos",
+      "description": "Preset for Mac OS/X platform",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      },
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "version": 4,
+  "configurePresets": [
+    {
+      "name": "default",
+      "description": "Default preset",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "generator": "Ninja",
+      "hidden": true
+    },
+    {
+      "name": "debug",
+      "description": "Preset for debug information",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CONFIGURATION_TYPES": "Debug"
+      },
+      "inherits": ["default"],
+      "hidden": true
+    },
+    {
+      "name": "profile",
+      "description": "Preset for profiling performance",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile",
+        "CMAKE_CONFIGURATION_TYPES": "Profile"
+      },
+      "inherits": ["default"],
+      "hidden": true
+    },
+    {
+      "name": "release",
+      "description": "Preset for release builds",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CONFIGURATION_TYPES": "Release"
+      },
+      "inherits": ["default"],
+      "hidden": true
+    }
+  ]
+}

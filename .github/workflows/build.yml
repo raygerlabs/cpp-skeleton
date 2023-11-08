@@ -1,0 +1,140 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ${{ matrix.vm }}
+
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+       include:
+         - name: linux_gcc
+           vm: ubuntu-latest
+           compiler: "gcc"
+
+         - name: linux_clang
+           vm: ubuntu-latest
+           compiler: "clang"
+
+         - name: macos_gcc
+           vm: macos-latest
+           compiler: "gcc"
+
+         - name: macos_clang
+           vm: macos-latest
+           compiler: "clang"
+
+         - name: windows_msvc
+           vm: windows-latest
+           compiler: "msvc"
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+
+      - name: Get current branch
+        id: current_branch
+        run: echo "::set-output name=name::$(echo ${GITHUB_REF#refs/heads/})"
+
+      - name: Cache Conan
+        uses: actions/cache@v2
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-master
+
+      - name: Setup Python environment
+        uses: actions/setup-python@v2
+
+      - name: Install linux packages required by coverage
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get -y install lcov
+
+      - name: Install documentation tools
+        run: |
+          sudo apt install -y doxygen graphviz texlive-latex-extra
+
+      - name: Install/Upgrade Conan
+        run: |
+          pip3 install --upgrade conan
+          conan --version
+          conan use r
+          conan profile new --force default
+          conan profile show default
+
+      - name: Install dependencies
+        run: conan install -of build -s build_type=${{ env.BUILD_TYPE }} -pr:b=default --b=missing ${{ github.workspace }}
+
+      - name: Configure
+        run: cmake --preset ci-${{ matrix.compiler }} ${{ github.workspace }}
+
+      - name: Build
+        run: cmake --build --preset ci-${{ matrix.compiler }} ${{ github.workspace }}
+
+      - name: Test
+        run: ctest --preset ci-${{ matrix.compiler }} ${{ github.workspace }}
+
+      - name: Post code coverage
+        if: startsWith(matrix.name, 'linux')
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ${{ github.workspace }}/build/coverage.info
+
+      - name: Package
+        run: cpack ${{ github.workspace }}
+
+      - name: Acquire project information
+        id: current_project
+        run: |
+          echo "::set-output name=name::$(cat ${{ github.workspace }}/build/NAME)"
+          echo "::set-output name=version::$(cat ${{ github.workspace }}/build/VERSION)"
+
+      - name: Acquire archive information
+        id: current_archive
+        shell: bash
+        run: |
+          echo "::set-output name=name::$(basename "$(find "${{ github.workspace }}/build" -maxdepth 1 -name "${{ steps.current_project.outputs.name }}*.zip" -or -name "${{ steps.current_project.outputs.name }}*.tar.gz")")"
+          echo "::set-output name=path::$(find "${{ github.workspace }}/build" -maxdepth 1 -name "${{ steps.current_project.outputs.name }}*.zip" -or -name "${{ steps.current_project.outputs.name }}*.tar.gz")"
+
+      - name: Generate API documentation
+        if: startsWith(matrix.name, 'linux')
+        run: cmake --build --target doc 
+
+      - name: Acquire user manual information
+        if: startsWith(matrix.name, 'linux')
+        id: user_manual
+        shell: bash
+        run: |
+          echo "::set-output name=name::$(basename "$(find "${{ github.workspace }}/build/doc" -maxdepth 1 -name "${{ steps.current_project.outputs.name }}*.pdf")")"
+          echo "::set-output name=path::$(find "${{ github.workspace }}/build/doc" -maxdepth 1 -name "${{ steps.current_project.outputs.name }}*.pdf")"
+
+      - name: Upload API documentation
+        if: startsWith(matrix.name, 'linux')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.current_archive.outputs.path }}
+          asset_name: ${{ steps.user_manual.outputs.name }}
+          asset_path: ${{ steps.user_manual.outputs.path }}
+          asset_content_type: application/pdf
+
+      - name: Upload package
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.current_archive.outputs.name }}
+          path: ${{ steps.current_archive.outputs.path }}

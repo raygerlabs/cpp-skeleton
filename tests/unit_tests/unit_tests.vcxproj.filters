@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\workspace\PNGProcessor\tests\unit_tests\unit_tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\workspace\PNGProcessor\tests\unit_tests\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,183 @@
+{
+  "version": 4,
+  "include": [
+    "./tools/cmake/presets/build-preset.json",
+    "./tools/cmake/presets/option-preset.json",
+    "./tools/cmake/presets/platform-preset.json",
+    "./tools/cmake/presets/toolchain-preset.json"
+  ],
+  "configurePresets": [
+    {
+      "name": "ci-gcc",
+      "description": "Preset for CI/CD with GNU C/C++",
+      "inherits": ["ci", "gcc"]
+    },
+    {
+      "name": "ci-clang",
+      "description": "Preset for CI/CD with Clang C/C++ (LLVM)",
+      "inherits": ["ci", "clang"]
+    },
+    {
+      "name": "ci-msvc",
+      "description": "Preset for CI/CD with Visual Studio (MSVC)",
+      "inherits": ["ci", "msvc"]
+    },
+    {
+      "name": "perf-gcc",
+      "description": "Preset for benchmarking with GNU C/C++",
+      "inherits": ["perf", "gcc"]
+    },
+    {
+      "name": "perf-clang",
+      "description": "Preset for benchmarking with Clang C/C++ (LLVM)",
+      "inherits": ["perf", "clang"]
+    },
+    {
+      "name": "perf-msvc",
+      "description": "Preset for benchmarking with Visual Studio (MSVC)",
+      "inherits": ["perf", "msvc"]
+    },
+    {
+      "name": "dev-gcc",
+      "description": "Preset for development with GNU C/C++",
+      "inherits": ["dev", "gcc"]
+    },
+    {
+      "name": "dev-clang",
+      "description": "Preset for development with Clang C/C++ (LLVM)",
+      "inherits": ["dev", "clang"]
+    },
+    {
+      "name": "dev-msvc",
+      "description": "Preset for development with Visual Studio (MSVC)",
+      "inherits": ["dev", "msvc"]
+    },
+    {
+      "name": "san-gcc",
+      "description": "Preset for sanitizing with GNU C/C++",
+      "inherits": ["san", "gcc"]
+    },
+    {
+      "name": "san-clang",
+      "description": "Preset for sanitizing with Clang C/C++ (LLVM)",
+      "inherits": ["san", "clang"]
+    },
+    {
+      "name": "san-msvc",
+      "description": "Preset for sanitizing with Visual Studio (MSVC)",
+      "inherits": ["san", "msvc"]
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "ci-gcc",
+      "description": "Preset for CI/CD with GNU C/C++",
+      "configurePreset": "ci-gcc"
+    },
+    {
+      "name": "ci-clang",
+      "description": "Preset for CI/CD with Clang C/C++ (LLVM)",
+      "configurePreset": "ci-clang"
+    },
+    {
+      "name": "ci-msvc",
+      "description": "Preset for CI/CD with Visual Studio (MSVC)",
+      "configurePreset": "ci-msvc"
+    },
+    {
+      "name": "perf-gcc",
+      "description": "Preset for benchmarking with GNU C/C++",
+      "configurePreset": "perf-gcc"
+    },
+    {
+      "name": "perf-clang",
+      "description": "Preset for benchmarking with Clang C/C++ (LLVM)",
+      "configurePreset": "perf-clang"
+    },
+    {
+      "name": "perf-msvc",
+      "description": "Preset for benchmarking with Visual Studio (MSVC)",
+      "configurePreset": "perf-msvc"
+    },
+    {
+      "name": "dev-gcc",
+      "description": "Preset for development with GNU C/C++",
+      "configurePreset": "dev-gcc"
+    },
+    {
+      "name": "dev-clang",
+      "description": "Preset for development with Clang C/C++ (LLVM)",
+      "configurePreset": "dev-clang"
+    },
+    {
+      "name": "dev-msvc",
+      "description": "Preset for development with Visual Studio (MSVC)",
+      "configurePreset": "dev-msvc"
+    },
+    {
+      "name": "san-gcc",
+      "description": "Preset for sanitizing with GNU C/C++",
+      "configurePreset": "san-gcc"
+    },
+    {
+      "name": "san-clang",
+      "description": "Preset for sanitizing with Clang C/C++ (LLVM)",
+      "configurePreset": "san-clang"
+    },
+    {
+      "name": "san-msvc",
+      "description": "Preset for sanitizing with Visual Studio (MSVC)",
+      "configurePreset": "san-msvc"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "ci-gcc",
+      "description": "Preset for CI/CD with GNU C/C++",
+      "configurePreset": "ci-gcc",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "ci-clang",
+      "description": "Preset for CI/CD with Clang C/C++ (LLVM)",
+      "configurePreset": "ci-clang",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "ci-msvc",
+      "description": "Preset for CI/CD with Visual Studio (MSVC)",
+      "configurePreset": "ci-msvc",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "dev-gcc",
+      "description": "Preset for development with GNU C/C++",
+      "configurePreset": "dev-gcc",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "dev-clang",
+      "description": "Preset for sanitizing with Clang C/C++ (LLVM)",
+      "configurePreset": "dev-clang",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "dev-msvc",
+      "description": "Preset for development with Visual Studio (MSVC)",
+      "configurePreset": "dev-msvc",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

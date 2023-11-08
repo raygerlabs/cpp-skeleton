@@ -1,0 +1,25 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake
+C:/workspace/PNGProcessor/build/PNG-Target-debug.cmake
+C:/workspace/PNGProcessor/build/PNG-Target-release.cmake
+C:/workspace/PNGProcessor/build/PNG-debug-x86_64-data.cmake
+C:/workspace/PNGProcessor/build/PNG-release-x86_64-data.cmake
+C:/workspace/PNGProcessor/build/PNGConfig.cmake
+C:/workspace/PNGProcessor/build/PNGConfigVersion.cmake
+C:/workspace/PNGProcessor/build/PNGTargets.cmake
+C:/workspace/PNGProcessor/build/RapidJSON-Target-debug.cmake
+C:/workspace/PNGProcessor/build/RapidJSON-Target-release.cmake
+C:/workspace/PNGProcessor/build/RapidJSON-debug-x86_64-data.cmake
+C:/workspace/PNGProcessor/build/RapidJSON-release-x86_64-data.cmake
+C:/workspace/PNGProcessor/build/RapidJSONConfig.cmake
+C:/workspace/PNGProcessor/build/RapidJSONConfigVersion.cmake
+C:/workspace/PNGProcessor/build/RapidJSONTargets.cmake
+C:/workspace/PNGProcessor/build/ZLIB-Target-debug.cmake
+C:/workspace/PNGProcessor/build/ZLIB-Target-release.cmake
+C:/workspace/PNGProcessor/build/ZLIB-debug-x86_64-data.cmake
+C:/workspace/PNGProcessor/build/ZLIB-release-x86_64-data.cmake
+C:/workspace/PNGProcessor/build/ZLIBConfig.cmake
+C:/workspace/PNGProcessor/build/ZLIBConfigVersion.cmake
+C:/workspace/PNGProcessor/build/ZLIBTargets.cmake
+C:/workspace/PNGProcessor/build/cmakedeps_macros.cmake
+C:/workspace/PNGProcessor/src/CMakeLists.txt

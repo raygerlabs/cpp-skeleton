@@ -1,0 +1,127 @@
+{
+  "version": 4,
+  "include": ["./build-preset.json"],
+  "configurePresets": [
+    {
+      "name": "doc",
+      "description": "Preset for generating documentation",
+      "cacheVariables": {
+        "ENABLE_DOC": true
+      },
+      "hidden": true
+    },
+    {
+      "name": "benchmarking",
+      "description": "Preset for generating benchmarks",
+      "cacheVariables": {
+        "ENABLE_BENCHMARKING": true
+      },
+      "hidden": true
+    },
+    {
+      "name": "packaging",
+      "description": "Preset for packaging",
+      "cacheVariables": {
+        "ENABLE_PACKAGING": true
+      },
+      "hidden": true
+    },
+    {
+      "name": "testing",
+      "description": "Preset for testing",
+      "cacheVariables": {
+        "ENABLE_TESTS": true,
+        "ENABLE_COVERAGE": true
+      },
+      "hidden": true
+    },
+    {
+      "name": "asan",
+      "description": "Preset for address sanitizer",
+      "cacheVariables": {
+        "ENABLE_ASAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    },
+    {
+      "name": "lsan",
+      "description": "Preset for leak sanitizer",
+      "cacheVariables": {
+        "ENABLE_LSAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    },
+    {
+      "name": "msan",
+      "description": "Preset for memory sanitizer",
+      "cacheVariables": {
+        "ENABLE_MSAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    },
+    {
+      "name": "tsan",
+      "description": "Preset for thread sanitizer",
+      "cacheVariables": {
+        "ENABLE_TSAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    },
+    {
+      "name": "ubsan",
+      "description": "Preset for undefined sanitizer",
+      "cacheVariables": {
+        "ENABLE_UBSAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    },
+    {
+      "name": "san",
+      "description": "Preset for all sanitizers",
+      "inherits": [
+        "asan",
+        "lsan",
+        "msan",
+        "tsan",
+        "ubsan"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "dev",
+      "description": "Preset for development",
+      "inherits": [
+        "debug",
+        "testing",
+        "doc",
+        "san"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "perf",
+      "description": "Preset for profiling performance",
+      "inherits": [
+        "profile",
+        "benchmarking"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "ci",
+      "description": "Preset for CI/CD",
+      "inherits": [
+        "release",
+        "testing",
+        "doc",
+        "packaging"
+      ],
+      "hidden": true
+    }
+  ]
+}

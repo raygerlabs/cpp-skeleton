@@ -1,0 +1,82 @@
+---
+Checks: >
+  bugprone-copy-constructor-init,
+  bugprone-dangling-handle,
+  bugprone-infinite-loop,
+  bugprone-stringview-nullptr,
+  bugprone-use-after-move,
+  bugprone-branch-clone,
+  bugprone-macro-parentheses,
+
+  cppcoreguidelines-prefer-member-initializer,
+
+  llvm-include-order,
+  llvm-namespace-comment,
+
+  misc-definitions-in-headers,
+  misc-misplaced-const,
+  misc-non-copyable-objects,
+  misc-uniqueptr-reset-release,
+  misc-unused-parameters,
+
+  modernize-loop-convert,
+  modernize-redundant-void-arg,
+  modernize-use-override,
+  modernize-use-bool-literals,
+  modernize-use-default-member-init,
+  modernize-use-equals-default,
+  modernize-use-equals-delete,
+  modernize-use-nullptr,
+
+  portability-restrict-system-includes,
+
+  readability-duplicate-include,
+  readability-identifier-naming,
+  readability-function-cognitive-complexity,
+  readability-function-size,
+  readability-implicit-bool-conversion,
+  readability-isolate-declaration,
+  readability-misplaced-array-index,
+  readability-redundant-access-specifiers,
+  readability-redundant-declaration,
+  readability-redundant-control-flow,
+  readability-redundant-function-ptr-dereference,
+  readability-redundant-member-init,
+  readability-redundant-preprocessor,
+  readability-simplify-boolean-expr,
+  readability-simplify-subscript-expr,
+  readability-uniqueptr-delete-release,
+
+CheckOptions:
+  - key:   readability-function-cognitive-complexity.Threshold
+    value: 100
+  - key:   readability-function-size.LineThreshold
+    value: 150
+  - key:   readability-identifier-naming.GetConfigPerFile
+    value: false
+  - key:   readability-identifier-naming.ParameterCase
+    value: snake_case
+  - key:   readability-identifier-naming.ParameterPrefix
+    value: ''
+  - key:   readability-identifier-naming.PrivateMemberCase
+    value: snake_case
+  - key:   readability-identifier-naming.PrivateMemberPrefix
+    value: 'm_'
+  - key:   readability-identifier-naming.PrivateMemberSuffix
+    value: ''
+  - key:   readability-identifier-naming.LocalVariableCase
+    value: snake_case
+  - key:   readability-identifier-naming.LocalVariablePrefix
+    value: ''
+  - key:   readability-identifier-naming.TemplateParameterCase
+    value: CamelCase
+  - key:   readability-identifier-naming.TemplateParameterPrefix
+    value: 'T'
+  - key:   readability-identifier-naming.TemplateParameterIgnoredRegexp
+    value: (.*\:auto|expr-type) # This is https://llvm.org/PR56464
+  - key:   readability-identifier-naming.ValueTemplateParameterIgnoredRegexp
+    value: .*
+
+# Turn all the warnings from the checks above into errors.
+WarningsAsErrors: '*'
+...

@@ -1,0 +1,11 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake
+C:/workspace/PNGProcessor/build/GTest-Target-debug.cmake
+C:/workspace/PNGProcessor/build/GTest-Target-release.cmake
+C:/workspace/PNGProcessor/build/GTest-debug-x86_64-data.cmake
+C:/workspace/PNGProcessor/build/GTest-release-x86_64-data.cmake
+C:/workspace/PNGProcessor/build/GTestConfig.cmake
+C:/workspace/PNGProcessor/build/GTestConfigVersion.cmake
+C:/workspace/PNGProcessor/build/GTestTargets.cmake
+C:/workspace/PNGProcessor/build/cmakedeps_macros.cmake
+C:/workspace/PNGProcessor/tests/unit_tests/CMakeLists.txt

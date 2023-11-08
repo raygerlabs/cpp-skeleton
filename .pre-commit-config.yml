@@ -1,0 +1,24 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.2.0
+    hooks:
+      - id: remove-tabs
+  - repo: https://github.com/Takishima/cmake-pre-commit-hooks/
+    rev: 'v1.5.2'
+    hooks:
+      - id: clang-format
+        args: [-i]
+      - id: clang-tidy
+        args: [-Bbuild, -B.pre-commit-build, --fix, --, -std=c++17]

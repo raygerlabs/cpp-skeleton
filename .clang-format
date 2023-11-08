@@ -1,0 +1,8 @@
+Language                                          : Cpp
+BasedOnStyle                                      : LLVM
+
+AlwaysBreakAfterReturnType                        : All
+AlwaysBreakTemplateDeclarations                   : 'true'
+BreakBeforeBraces                                 : Allman
+BreakConstructorInitializers                      : BeforeColon
+TabWidth                                          : '2'
