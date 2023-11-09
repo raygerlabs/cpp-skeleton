@@ -33,7 +33,7 @@ jobs:
       - name: Update Conan profile
         run: conan profile detect -f
       - name: Pull Dependencies
-        run: conan install . -of build -s build_type ${{ env.BUILD_TYPE }} -pr:b=default -b=missing
+        run: conan install . -of build -s build_type=${{ env.BUILD_TYPE }} -pr:b=default -b=missing
       - name: Configure
         run: cmake --preset san-gcc ${{ github.workspace }}
       - name: Build
