@@ -12,22 +12,12 @@
       "hidden": true
     },
     {
-      "name": "linux",
-      "description": "Preset for Linux platform",
+      "name": "unix",
+      "description": "Preset for Unix platforms",
       "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
-      },
-      "hidden": true
-    },
-    {
-      "name": "macos",
-      "description": "Preset for Mac OS/X platform",
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Darwin"
+        "type": "inList",
+        "string": "${hostSystemName}",
+        "list": ["Darwin", "Linux"]
       },
       "hidden": true
     }

@@ -6,14 +6,14 @@
       "name": "gcc",
       "description": "Preset for GNU C/C++",
       "toolchainFile": "${sourceDir}/tools/cmake/toolchains/toolchain-gcc.cmake",
-      "inherits": ["windows", "linux", "macos"],
+      "inherits": ["windows", "unix"],
       "hidden": true
     },
     {
       "name": "clang",
       "description": "Preset for Clang C/C++ (LLVM)",
       "toolchainFile": "${sourceDir}/tools/cmake/toolchains/toolchain-clang.cmake",
-      "inherits": ["windows", "linux", "macos"],
+      "inherits": ["windows", "unix"],
       "hidden": true
     },
     {
