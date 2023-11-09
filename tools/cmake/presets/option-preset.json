@@ -81,7 +81,7 @@
       "hidden": true
     },
     {
-      "name": "san",
+      "name": "sanitize",
       "description": "Preset for all sanitizers",
       "inherits": [
         "asan",
@@ -99,7 +99,7 @@
         "debug",
         "testing",
         "doc",
-        "san"
+        "sanitize"
       ],
       "hidden": true
     },

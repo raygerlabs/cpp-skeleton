@@ -35,6 +35,6 @@ jobs:
       - name: Pull Dependencies
         run: conan install . -of build -s build_type=${{ env.BUILD_TYPE }} -pr:b=default -b=missing
       - name: Configure
-        run: cmake --preset san-gcc ${{ github.workspace }}
+        run: cmake --preset dev-gcc
       - name: Build
-        run: cmake --build --preset san-gcc
+        run: cmake --build --preset dev-gcc

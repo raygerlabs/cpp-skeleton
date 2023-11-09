@@ -1,4 +1,4 @@
-{
+  {
   "version": 4,
   "include": [
     "./tools/cmake/presets/build-preset.json",
@@ -51,21 +51,6 @@
       "name": "dev-msvc",
       "description": "Preset for development with Visual Studio (MSVC)",
       "inherits": ["dev", "msvc"]
-    },
-    {
-      "name": "san-gcc",
-      "description": "Preset for sanitizing with GNU C/C++",
-      "inherits": ["san", "gcc"]
-    },
-    {
-      "name": "san-clang",
-      "description": "Preset for sanitizing with Clang C/C++ (LLVM)",
-      "inherits": ["san", "clang"]
-    },
-    {
-      "name": "san-msvc",
-      "description": "Preset for sanitizing with Visual Studio (MSVC)",
-      "inherits": ["san", "msvc"]
     }
   ],
   "buildPresets": [
@@ -113,21 +98,6 @@
       "name": "dev-msvc",
       "description": "Preset for development with Visual Studio (MSVC)",
       "configurePreset": "dev-msvc"
-    },
-    {
-      "name": "san-gcc",
-      "description": "Preset for sanitizing with GNU C/C++",
-      "configurePreset": "san-gcc"
-    },
-    {
-      "name": "san-clang",
-      "description": "Preset for sanitizing with Clang C/C++ (LLVM)",
-      "configurePreset": "san-clang"
-    },
-    {
-      "name": "san-msvc",
-      "description": "Preset for sanitizing with Visual Studio (MSVC)",
-      "configurePreset": "san-msvc"
     }
   ],
   "testPresets": [
