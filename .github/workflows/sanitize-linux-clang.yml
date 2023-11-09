@@ -35,6 +35,8 @@ jobs:
       - name: Pull Dependencies
         run: conan install . -of build -s build_type=${{ env.BUILD_TYPE }} -pr:b=default -b=missing
       - name: Configure
-        run: cmake --preset dev-clang
+        run: |
+          cmake --list-presets
+          cmake --preset dev-clang
       - name: Build
         run: cmake --build --preset dev-clang

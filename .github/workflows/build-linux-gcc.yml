@@ -37,7 +37,9 @@ jobs:
       - name: Pull Dependencies
         run: conan install . -of build -s build_type=${{ env.BUILD_TYPE }} -pr:b=default -b=missing
       - name: Configure
-        run: cmake --preset ci-gcc
+        run: |
+          cmake --list-presets
+          cmake --preset ci-gcc
       - name: Build
         run: cmake --build --preset ci-gcc
       - name: Test
