@@ -43,9 +43,9 @@ jobs:
       run: |
         pip3 install --upgrade conan
         conan --version
-        conan user
-        conan profile new --force default
-        conan profile show default
+        conan profile detect -f
+        conan profile list
+        conan profile show
 
     - name: Deploy artifact
       run: |
