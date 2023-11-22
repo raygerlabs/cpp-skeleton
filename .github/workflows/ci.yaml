@@ -49,8 +49,8 @@ jobs:
 
     - name: Deploy artifact
       run: |
-        conan create ..
+        conan create imageutils/
 
     - name: Run integration tests
       run: |
-        conan test tests/integration imageutils/1.0
+        conan test imageutils/tests/integration imageutils/1.0
