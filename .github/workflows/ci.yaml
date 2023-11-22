@@ -49,7 +49,7 @@ jobs:
 
     - name: Deploy artifact
       run: |
-        conan create imageutils/
+        conan create imageutils/ -b missing
 
     - name: Run integration tests
       run: |
