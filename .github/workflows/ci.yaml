@@ -25,19 +25,19 @@ jobs:
             compiler: msvc
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - id: current_branch
-      run: echo "::set-output name=name::$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@v4
       with:
         path: ~/.conan
         key: conan-package-cache-${{ steps.current_branch.outputs.name }}
         restore-keys: |
           conan-package-cache-main
 
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v4
 
     - name: Setup environment
       run: |
