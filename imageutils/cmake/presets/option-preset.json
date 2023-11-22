@@ -1,0 +1,92 @@
+{
+  "version": 4,
+  "include": ["./build-preset.json"],
+  "configurePresets": [
+    {
+      "name": "test",
+      "description": "Preset for testing",
+      "cacheVariables": {
+        "ENABLE_TESTS": true
+      },
+      "hidden": true
+    },
+    {
+      "name": "bench",
+      "description": "Preset for generating benchmarks",
+      "cacheVariables": {
+        "ENABLE_BENCHMARKS": true
+      },
+      "hidden": true
+    },
+    {
+      "name": "pkg",
+      "description": "Preset for packaging",
+      "cacheVariables": {
+        "ENABLE_PACKAGE": true
+      },
+      "hidden": true
+    },
+    {
+      "name": "cov",
+      "description": "Preset for generating code coverage",
+      "cacheVariables": {
+        "ENABLE_COVERAGE": true
+      },
+      "inherits": ["debug", "test"],
+      "hidden": true
+    },
+    {
+      "name": "doc",
+      "description": "Preset for generating documentation",
+      "cacheVariables": {
+        "ENABLE_DOCS": true
+      },
+      "hidden": true
+    },
+    {
+      "name": "asan",
+      "description": "Preset for address sanitizer",
+      "cacheVariables": {
+        "ENABLE_ASAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    },
+    {
+      "name": "lsan",
+      "description": "Preset for leak sanitizer",
+      "cacheVariables": {
+        "ENABLE_LSAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    },
+    {
+      "name": "msan",
+      "description": "Preset for memory sanitizer",
+      "cacheVariables": {
+        "ENABLE_MSAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    },
+    {
+      "name": "tsan",
+      "description": "Preset for thread sanitizer",
+      "cacheVariables": {
+        "ENABLE_TSAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    },
+    {
+      "name": "ubsan",
+      "description": "Preset for undefined sanitizer",
+      "cacheVariables": {
+        "ENABLE_UBSAN": true
+      },
+      "inherits": ["debug"],
+      "hidden": true
+    }
+  ]
+}

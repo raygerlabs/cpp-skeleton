@@ -1,0 +1,72 @@
+*          text=auto
+
+*.c        text diff=cpp
+*.cc       text diff=cpp
+*.cxx      text diff=cpp
+*.cpp      text diff=cpp
+*.c++      text diff=cpp
+*.hpp      text diff=cpp
+*.h        text diff=cpp
+*.hh       text diff=cpp
+*.h++      text diff=cpp
+
+*.json     text
+*.toml     text
+*.xml      text
+*.yaml     text
+*.yml      text
+
+*.pdf      lfs-file
+
+*.afdesign lfs-file
+*.afphoto  lfs-file
+*.ai       lfs-file
+*.bmp      lfs-file
+*.dds      lfs-file
+*.jpg      lfs-file
+*.gif      lfs-file
+*.iff      lfs-file
+*.pict     lfs-file
+*.png      lfs-file
+*.psd      lfs-file
+*.svg      lfs-file
+*.tga      lfs-file
+*.tiff     lfs-file
+*.webp     lfs-file
+
+*.aif      lfs-file
+*.aiff     lfs-file
+*.it       lfs-file
+*.mod      lfs-file
+*.mp3      lfs-file
+*.ogg      lfs-file
+*.s3m      lfs-file
+*.wav      lfs-file
+*.xm       lfs-file
+
+*.mov      lfs-file
+*.avi      lfs-file
+*.asf      lfs-file
+*.mpg      lfs-file
+*.mpeg     lfs-file
+*.mp4      lfs-file
+
+*.3ds      lfs-file
+*.3dm      lfs-file
+*.abc      lfs-file
+*.blend    lfs-file
+*.c4d      lfs-file
+*.dae      lfs-file
+*.dfx      lfs-file
+*.fbx      lfs-file
+*.glb      lfs-file  
+*.gltf     lfs-file  
+*.lwo2     lfs-file  
+*.lxo      lfs-file  
+*.obj      lfs-file  
+*.ma       lfs-file  
+*.max      lfs-file  
+*.mb       lfs-file  
+
+*ttf       lfs-file
+*otf       lfs-file 

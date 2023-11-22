@@ -1,0 +1,154 @@
+  {
+  "version": 4,
+  "include": [
+    "./cmake/presets/build-preset.json",
+    "./cmake/presets/option-preset.json",
+    "./cmake/presets/platform-preset.json",
+    "./cmake/presets/toolchain-preset.json",
+    "./ConanPresets.json"
+  ],
+  "configurePresets": [
+    {
+      "name": "ci-gcc",
+      "description": "Preset for continuous integration with GNU C/C++",
+      "inherits": ["conan-release", "ci", "gcc"]
+    },
+    {
+      "name": "ci-clang",
+      "description": "Preset for continuous integration with Clang C/C++",
+      "inherits": ["conan-release", "ci", "clang"]
+    },
+    {
+      "name": "ci-msvc",
+      "description": "Preset for continuous integration with Visual C/C++",
+      "inherits": ["conan-release", "ci", "msvc"]
+    },
+    {
+      "name": "perf-gcc",
+      "description": "Preset for performance tests with GNU C/C++",
+      "inherits": ["conan-release","perf", "gcc"]
+    },
+    {
+      "name": "perf-clang",
+      "description": "Preset for benchmarking with Clang C/C++",
+      "inherits": ["conan-release", "perf", "clang"]
+    },
+    {
+      "name": "perf-msvc",
+      "description": "Preset for benchmarking with Visual C/C++",
+      "inherits": ["conan-release", "perf", "msvc"]
+    },
+    {
+      "name": "dev-gcc",
+      "description": "Preset for development with GNU C/C++",
+      "inherits": ["conan-debug", "dev", "gcc"]
+    },
+    {
+      "name": "dev-clang",
+      "description": "Preset for development with Clang C/C++",
+      "inherits": ["conan-debug", "dev", "clang"]
+    },
+    {
+      "name": "dev-msvc",
+      "description": "Preset for development with Visual C/C++",
+      "inherits": ["conan-debug", "dev", "msvc"]
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "ci-gcc",
+      "description": "Preset for continuous integration with GNU C/C++",
+      "configurePreset": "ci-gcc"
+    },
+    {
+      "name": "ci-clang",
+      "description": "Preset for continuous integration with Clang C/C++",
+      "configurePreset": "ci-clang"
+    },
+    {
+      "name": "ci-msvc",
+      "description": "Preset for continuous integration with Visual C/C++",
+      "configurePreset": "ci-msvc"
+    },
+    {
+      "name": "perf-gcc",
+      "description": "Preset for benchmarking with GNU C/C++",
+      "configurePreset": "perf-gcc"
+    },
+    {
+      "name": "perf-clang",
+      "description": "Preset for benchmarking with Clang C/C++",
+      "configurePreset": "perf-clang"
+    },
+    {
+      "name": "perf-msvc",
+      "description": "Preset for benchmarking with Visual C/C++",
+      "configurePreset": "perf-msvc"
+    },
+    {
+      "name": "dev-gcc",
+      "description": "Preset for development with GNU C/C++",
+      "configurePreset": "dev-gcc"
+    },
+    {
+      "name": "dev-clang",
+      "description": "Preset for development with Clang C/C++",
+      "configurePreset": "dev-clang"
+    },
+    {
+      "name": "dev-msvc",
+      "description": "Preset for development with Visual C/C++",
+      "configurePreset": "dev-msvc"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "ci-gcc",
+      "description": "Preset for continuous integration with GNU C/C++",
+      "configurePreset": "ci-gcc",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "ci-clang",
+      "description": "Preset for continuous integration with Clang C/C++",
+      "configurePreset": "ci-clang",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "ci-msvc",
+      "description": "Preset for continuous integration with Visual C/C++",
+      "configurePreset": "ci-msvc",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "dev-gcc",
+      "description": "Preset for development with GNU C/C++",
+      "configurePreset": "dev-gcc",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "dev-clang",
+      "description": "Preset for development with Clang C/C++",
+      "configurePreset": "dev-clang",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "dev-msvc",
+      "description": "Preset for development with Visual C/C++",
+      "configurePreset": "dev-msvc",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}
