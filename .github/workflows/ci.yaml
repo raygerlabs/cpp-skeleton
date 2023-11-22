@@ -30,15 +30,6 @@ jobs:
     - id: current_branch
       run: echo "::set-output name=name::$(echo ${GITHUB_REF#refs/heads/})"
 
-    - uses: actions/setup-python@v2
-
-    - run: |
-      pip3 install --upgrade conan
-      conan --version
-      conan user
-      conan profile new --force default
-      conan profile show default
-
     - uses: actions/cache@v2
       with:
         path: ~/.conan
@@ -46,10 +37,20 @@ jobs:
         restore-keys: |
           conan-package-cache-main
 
-    - name: Create conan artifact
+    - uses: actions/setup-python@v2
+
+    - name: Setup environment
+      run: |
+        pip3 install --upgrade conan
+        conan --version
+        conan user
+        conan profile new --force default
+        conan profile show default
+
+    - name: Deploy artifact
       run: |
         conan create ..
 
-    - name: Execute integration tests
+    - name: Run integration tests
       run: |
         conan test tests/integration imageutils/1.0
