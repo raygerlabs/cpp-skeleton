@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        compiler: [gcc, clang, msvc]
+        exclude:
+          - os: windows-latest
+            compiler: gcc
+          - os: ubuntu-latest
+            compiler: msvc
+          - os: macos-latest
+            compiler: msvc
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - id: current_branch
+      run: echo "::set-output name=name::$(echo ${GITHUB_REF#refs/heads/})"
+
+    - uses: actions/setup-python@v2
+
+    - run: |
+      pip3 install --upgrade conan
+      conan --version
+      conan user
+      conan profile new --force default
+      conan profile show default
+
+    - uses: actions/cache@v2
+      with:
+        path: ~/.conan
+        key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+        restore-keys: |
+          conan-package-cache-main
+
+    - name: Create conan artifact
+      run: |
+        conan create ..
+
+    - name: Execute integration tests
+      run: |
+        conan test tests/integration imageutils/1.0
