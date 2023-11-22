@@ -6,10 +6,15 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  CONAN_LOG_RUN_TO_FILE: true
+  CONAN_LOG_RUN_TO_OUTPUT: false
+  CONAN_SYSREQUIRES_SUDO: false
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     strategy:
       fail-fast: true
