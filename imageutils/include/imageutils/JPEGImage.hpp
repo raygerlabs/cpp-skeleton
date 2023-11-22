@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <vector>
 
 namespace imageutils
@@ -13,19 +14,19 @@ namespace imageutils
  */
 union PixelColor
 {
-  uint8_t value;
+  std::uint8_t value;
   struct
   {
-    uint8_t red;
-    uint8_t green;
-    uint8_t blue;
+    std::uint8_t red;
+    std::uint8_t green;
+    std::uint8_t blue;
   };
 };
 
 /**
  * @brief Enumerates various image formats.
  */
-enum class PixelFormat : uint8_t
+enum class PixelFormat
 {
   GRAYSCALE = 1, /**< Grayscale image format. */
   RGB = 3        /**< RGB image format. */
