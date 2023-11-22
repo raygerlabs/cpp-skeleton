@@ -38,6 +38,8 @@ jobs:
           conan-package-cache-main
 
     - uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
 
     - name: Setup environment
       run: |
