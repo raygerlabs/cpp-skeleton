@@ -1,5 +1,5 @@
-#include "imageutils/JPEGReader.hpp"
-#include "imageutils/JPEGImage.hpp"
+#include "imageutils/internal/JPEG_Reader.hpp"
+#include "imageutils/internal/JPEG_Image.hpp"
 
 extern "C"
 {
@@ -7,22 +7,25 @@ extern "C"
 #include <jpeglib.h>
 }
 
+#include <cassert>
+#include <utility>
+
 namespace imageutils
 {
-JPEGImage
-JPEGReader::read(std::string_view path)
+JPEG_Image
+JPEG_Reader::read(std::string_view path)
 {
-  return JPEGReader::read(path.data());
+  return JPEG_Reader::read(path.data());
 }
 
-JPEGImage
-JPEGReader::read(const std::string& path)
+JPEG_Image
+JPEG_Reader::read(const std::string& path)
 {
-  return JPEGReader::read(path.c_str());
+  return JPEG_Reader::read(path.c_str());
 }
 
-JPEGImage
-JPEGReader::read(const char* path)
+JPEG_Image
+JPEG_Reader::read(const char* path)
 {
   FILE* fHandle = fopen(path, "rb");
   if (!fHandle)
@@ -38,12 +41,12 @@ JPEGReader::read(const char* path)
   jpeg_read_header(&cinfo, true);
   jpeg_start_decompress(&cinfo);
 
-  JPEGImage result(cinfo.output_width, cinfo.output_height, static_cast<PixelFormat>(cinfo.output_components));
+  JPEG_Image result(cinfo.output_width, cinfo.output_height, static_cast<PixelFormat>(cinfo.output_components));
   std::uint8_t* rowBuffer[1];
-  const std::size_t rowStride = cinfo.output_width * cinfo.output_components;
+  const auto rowStride = cinfo.output_width * cinfo.output_components;
   while (cinfo.output_scanline < cinfo.output_height)
   {
-    rowBuffer[0] = static_cast<uint8_t*>(&result.getPixel(0, 0).value) + rowStride * cinfo.output_scanline;
+    rowBuffer[0] = static_cast<uint8_t*>(&result(0,0).value) + rowStride * cinfo.output_scanline;
     jpeg_read_scanlines(&cinfo, &rowBuffer[0], 1);
   }
   jpeg_finish_decompress(&cinfo);

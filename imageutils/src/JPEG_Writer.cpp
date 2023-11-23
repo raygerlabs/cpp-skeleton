@@ -1,5 +1,5 @@
-#include "imageutils/JPEGWriter.hpp"
-#include "imageutils/JPEGImage.hpp"
+#include "imageutils/internal/JPEG_Writer.hpp"
+#include "imageutils/internal/JPEG_Image.hpp"
 
 extern "C"
 {
@@ -7,24 +7,25 @@ extern "C"
 #include <jpeglib.h>
 }
 
-#include <algorithm>
+#include <cassert>
+#include <utility>
 
 namespace imageutils
 {
 bool
-JPEGWriter::write(const JPEGImage& input, std::string_view path, int imageQuality)
+JPEG_Writer::write(const JPEG_Image& input, std::string_view path, int imageQuality)
 {
-  return JPEGWriter::write(std::move(input), path.data(), imageQuality);
+  return JPEG_Writer::write(input, path.data(), imageQuality);
 }
 
 bool
-JPEGWriter::write(const JPEGImage& input, const std::string& path, int imageQuality)
+JPEG_Writer::write(const JPEG_Image& input, const std::string& path, int imageQuality)
 {
-  return JPEGWriter::write(std::move(input), path.c_str(), imageQuality);
+  return JPEG_Writer::write(input, path.c_str(), imageQuality);
 }
 
 bool
-JPEGWriter::write(const JPEGImage& input, const char* path, int imageQuality)
+JPEG_Writer::write(const JPEG_Image& input, const char* path, int imageQuality)
 {
   // Initialize the JPEG compression structures
   jpeg_compress_struct cinfo;
@@ -46,7 +47,6 @@ JPEGWriter::write(const JPEGImage& input, const char* path, int imageQuality)
   cinfo.image_width = input.getWidth();
   cinfo.image_height = input.getHeight();
 
-  // Set color space and components based on the image format
   switch (input.getFormat())
   {
   case PixelFormat::GRAYSCALE:
@@ -54,7 +54,6 @@ JPEGWriter::write(const JPEGImage& input, const char* path, int imageQuality)
     cinfo.in_color_space = JCS_GRAYSCALE;
     break;
   default:
-    // Defaulting to RGB565 if the format is not recognized
     cinfo.input_components = 3;
     cinfo.in_color_space = JCS_RGB;
     break;
@@ -66,11 +65,10 @@ JPEGWriter::write(const JPEGImage& input, const char* path, int imageQuality)
   jpeg_start_compress(&cinfo, true);
 
   std::uint8_t* rowBuffer[1];
-  const std::size_t rowStride = cinfo.image_width * cinfo.input_components;
+  const auto rowStride = cinfo.image_width * cinfo.input_components;
   while (cinfo.next_scanline < cinfo.image_height)
   {
-    rowBuffer[0] =
-        static_cast<uint8_t*>(&const_cast<JPEGImage&>(input).getPixel(0, 0).value) + rowStride * cinfo.next_scanline;
+    rowBuffer[0] = static_cast<uint8_t*>(&const_cast<JPEG_Image&>(input)(0, 0).value) + rowStride * cinfo.next_scanline;
     jpeg_write_scanlines(&cinfo, &rowBuffer[0], 1);
   }
 

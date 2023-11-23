@@ -1,29 +1,21 @@
-#include "imageutils/JPEGImage.hpp"
-#include "imageutils/JPEGProcessor.hpp"
-#include "imageutils/JPEGReader.hpp"
-#include "imageutils/JPEGWriter.hpp"
-
-#include "imageutils/filters/JPEGBrightness.hpp"
-#include "imageutils/filters/JPEGContrast.hpp"
-#include "imageutils/filters/JPEGFlipH.hpp"
-#include "imageutils/filters/JPEGFlipV.hpp"
-#include "imageutils/filters/JPEGGrayscale.hpp"
-#include "imageutils/filters/JPEGInvert.hpp"
-#include "imageutils/filters/JPEGResize.hpp"
-
+#include "imageutils/JPEG.hpp"
 #include <iostream>
 
 int main() {
+  using namespace imageutils;
+  
   constexpr const auto sourcePath = "./resources/lena.jpg";
   constexpr const auto targetPath = "./resources/lena_Copy.jpg";
-  const auto sourceImage = imageutils::JPEGReader::read(sourcePath);
-  if (!sourceImage) {
-    std::cerr << "Failed to find input image: " << sourcePath << '\n';
+
+  const auto imageSample = JPEG_Reader::read(sourcePath);
+  if (!imageSample) {
+    std::cerr << "Could not find sample image: " << sourcePath << '\n';
     return EXIT_FAILURE;
   }
 
-  imageutils::JPEGProcessor processor;
-  const auto targetImage = processor
+  JPEG_Processor processor;
+
+  const auto transformedImage = processor
           .add(imageutils::filters::brightness(2.0))
           .add(imageutils::filters::contrast(0.8))
           .add(imageutils::filters::resize(175, 175))
@@ -31,9 +23,17 @@ int main() {
           .add(imageutils::filters::flipV())
           .add(imageutils::filters::invert())
           .add(imageutils::filters::grayscale())
-          .apply(sourceImage);
-  if (!imageutils::JPEGWriter::write(targetImage, targetPath)) {
-    std::cerr << "Failed to save image on disk: " << targetPath << "\n";
+          .apply(imageSample);
+
+  const auto writeResult = JPEG_Writer::write(transformedImage, targetPath);
+  if (!writeResult) {
+    std::cerr << "Could not save the transformed image: " << targetPath << "\n";
+    return EXIT_FAILURE;
+  }
+
+  const auto readBackImage = JPEG_Reader::read(targetPath);
+  if (!readBackImage) {
+    std::cerr << "Could not read back previously saved image: " << sourcePath << '\n';
     return EXIT_FAILURE;
   }
 

@@ -1,10 +1,9 @@
-#ifndef IMAGEUTILS_FILTERS_JPEGCONTRAST_HPP
-#define IMAGEUTILS_FILTERS_JPEGCONTRAST_HPP
+#ifndef IMAGEUTILS_FILTERS_JPEG_CONTRAST_HPP
+#define IMAGEUTILS_FILTERS_JPEG_CONTRAST_HPP
 
 #pragma once
 
-#include "imageutils/JPEGImage.hpp"
-#include "imageutils/JPEGFilter.hpp"
+#include "imageutils/internal/JPEG_Filter.hpp"
 
 #include <algorithm>
 
@@ -12,17 +11,17 @@ namespace imageutils
 {
 namespace filters
 {
-static inline JPEGFilter
+static inline JPEG_Filter
 contrast(float value)
 {
-  return [value](const JPEGImage& input)
+  return [value](const JPEG_Image& input)
   {
-    JPEGImage output(input);
+    JPEG_Image output(input);
     float factor = (259.0f * (value + 255.0f)) / (255.0f * (259.0f - value));
 
-    for (JPEGImage::SizeType y = 0; y < output.getHeight(); ++y)
+    for (JPEG_Image::SizeType y = 0; y < output.getHeight(); ++y)
     {
-      for (JPEGImage::SizeType x = 0; x < output.getWidth(); ++x)
+      for (JPEG_Image::SizeType x = 0; x < output.getWidth(); ++x)
       {
         auto& pixel = output.getPixel(x, y);
         if (output.getFormat() == PixelFormat::GRAYSCALE)
@@ -43,4 +42,4 @@ contrast(float value)
 } // namespace filters
 } // namespace imageutils
 
-#endif
+#endif // IMAGEUTILS_FILTERS_JPEG_CONTRAST_HPP

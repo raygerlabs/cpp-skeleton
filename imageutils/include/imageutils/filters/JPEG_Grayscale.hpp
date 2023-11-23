@@ -1,22 +1,21 @@
-#ifndef IMAGEUTILS_FILTERS_JPEGGRAYSCALE_HPP
-#define IMAGEUTILS_FILTERS_JPEGGRAYSCALE_HPP
+#ifndef IMAGEUTILS_FILTERS_JPEG_GRAYSCALE_HPP
+#define IMAGEUTILS_FILTERS_JPEG_GRAYSCALE_HPP
 
 #pragma once
 
-#include "imageutils/JPEGImage.hpp"
-#include "imageutils/JPEGFilter.hpp"
+#include "imageutils/internal/JPEG_Filter.hpp"
 
 namespace imageutils
 {
 namespace filters
 {
-static inline JPEGFilter
+static inline JPEG_Filter
 grayscale()
 {
-  return [](const JPEGImage& input)
+  return [](const JPEG_Image& input)
   {
-    JPEGImage output(input);
-    JPEGImage::SizeType pixelCount = input.getWidth() * input.getHeight();
+    JPEG_Image output(input);
+    JPEG_Image::SizeType pixelCount = output.getWidth() * output.getHeight();
     for (auto& pixelColor : output)
     {
       const auto luma = 0.299f * pixelColor.red + 0.587f * pixelColor.green + 0.114f * pixelColor.blue;

@@ -5,24 +5,25 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 set(_HEADER_LIST
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEGBrightness.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEGContrast.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEGFlipH.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEGFlipV.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEGGrayscale.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEGInvert.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEGResize.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEGImage.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEGFilter.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEGProcessor.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEGReader.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEGWriter.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Brightness.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Contrast.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_FlipH.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_FlipV.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Grayscale.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Invert.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Resize.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Image.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Filter.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Processor.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Reader.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Writer.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG_Processing.hpp
 )
 
 set(_SOURCE_LIST
-  ${CMAKE_CURRENT_SOURCE_DIR}/JPEGProcessor.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/JPEGReader.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/JPEGWriter.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/JPEG_Reader.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/JPEG_Writer.cpp
 )
 
 add_library(imageutils ${_HEADER_LIST} ${_SOURCE_LIST})

@@ -1,5 +1,5 @@
-#ifndef IMAGEUTILS_JPEGIMAGE_HPP
-#define IMAGEUTILS_JPEGIMAGE_HPP
+#ifndef IMAGEUTILS_INTERNAL_JPEG_IMAGE_HPP
+#define IMAGEUTILS_INTERNAL_JPEG_IMAGE_HPP
 
 #pragma once
 
@@ -14,13 +14,13 @@ namespace imageutils
  */
 union PixelColor
 {
-  std::uint8_t value;
   struct
   {
     std::uint8_t red;
     std::uint8_t green;
     std::uint8_t blue;
   };
+  std::uint8_t value;
 };
 
 /**
@@ -35,7 +35,7 @@ enum class PixelFormat
 /**
  * @brief Represents an image along with its pixel data and associated metadata.
  */
-class JPEGImage
+class JPEG_Image
 {
 public:
   using PixelDataType = PixelColor;                  /**< Type representing individual pixels. */
@@ -49,7 +49,7 @@ public:
    * @brief Default constructor creating an empty image with the default format
    * RGBA.
    */
-  JPEGImage();
+  JPEG_Image();
 
   /**
    * @brief Constructor creating an image with specified width, height, and
@@ -58,40 +58,40 @@ public:
    * @param height Height of the image.
    * @param format Format of the image (default: RGB).
    */
-  explicit JPEGImage(SizeType width, SizeType height, PixelFormat format = PixelFormat::RGB);
+  explicit JPEG_Image(SizeType width, SizeType height, PixelFormat format = PixelFormat::RGB);
 
   /**
    * @brief Copy constructor.
    * @param other Another JPEGImage object to copy from.
    */
-  JPEGImage(const JPEGImage& other);
+  JPEG_Image(const JPEG_Image& other);
 
   /**
    * @brief Move constructor.
    * @param other Another JPEGImage object to move from.
    */
-  JPEGImage(JPEGImage&& other) noexcept;
+  JPEG_Image(JPEG_Image&& other) noexcept;
 
   /**
    * @brief Default destructor.
    */
-  ~JPEGImage();
+  ~JPEG_Image();
 
   /**
    * @brief Copy assignment operator.
    * @param other Another JPEGImage object to copy from.
    * @return Reference to the assigned JPEGImage object.
    */
-  JPEGImage&
-  operator=(const JPEGImage&);
+  JPEG_Image&
+  operator=(const JPEG_Image&);
 
   /**
    * @brief Move assignment operator.
    * @param other Another JPEGImage object to move from.
    * @return Reference to the assigned JPEGImage object.
    */
-  JPEGImage&
-  operator=(JPEGImage&&) noexcept;
+  JPEG_Image&
+  operator=(JPEG_Image&&) noexcept;
 
   /**
    * @brief Conversion to boolean operator indicating if the image is valid.
@@ -214,7 +214,7 @@ public:
    * @param value Pixel value to be set.
    * @return Reference to the modified JPEGImage object.
    */
-  JPEGImage&
+  JPEG_Image&
   setPixel(SizeType x, SizeType y, ConstPixelDataReference value);
 
   /**
@@ -248,7 +248,7 @@ public:
    * @param other JPEGImage object to swap content with.
    */
   void
-  swap(JPEGImage& other) noexcept;
+  swap(JPEG_Image& other) noexcept;
 
 private:
   std::vector<PixelDataType> data_; /**< Storage for pixel data. */
@@ -257,27 +257,27 @@ private:
   PixelFormat format_;              /**< Format of the image. */
 };
 
-inline JPEGImage::JPEGImage() : data_(), width_(), height_(), format_(PixelFormat::RGB) {}
+inline JPEG_Image::JPEG_Image() : data_(), width_(), height_(), format_(PixelFormat::RGB) {}
 
-inline JPEGImage::JPEGImage(SizeType width, SizeType height, PixelFormat format)
+inline JPEG_Image::JPEG_Image(SizeType width, SizeType height, PixelFormat format)
     : data_(width * height), width_(width), height_(height), format_(format)
 {
 }
 
-inline JPEGImage::JPEGImage(const JPEGImage& other)
+inline JPEG_Image::JPEG_Image(const JPEG_Image& other)
     : data_(other.data_), width_(other.width_), height_(other.height_), format_(other.format_)
 {
 }
 
-inline JPEGImage::JPEGImage(JPEGImage&& other) noexcept
+inline JPEG_Image::JPEG_Image(JPEG_Image&& other) noexcept
     : data_(std::move(other.data_)), width_(other.width_), height_(other.height_), format_(other.format_)
 {
 }
 
-inline JPEGImage::~JPEGImage() = default;
+inline JPEG_Image::~JPEG_Image() = default;
 
-inline JPEGImage&
-JPEGImage::operator=(const JPEGImage& other)
+inline JPEG_Image&
+JPEG_Image::operator=(const JPEG_Image& other)
 {
   data_ = other.data_;
   width_ = other.width_;
@@ -286,8 +286,8 @@ JPEGImage::operator=(const JPEGImage& other)
   return *this;
 }
 
-inline JPEGImage&
-JPEGImage::operator=(JPEGImage&& other) noexcept
+inline JPEG_Image&
+JPEG_Image::operator=(JPEG_Image&& other) noexcept
 {
   data_ = std::move(other.data_);
   width_ = other.width_;
@@ -296,101 +296,101 @@ JPEGImage::operator=(JPEGImage&& other) noexcept
   return *this;
 }
 
-inline JPEGImage::operator bool() const noexcept { return !isEmpty(); }
+inline JPEG_Image::operator bool() const noexcept { return !isEmpty(); }
 
-inline typename JPEGImage::PixelDataReference
-JPEGImage::operator()(SizeType x, SizeType y) noexcept
+inline typename JPEG_Image::PixelDataReference
+JPEG_Image::operator()(SizeType x, SizeType y) noexcept
 {
   return getPixel(x, y);
 }
 
-inline typename JPEGImage::ConstPixelDataReference
-JPEGImage::operator()(SizeType x, SizeType y) const noexcept
+inline typename JPEG_Image::ConstPixelDataReference
+JPEG_Image::operator()(SizeType x, SizeType y) const noexcept
 {
   return getPixel(x, y);
 }
 
-inline typename JPEGImage::PixelDataPointer
-JPEGImage::begin() noexcept
+inline typename JPEG_Image::PixelDataPointer
+JPEG_Image::begin() noexcept
 {
   return data();
 }
 
-inline typename JPEGImage::ConstPixelDataPointer
-JPEGImage::begin() const noexcept
+inline typename JPEG_Image::ConstPixelDataPointer
+JPEG_Image::begin() const noexcept
 {
   return data();
 }
 
-inline typename JPEGImage::PixelDataPointer
-JPEGImage::end() noexcept
+inline typename JPEG_Image::PixelDataPointer
+JPEG_Image::end() noexcept
 {
   return data() + data_.size();
 }
 
-inline typename JPEGImage::ConstPixelDataPointer
-JPEGImage::end() const noexcept
+inline typename JPEG_Image::ConstPixelDataPointer
+JPEG_Image::end() const noexcept
 {
   return data() + data_.size();
 }
 
-inline typename JPEGImage::PixelDataPointer
-JPEGImage::data() noexcept
+inline typename JPEG_Image::PixelDataPointer
+JPEG_Image::data() noexcept
 {
   return data_.data();
 }
 
-inline typename JPEGImage::ConstPixelDataPointer
-JPEGImage::data() const noexcept
+inline typename JPEG_Image::ConstPixelDataPointer
+JPEG_Image::data() const noexcept
 {
   return data_.data();
 }
 
 inline bool
-JPEGImage::isEmpty() const noexcept
+JPEG_Image::isEmpty() const noexcept
 {
   return data_.empty();
 }
 
-inline constexpr typename JPEGImage::SizeType
-JPEGImage::getWidth() const noexcept
+inline constexpr typename JPEG_Image::SizeType
+JPEG_Image::getWidth() const noexcept
 {
   return width_;
 }
 
-inline constexpr typename JPEGImage::SizeType
-JPEGImage::getHeight() const noexcept
+inline constexpr typename JPEG_Image::SizeType
+JPEG_Image::getHeight() const noexcept
 {
   return height_;
 }
 
-inline typename JPEGImage::PixelDataReference
-JPEGImage::getPixel(SizeType x, SizeType y) noexcept
+inline typename JPEG_Image::PixelDataReference
+JPEG_Image::getPixel(SizeType x, SizeType y) noexcept
 {
   return data_[y * width_ + x];
 }
 
-inline typename JPEGImage::ConstPixelDataReference
-JPEGImage::getPixel(SizeType x, SizeType y) const noexcept
+inline typename JPEG_Image::ConstPixelDataReference
+JPEG_Image::getPixel(SizeType x, SizeType y) const noexcept
 {
   return data_[y * width_ + x];
 }
 
-inline JPEGImage&
-JPEGImage::setPixel(SizeType x, SizeType y, ConstPixelDataReference value)
+inline JPEG_Image&
+JPEG_Image::setPixel(SizeType x, SizeType y, ConstPixelDataReference value)
 {
   getPixel(x, y) = value;
   return *this;
 }
 
 inline constexpr PixelFormat
-JPEGImage::getFormat() const noexcept
+JPEG_Image::getFormat() const noexcept
 {
   return format_;
 }
 
 inline void
-JPEGImage::reserve(SizeType width, SizeType height, PixelFormat format)
+JPEG_Image::reserve(SizeType width, SizeType height, PixelFormat format)
 {
   data_.reserve(width * height);
   width_ = width;
@@ -399,14 +399,14 @@ JPEGImage::reserve(SizeType width, SizeType height, PixelFormat format)
 }
 
 inline void
-JPEGImage::clear() noexcept
+JPEG_Image::clear() noexcept
 {
   data_.clear();
   width_ = height_ = 0;
 }
 
 inline void
-JPEGImage::resize(SizeType width, SizeType height, PixelFormat format)
+JPEG_Image::resize(SizeType width, SizeType height, PixelFormat format)
 {
   data_.resize(width * height);
   width_ = width;
@@ -415,7 +415,7 @@ JPEGImage::resize(SizeType width, SizeType height, PixelFormat format)
 }
 
 inline void
-JPEGImage::swap(JPEGImage& other) noexcept
+JPEG_Image::swap(JPEG_Image& other) noexcept
 {
   std::swap(data_, other.data_);
   std::swap(width_, other.width_);
@@ -425,4 +425,4 @@ JPEGImage::swap(JPEGImage& other) noexcept
 
 } // namespace imageutils
 
-#endif
+#endif // IMAGEUTILS_INTERNAL_JPEG_IMAGE_HPP

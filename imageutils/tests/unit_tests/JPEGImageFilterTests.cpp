@@ -1,107 +1,61 @@
-#include "imageutils/JPEGImage.hpp"
-#include "imageutils/JPEGReader.hpp"
-#include "imageutils/JPEGWriter.hpp"
-
-#include "imageutils/filters/JPEGBrightness.hpp"
-#include "imageutils/filters/JPEGContrast.hpp"
-#include "imageutils/filters/JPEGFlipH.hpp"
-#include "imageutils/filters/JPEGFlipV.hpp"
-#include "imageutils/filters/JPEGGrayscale.hpp"
-#include "imageutils/filters/JPEGInvert.hpp"
-#include "imageutils/filters/JPEGResize.hpp"
+#include "imageutils/JPEG.hpp"
 
 #include <gtest/gtest.h>
-
-#include <algorithm>
-#include <numeric>
 
 using namespace imageutils;
 
 namespace
 {
-class JPEG_FilterTestFixture : public testing::Test
+using TestParam = std::tuple<std::string_view, imageutils::JPEG_Filter>;
+
+class JPEG_FilterTextFixture : public testing::TestWithParam<TestParam>
 {
 protected:
-  inline static constexpr const char* kSourcePath = "./resources/lena.jpg";
-  JPEGImage sourceImage;
+  inline static constexpr const char* kSampleImagePath = "./resources/lena.jpg";
+
+  JPEG_Image
+  loadImage(std::string_view path)
+  {
+    const auto readResult = JPEG_Reader::read(path);
+    EXPECT_TRUE(readResult) << "Failed to load image from path: " << path;
+    return readResult;
+  }
 
   void
-  SetUp() override
+  saveImage(const JPEG_Image& image, std::string_view path)
   {
-    sourceImage = JPEGReader::read(kSourcePath);
-    ASSERT_TRUE(sourceImage);
+    const auto writeResult = JPEG_Writer::write(image, path);
+    EXPECT_TRUE(writeResult) << "Failed to save image to path: " << path;
+  }
+
+  void
+  verifyImageEquality(const JPEG_Image& source, const JPEG_Image& target)
+  {
+    ASSERT_EQ(source.getWidth(), target.getWidth());
+    ASSERT_EQ(source.getHeight(), target.getHeight());
+    ASSERT_EQ(source.getFormat(), target.getFormat());
   }
 };
 
-// static float
-// getAvgBrightness(const JPEGImage& image)
-//{
-//   const auto N = image.end() - image.begin();
-//   return std::accumulate(image.begin(), image.end(), 0.0f) / N;
-// };
-//
-// static float
-// getAvgContrast(const JPEGImage& image)
-//{
-//   const auto N = image.end() - image.begin();
-//   float avgBrightness = getAvgBrightness(image);
-//   float contrastSum = std::transform_reduce(image.begin(), image.end(), 0.0f, std::plus{},
-//                                             [avgBrightness](auto pixel) { return std::abs(pixel - avgBrightness); });
-//   return contrastSum / N;
-// };
-
-TEST_F(JPEG_FilterTestFixture, ImageBrightnessChanged)
+TEST_P(JPEG_FilterTextFixture, ImageFilterTest)
 {
-  constexpr const char* kDestinationPath = "./resources/lena_Brightness15.jpg";
-  const auto brightnessValue = 1.5f;
-  const auto filter = filters::brightness(brightnessValue);
-  EXPECT_TRUE(JPEGWriter::write(filter(sourceImage), kDestinationPath));
+  auto&& [outputPath, filterMethod] = GetParam();
+
+  const auto sampleImage = loadImage(kSampleImagePath);
+  const auto transformedImage = filterMethod(sampleImage);
+
+  saveImage(transformedImage, outputPath);
+
+  const JPEG_Image& readBackImage = loadImage(outputPath);
+  verifyImageEquality(transformedImage, readBackImage);
 }
 
-TEST_F(JPEG_FilterTestFixture, ImageContrastChanged)
-{
-  constexpr const char* kDestinationPath = "./resources/lena_Contrast15.jpg";
-  const auto contrastValue = 1.5f;
-  const auto filter = filters::contrast(contrastValue);
-  EXPECT_TRUE(JPEGWriter::write(filter(sourceImage), kDestinationPath));
-}
-
-TEST_F(JPEG_FilterTestFixture, ImageFlippedVertically)
-{
-  constexpr const char* kDestinationPath = "./resources/lena_FlippedV.jpg";
-  const auto filter = filters::flipV();
-  EXPECT_TRUE(JPEGWriter::write(filter(sourceImage), kDestinationPath));
-}
-
-TEST_F(JPEG_FilterTestFixture, ImageFlippedHorizontally)
-{
-  constexpr const char* kDestinationPath = "./resources/lena_FlippedH.jpg";
-  const auto filter = filters::flipH();
-  EXPECT_TRUE(JPEGWriter::write(filter(sourceImage), kDestinationPath));
-}
-
-TEST_F(JPEG_FilterTestFixture, ImageColorsGrayscaled)
-{
-  constexpr const char* kDestinationPath = "./resources/lena_Grayscale.jpg";
-  const auto expectedChannels = 1;
-  const auto filter = filters::grayscale();
-  EXPECT_TRUE(JPEGWriter::write(filter(sourceImage), kDestinationPath));
-}
-
-TEST_F(JPEG_FilterTestFixture, ImageColorsInverted)
-{
-  constexpr const char* kDestinationPath = "./resources/lena_Inverted.jpg";
-  const auto filter = filters::invert();
-  EXPECT_TRUE(JPEGWriter::write(filter(sourceImage), kDestinationPath));
-}
-
-TEST_F(JPEG_FilterTestFixture, ImageResized)
-{
-  constexpr const char* kDestinationPath = "./resources/lena_Resized.jpg";
-  const auto expectedSize = 100;
-  const auto expectedChannels = 3;
-  const auto filter = filters::resize(expectedSize, expectedSize);
-  EXPECT_TRUE(JPEGWriter::write(filter(sourceImage), kDestinationPath));
-}
-
+INSTANTIATE_TEST_SUITE_P(ImageFilterTests, JPEG_FilterTextFixture,
+                         testing::Values(std::make_tuple("./resources/lena_Brightness.jpg", filters::brightness(1.5f)),
+                                         std::make_tuple("./resources/lena_Contrast.jpg", filters::contrast(1.5f)),
+                                         std::make_tuple("./resources/lena_FlipH.jpg", filters::flipH()),
+                                         std::make_tuple("./resources/lena_FlipV.jpg", filters::flipV()),
+                                         std::make_tuple("./resources/lena_Grayscale.jpg", filters::grayscale()),
+                                         std::make_tuple("./resources/lena_Invert.jpg", filters::invert()),
+                                         std::make_tuple("./resources/lena_Resize.jpg", filters::resize(100, 100))));
 } // namespace

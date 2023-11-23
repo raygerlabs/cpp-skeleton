@@ -1,5 +1,5 @@
-#ifndef IMAGEUTILS_JPEGWRITER_HPP
-#define IMAGEUTILS_JPEGWRITER_HPP
+#ifndef IMAGEUTILS_INTERNAL_JPEG_WRITER_HPP
+#define IMAGEUTILS_INTERNAL_JPEG_WRITER_HPP
 
 #pragma once
 
@@ -9,13 +9,12 @@
 namespace imageutils
 {
 // Forward declarations
-union PixelColor;
-class JPEGImage;
+class JPEG_Image;
 
 /**
  * @brief Class responsible for writing JPEG images.
  */
-class JPEGWriter
+class JPEG_Writer
 {
 public:
   /**
@@ -26,7 +25,7 @@ public:
    * @return True if the write operation was successful, false otherwise.
    */
   static bool
-  write(const JPEGImage& input, const char* path, int imageQuality = 100);
+  write(const JPEG_Image& input, const char* path, int imageQuality = 75);
 
   /**
    * @brief Writes a JPEG image to the specified path.
@@ -36,7 +35,7 @@ public:
    * @return True if the write operation was successful, false otherwise.
    */
   static bool
-  write(const JPEGImage& input, std::string_view path, int imageQuality = 100);
+  write(const JPEG_Image& input, std::string_view path, int imageQuality = 75);
 
   /**
    * @brief Writes a JPEG image to the specified path.
@@ -46,8 +45,8 @@ public:
    * @return True if the write operation was successful, false otherwise.
    */
   static bool
-  write(const JPEGImage& input, const std::string& path, int imageQuality = 100);
+  write(const JPEG_Image& input, const std::string& path, int imageQuality = 75);
 };
 } // namespace imageutils
 
-#endif
+#endif // IMAGEUTILS_INTERNAL_JPEG_WRITER_HPP
