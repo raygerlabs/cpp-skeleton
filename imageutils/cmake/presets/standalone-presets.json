@@ -1,0 +1,104 @@
+{
+  "version": 6,
+  "include": [
+    "./build-presets.json",
+    "./feature-presets.json",
+    "./generator-presets.json"
+  ],
+  "configurePresets": [
+    {
+      "name": "_commons",
+      "displayName": "Common Features",
+      "description": "Preset for standalone: Common Features",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "inherits": [
+        "_test",
+        "_coverage",
+        "_doxygen",
+        "_ccache",
+        "_cppcheck",
+        "_clang_format",
+        "_clang_tidy",
+        "_ninja"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_commons_sanitize",
+      "displayName": "Common Features (With Sanity Checks)",
+      "description": "Preset for standalone: Common Features (With Sanity Checks)",
+      "inherits": [
+        "_commons",
+        "_asan",
+        "_lsan",
+        "_msan",
+        "_tsan",
+        "_ubsan"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_dev",
+      "displayName": "Developer Mode",
+      "description": "Preset for standalone: Developer Mode",
+      "inherits": [
+        "_commons",
+        "_debug"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_dev_sanitize",
+      "displayName": "Developer Mode (With Sanity Checks)",
+      "description": "Preset for standalone: Developer Mode (With Sanity Checks)",
+      "inherits": [
+        "_commons_sanitize",
+        "_debug"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_dev_benchmark",
+      "displayName": "Developer Mode (With Benchmarks)",
+      "description": "Preset for standalone: Developer Mode (With Benchmarks)",
+      "inherits": [
+        "_commons",
+        "_benchmarks",
+        "_profile"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_ci",
+      "displayName": "Continuous Integration Mode",
+      "description": "Preset for standalone: Continuous Integration Mode",
+      "inherits": [
+        "_commons",
+        "_release"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_ci_sanitize",
+      "displayName": "Continuous Integration Mode (With Sanity Checks)",
+      "description": "Preset for standalone: Continuous Integration Mode (With Sanity Checks)",
+      "inherits": [
+        "_commons_sanitize",
+        "_release"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_ci_benchmark",
+      "displayName": "Continuous Integration Mode (With Benchmarks)",
+      "description": "Preset for standalone: Continuous Integration Mode (With Benchmarks)",
+      "inherits": [
+        "_commons",
+        "_benchmarks",
+        "_release"
+      ],
+      "hidden": true
+    }
+  ]
+}

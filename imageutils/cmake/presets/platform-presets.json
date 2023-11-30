@@ -1,0 +1,49 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "_windows_only",
+      "displayName": "Windows (Only)",
+      "description": "Preset for platform: Windows (Only)",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "hidden": true
+    },
+    {
+      "name": "_linux_only",
+      "displayName": "Linux (Only)",
+      "description": "Preset for platform: Linux (Only)",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "hidden": true
+    },
+    {
+      "name": "_macos_only",
+      "displayName": "MacOS (Only)",
+      "description": "Preset for platform: MacOS (Only)",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      },
+      "hidden": true
+    },
+    {
+      "name": "_linux_and_macos_only",
+      "displayName": "Linux & MacOS (Only)",
+      "description": "Preset for platform: Linux & MacOS (Only)",
+      "condition": {
+        "type": "inList",
+        "string": "${hostSystemName}",
+        "list": [ "Linux", "Darwin" ]
+      },
+      "hidden": true
+    }
+  ]
+}

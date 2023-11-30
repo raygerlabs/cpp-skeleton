@@ -12,18 +12,21 @@ set(_HEADER_LIST
   ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Grayscale.hpp
   ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Invert.hpp
   ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Resize.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Image.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Filter.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Processor.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Reader.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/internal/JPEG_Writer.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG_Filter.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG_Image.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG_Processor.hpp
   ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG_Processing.hpp
 )
 
 set(_SOURCE_LIST
-  ${CMAKE_CURRENT_SOURCE_DIR}/JPEG_Reader.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/JPEG_Writer.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Brightness.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Contrast.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_FlipH.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_FlipV.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Invert.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Grayscale.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Resize.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/JPEG_Image.cpp
 )
 
 add_library(imageutils ${_HEADER_LIST} ${_SOURCE_LIST})

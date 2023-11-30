@@ -1,11 +1,13 @@
-#ifndef IMAGEUTILS_JPEG_HPP
-#define IMAGEUTILS_JPEG_HPP
-
 #pragma once
 
-#include "JPEG_Processing.hpp"
-#include "imageutils/internal/JPEG_Reader.hpp"
-#include "imageutils/internal/JPEG_Writer.hpp"
+#include "imageutils/JPEG_Image.hpp"
+#include "imageutils/JPEG_Filter.hpp"
+#include "imageutils/JPEG_Processor.hpp"
 
-
-#endif // IMAGEUTILS_JPEG_HPP
+#include "imageutils/filters/JPEG_Brightness.hpp"
+#include "imageutils/filters/JPEG_Contrast.hpp"
+#include "imageutils/filters/JPEG_FlipH.hpp"
+#include "imageutils/filters/JPEG_FlipV.hpp"
+#include "imageutils/filters/JPEG_Grayscale.hpp"
+#include "imageutils/filters/JPEG_Invert.hpp"
+#include "imageutils/filters/JPEG_Resize.hpp"

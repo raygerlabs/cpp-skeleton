@@ -1,32 +1,19 @@
-#ifndef IMAGEUTILS_FILTERS_JPEG_GRAYSCALE_HPP
-#define IMAGEUTILS_FILTERS_JPEG_GRAYSCALE_HPP
-
 #pragma once
 
-#include "imageutils/internal/JPEG_Filter.hpp"
+#include "imageutils/JPEG_Filter.hpp"
 
 namespace imageutils
 {
 namespace filters
 {
-static inline JPEG_Filter
-grayscale()
-{
-  return [](const JPEG_Image& input)
-  {
-    JPEG_Image output(input);
-    JPEG_Image::SizeType pixelCount = output.getWidth() * output.getHeight();
-    for (auto& pixelColor : output)
-    {
-      const auto luma = 0.299f * pixelColor.red + 0.587f * pixelColor.green + 0.114f * pixelColor.blue;
-      pixelColor.red = luma;
-      pixelColor.green = luma;
-      pixelColor.blue = luma;
-    }
-    return output;
-  };
-}
+/**
+ * @brief Converts a JPEG image to grayscale.
+ * @return A JPEG_Filter that converts the input image to grayscale.
+ *
+ * This function creates a JPEG_Filter that converts a JPEG image to grayscale.
+ * It uses the luminance formula (Y = 0.2126*R + 0.7152*G + 0.0722*B) to calculate grayscale values.
+ */
+extern JPEG_Filter
+grayscale();
 } // namespace filters
 } // namespace imageutils
-
-#endif

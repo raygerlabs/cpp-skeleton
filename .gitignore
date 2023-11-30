@@ -18,3 +18,4 @@ __pycache__
 /**/ConanPresets.json
 /**/build/
 /**/dist/
+/**/install/

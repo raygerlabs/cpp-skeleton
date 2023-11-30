@@ -1,0 +1,39 @@
+{
+  "version": 6,
+  "include": [
+    "./toolchain-presets.json"
+  ],
+  "configurePresets": [
+    {
+      "name": "_ninja",
+      "displayName": "Ninja (Single-Config) Generator",
+      "description": "Preset for generator: Ninja (Single-Config)",
+      "generator": "Ninja",
+      "hidden": true
+    },
+    {
+      "name": "_make",
+      "displayName": "Makefile Generator",
+      "description": "Preset for generator: Unix Makefiles",
+      "generator": "Unix Makefiles",
+      "inherits": [ "_linux_and_macos_only", "_gcc" ],
+      "hidden": true
+    },
+    {
+      "name": "_xcode",
+      "displayName": "XCode Generator",
+      "description": "Preset for generator: XCode",
+      "generator": "Xcode",
+      "inherits": [ "_macos_only", "_clang" ],
+      "hidden": true
+    },
+    {
+      "name": "_vs",
+      "displayName": "Visual Studio Generator",
+      "description": "Preset for generator: Visual Studio",
+      "generator": "Visual Studio 17 2022",
+      "inherits": [ "_windows_only", "_msvc" ],
+      "hidden": true
+    }
+  ]
+}

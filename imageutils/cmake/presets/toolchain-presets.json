@@ -1,0 +1,32 @@
+{
+  "version": 6,
+  "include": [
+    "./platform-presets.json"
+  ],
+  "configurePresets": [
+    {
+      "name": "_gcc",
+      "displayName": "GNU C/C++ Toolchain",
+      "description": "Preset for toolchain: GNU C/C++",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake",
+      "inherits": [ "_linux_and_macos_only" ],
+      "hidden": true
+    },
+    {
+      "name": "_clang",
+      "displayName": "Clang C/C++ (LLVM) Toolchain",
+      "description": "Preset for toolchain: Clang C/C++ (LLVM)",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-clang.cmake",
+      "inherits": [ "_linux_and_macos_only" ],
+      "hidden": true
+    },
+    {
+      "name": "_msvc",
+      "displayName": "Visual C/C++ Toolchain",
+      "description": "Preset for toolchain: Visual C/C++",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-msvc.cmake",
+      "inherits": [ "_windows_only" ],
+      "hidden": true
+    }
+  ]
+}

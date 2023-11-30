@@ -1,31 +1,19 @@
-#ifndef IMAGEUTILS_FILTERS_JPEG_FLIPV_HPP
-#define IMAGEUTILS_FILTERS_JPEG_FLIPV_HPP
-
 #pragma once
 
-#include "imageutils/internal/JPEG_Filter.hpp"
+#include "imageutils/JPEG_Filter.hpp"
 
 namespace imageutils
 {
 namespace filters
 {
-static inline JPEG_Filter
-flipV()
-{
-  return [](const JPEG_Image& input)
-  {
-    JPEG_Image output(input);
-    for (JPEG_Image::SizeType y = 0; y < output.getHeight(); ++y)
-    {
-      for (JPEG_Image::SizeType x = 0; x < output.getWidth(); ++x)
-      {
-        output.getPixel(x, input.getHeight() - y - 1) = input.getPixel(x, y);
-      }
-    }
-    return output;
-  };
-}
+/**
+ * @brief Flips a JPEG image vertically.
+ * @return A JPEG_Filter that vertically flips the input image.
+ *
+ * This function creates a JPEG_Filter that flips a JPEG image vertically.
+ * It reverses the order of pixels along the vertical axis (top to bottom).
+ */
+extern JPEG_Filter
+flipV();
 } // namespace filters
 } // namespace imageutils
-
-#endif // IMAGEUTILS_FILTERS_JPEG_FLIPV_HPP

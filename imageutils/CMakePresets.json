@@ -1,154 +1,1615 @@
 {
-  "version": 4,
+  "version": 6,
   "include": [
-    "./cmake/presets/build-preset.json",
-    "./cmake/presets/option-preset.json",
-    "./cmake/presets/platform-preset.json",
-    "./cmake/presets/toolchain-preset.json",
-    "./ConanPresets.json"
+    "./cmake/presets/standalone-presets.json"
   ],
   "configurePresets": [
     {
-      "name": "ci-gcc",
-      "description": "Preset for continuous integration with GNU C/C++",
-      "inherits": ["conan-release", "ci", "gcc"]
-    },
-    {
-      "name": "ci-clang",
-      "description": "Preset for continuous integration with Clang C/C++",
-      "inherits": ["conan-release", "ci", "clang"]
-    },
-    {
-      "name": "ci-msvc",
-      "description": "Preset for continuous integration with Visual C/C++",
-      "inherits": ["conan-release", "ci", "msvc"]
-    },
-    {
-      "name": "perf-gcc",
-      "description": "Preset for performance tests with GNU C/C++",
-      "inherits": ["conan-release","perf", "gcc"]
-    },
-    {
-      "name": "perf-clang",
-      "description": "Preset for benchmarking with Clang C/C++",
-      "inherits": ["conan-release", "perf", "clang"]
-    },
-    {
-      "name": "perf-msvc",
-      "description": "Preset for benchmarking with Visual C/C++",
-      "inherits": ["conan-release", "perf", "msvc"]
-    },
-    {
       "name": "dev-gcc",
-      "description": "Preset for development with GNU C/C++",
-      "inherits": ["conan-debug", "dev", "gcc"]
+      "inherits": [
+        "_dev",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "dev-sanitize-gcc",
+      "inherits": [
+        "_dev_sanitize",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "dev-benchmark-gcc",
+      "inherits": [
+        "_dev_benchmark",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "ci-gcc",
+      "inherits": [
+        "_ci",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "ci-sanitize-gcc",
+      "inherits": [
+        "_ci_sanitize",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "ci-benchmark-gcc",
+      "inherits": [
+        "_ci_benchmark",
+        "_gcc"
+      ]
     },
     {
       "name": "dev-clang",
-      "description": "Preset for development with Clang C/C++",
-      "inherits": ["conan-debug", "dev", "clang"]
+      "inherits": [
+        "_dev",
+        "_clang"
+      ]
+    },
+    {
+      "name": "dev-sanitize-clang",
+      "inherits": [
+        "_dev_sanitize",
+        "_clang"
+      ]
+    },
+    {
+      "name": "dev-benchmark-clang",
+      "inherits": [
+        "_dev_benchmark",
+        "_clang"
+      ]
+    },
+    {
+      "name": "ci-clang",
+      "inherits": [
+        "_ci",
+        "_clang"
+      ]
+    },
+    {
+      "name": "ci-sanitize-clang",
+      "inherits": [
+        "_ci_sanitize",
+        "_clang"
+      ]
+    },
+    {
+      "name": "ci-benchmark-clang",
+      "inherits": [
+        "_ci_benchmark",
+        "_clang"
+      ]
     },
     {
       "name": "dev-msvc",
-      "description": "Preset for development with Visual C/C++",
-      "inherits": ["conan-debug", "dev", "msvc"]
+      "inherits": [
+        "_dev",
+        "_msvc"
+      ]
+    },
+    {
+      "name": "dev-sanitize-msvc",
+      "inherits": [
+        "_dev_sanitize",
+        "_msvc"
+      ]
+    },
+    {
+      "name": "dev-benchmark-msvc",
+      "inherits": [
+        "_dev_benchmark",
+        "_msvc"
+      ]
+    },
+    {
+      "name": "ci-msvc",
+      "inherits": [
+        "_ci",
+        "_msvc"
+      ]
+    },
+    {
+      "name": "ci-sanitize-msvc",
+      "inherits": [
+        "_ci_sanitize",
+        "_msvc"
+      ]
+    },
+    {
+      "name": "ci-benchmark-msvc",
+      "inherits": [
+        "_ci_benchmark",
+        "_msvc"
+      ]
+    },
+    {
+      "name": "dev-make",
+      "inherits": [
+        "_dev",
+        "_make"
+      ]
+    },
+    {
+      "name": "dev-sanitize-make",
+      "inherits": [
+        "_dev_sanitize",
+        "_make"
+      ]
+    },
+    {
+      "name": "dev-benchmark-make",
+      "inherits": [
+        "_dev_benchmark",
+        "_make"
+      ]
+    },
+    {
+      "name": "ci-make",
+      "inherits": [
+        "_ci",
+        "_make"
+      ]
+    },
+    {
+      "name": "ci-sanitize-make",
+      "inherits": [
+        "_ci_sanitize",
+        "_make"
+      ]
+    },
+    {
+      "name": "ci-benchmark-make",
+      "inherits": [
+        "_ci_benchmark",
+        "_make"
+      ]
+    },
+    {
+      "name": "dev-xcode",
+      "inherits": [
+        "_dev",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "dev-sanitize-xcode",
+      "inherits": [
+        "_dev_sanitize",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "dev-benchmark-xcode",
+      "inherits": [
+        "_dev_benchmark",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "ci-xcode",
+      "inherits": [
+        "_ci",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "ci-sanitize-xcode",
+      "inherits": [
+        "_ci_sanitize",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "ci-benchmark-xcode",
+      "inherits": [
+        "_ci_benchmark",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "dev-vs",
+      "inherits": [
+        "_dev",
+        "_vs"
+      ]
+    },
+    {
+      "name": "dev-sanitize-vs",
+      "inherits": [
+        "_dev_sanitize",
+        "_vs"
+      ]
+    },
+    {
+      "name": "dev-benchmark-vs",
+      "inherits": [
+        "_dev_benchmark",
+        "_vs"
+      ]
+    },
+    {
+      "name": "ci-vs",
+      "inherits": [
+        "_ci",
+        "_vs"
+      ]
+    },
+    {
+      "name": "ci-sanitize-vs",
+      "inherits": [
+        "_ci_sanitize",
+        "_vs"
+      ]
+    },
+    {
+      "name": "ci-benchmark-vs",
+      "inherits": [
+        "_ci_benchmark",
+        "_vs"
+      ]
     }
   ],
   "buildPresets": [
     {
-      "name": "ci-gcc",
-      "description": "Preset for continuous integration with GNU C/C++",
-      "configurePreset": "ci-gcc"
-    },
-    {
-      "name": "ci-clang",
-      "description": "Preset for continuous integration with Clang C/C++",
-      "configurePreset": "ci-clang"
-    },
-    {
-      "name": "ci-msvc",
-      "description": "Preset for continuous integration with Visual C/C++",
-      "configurePreset": "ci-msvc"
-    },
-    {
-      "name": "perf-gcc",
-      "description": "Preset for benchmarking with GNU C/C++",
-      "configurePreset": "perf-gcc"
-    },
-    {
-      "name": "perf-clang",
-      "description": "Preset for benchmarking with Clang C/C++",
-      "configurePreset": "perf-clang"
-    },
-    {
-      "name": "perf-msvc",
-      "description": "Preset for benchmarking with Visual C/C++",
-      "configurePreset": "perf-msvc"
-    },
-    {
       "name": "dev-gcc",
-      "description": "Preset for development with GNU C/C++",
       "configurePreset": "dev-gcc"
     },
     {
+      "name": "dev-sanitize-gcc",
+      "configurePreset": "dev-sanitize-gcc"
+    },
+    {
+      "name": "dev-benchmark-gcc",
+      "configurePreset": "dev-benchmark-gcc"
+    },
+    {
+      "name": "ci-gcc",
+      "configurePreset": "ci-gcc"
+    },
+    {
+      "name": "ci-sanitize-gcc",
+      "configurePreset": "ci-sanitize-gcc"
+    },
+    {
+      "name": "ci-benchmark-gcc",
+      "configurePreset": "ci-benchmark-gcc"
+    },
+    {
       "name": "dev-clang",
-      "description": "Preset for development with Clang C/C++",
       "configurePreset": "dev-clang"
     },
     {
+      "name": "dev-sanitize-clang",
+      "configurePreset": "dev-sanitize-clang"
+    },
+    {
+      "name": "dev-benchmark-clang",
+      "configurePreset": "dev-benchmark-clang"
+    },
+    {
+      "name": "ci-clang",
+      "configurePreset": "ci-clang"
+    },
+    {
+      "name": "ci-sanitize-clang",
+      "configurePreset": "ci-sanitize-clang"
+    },
+    {
+      "name": "ci-benchmark-clang",
+      "configurePreset": "ci-benchmark-clang"
+    },
+    {
       "name": "dev-msvc",
-      "description": "Preset for development with Visual C/C++",
       "configurePreset": "dev-msvc"
+    },
+    {
+      "name": "dev-sanitize-msvc",
+      "configurePreset": "dev-sanitize-msvc"
+    },
+    {
+      "name": "dev-benchmark-msvc",
+      "configurePreset": "dev-benchmark-msvc"
+    },
+    {
+      "name": "ci-msvc",
+      "configurePreset": "ci-msvc"
+    },
+    {
+      "name": "ci-sanitize-msvc",
+      "configurePreset": "ci-sanitize-msvc"
+    },
+    {
+      "name": "ci-benchmark-msvc",
+      "configurePreset": "ci-benchmark-msvc"
+    },
+    {
+      "name": "dev-make",
+      "configurePreset": "dev-make"
+    },
+    {
+      "name": "dev-sanitize-make",
+      "configurePreset": "dev-sanitize-make"
+    },
+    {
+      "name": "dev-benchmark-make",
+      "configurePreset": "dev-benchmark-make"
+    },
+    {
+      "name": "ci-make",
+      "configurePreset": "ci-make"
+    },
+    {
+      "name": "ci-sanitize-make",
+      "configurePreset": "ci-sanitize-make"
+    },
+    {
+      "name": "ci-benchmark-make",
+      "configurePreset": "ci-benchmark-make"
+    },
+    {
+      "name": "dev-xcode",
+      "configurePreset": "dev-xcode"
+    },
+    {
+      "name": "dev-sanitize-xcode",
+      "configurePreset": "dev-sanitize-xcode"
+    },
+    {
+      "name": "dev-benchmark-xcode",
+      "configurePreset": "dev-benchmark-xcode"
+    },
+    {
+      "name": "ci-xcode",
+      "configurePreset": "ci-xcode"
+    },
+    {
+      "name": "ci-sanitize-xcode",
+      "configurePreset": "ci-sanitize-xcode"
+    },
+    {
+      "name": "ci-benchmark-xcode",
+      "configurePreset": "ci-benchmark-xcode"
+    },
+    {
+      "name": "dev-vs",
+      "configurePreset": "dev-vs"
+    },
+    {
+      "name": "dev-sanitize-vs",
+      "configurePreset": "dev-sanitize-vs"
+    },
+    {
+      "name": "dev-benchmark-vs",
+      "configurePreset": "dev-benchmark-vs"
+    },
+    {
+      "name": "ci-vs",
+      "configurePreset": "ci-vs"
+    },
+    {
+      "name": "ci-sanitize-vs",
+      "configurePreset": "ci-sanitize-vs"
+    },
+    {
+      "name": "ci-benchmark-vs",
+      "configurePreset": "ci-benchmark-vs"
     }
   ],
   "testPresets": [
     {
-      "name": "ci-gcc",
-      "description": "Preset for continuous integration with GNU C/C++",
-      "configurePreset": "ci-gcc",
+      "name": "_testDefaults",
       "output": {
-        "outputOnFailure": true
-      }
-    },
-    {
-      "name": "ci-clang",
-      "description": "Preset for continuous integration with Clang C/C++",
-      "configurePreset": "ci-clang",
-      "output": {
-        "outputOnFailure": true
-      }
-    },
-    {
-      "name": "ci-msvc",
-      "description": "Preset for continuous integration with Visual C/C++",
-      "configurePreset": "ci-msvc",
-      "output": {
-        "outputOnFailure": true
-      }
+        "outputOnFailure": true,
+        "shortProgress": true,
+        "verbosity": "verbose"
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "scheduleRandom": true,
+        "stopOnFailure": false,
+        "timeout": 60
+      },
+      "hidden": true
     },
     {
       "name": "dev-gcc",
-      "description": "Preset for development with GNU C/C++",
       "configurePreset": "dev-gcc",
-      "output": {
-        "outputOnFailure": true
-      }
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-sanitize-gcc",
+      "configurePreset": "dev-sanitize-gcc",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-benchmark-gcc",
+      "configurePreset": "dev-benchmark-gcc",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-gcc",
+      "configurePreset": "ci-gcc",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-sanitize-gcc",
+      "configurePreset": "ci-sanitize-gcc",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-benchmark-gcc",
+      "configurePreset": "ci-benchmark-gcc",
+      "inherits": "_testDefaults"
     },
     {
       "name": "dev-clang",
-      "description": "Preset for development with Clang C/C++",
       "configurePreset": "dev-clang",
-      "output": {
-        "outputOnFailure": true
-      }
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-sanitize-clang",
+      "configurePreset": "dev-sanitize-clang",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-benchmark-clang",
+      "configurePreset": "dev-benchmark-clang",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-clang",
+      "configurePreset": "ci-clang",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-sanitize-clang",
+      "configurePreset": "ci-sanitize-clang",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-benchmark-clang",
+      "configurePreset": "ci-benchmark-clang",
+      "inherits": "_testDefaults"
     },
     {
       "name": "dev-msvc",
-      "description": "Preset for development with Visual C/C++",
       "configurePreset": "dev-msvc",
-      "output": {
-        "outputOnFailure": true
-      }
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-sanitize-msvc",
+      "configurePreset": "dev-sanitize-msvc",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-benchmark-msvc",
+      "configurePreset": "dev-benchmark-msvc",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-msvc",
+      "configurePreset": "ci-msvc",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-sanitize-msvc",
+      "configurePreset": "ci-sanitize-msvc",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-benchmark-msvc",
+      "configurePreset": "ci-benchmark-msvc",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-make",
+      "configurePreset": "dev-make",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-sanitize-make",
+      "configurePreset": "dev-sanitize-make",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-benchmark-make",
+      "configurePreset": "dev-benchmark-make",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-make",
+      "configurePreset": "ci-make",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-sanitize-make",
+      "configurePreset": "ci-sanitize-make",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-benchmark-make",
+      "configurePreset": "ci-benchmark-make",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-xcode",
+      "configurePreset": "dev-xcode",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-sanitize-xcode",
+      "configurePreset": "dev-sanitize-xcode",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-benchmark-xcode",
+      "configurePreset": "dev-benchmark-xcode",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-xcode",
+      "configurePreset": "ci-xcode",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-sanitize-xcode",
+      "configurePreset": "ci-sanitize-xcode",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-benchmark-xcode",
+      "configurePreset": "ci-benchmark-xcode",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-vs",
+      "configurePreset": "dev-vs",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-sanitize-vs",
+      "configurePreset": "dev-sanitize-vs",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "dev-benchmark-vs",
+      "configurePreset": "dev-benchmark-vs",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-vs",
+      "configurePreset": "ci-vs",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-sanitize-vs",
+      "configurePreset": "ci-sanitize-vs",
+      "inherits": "_testDefaults"
+    },
+    {
+      "name": "ci-benchmark-vs",
+      "configurePreset": "ci-benchmark-vs",
+      "inherits": "_testDefaults"
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "dev-gcc",
+      "configurePreset": "dev-gcc",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-sanitize-gcc",
+      "configurePreset": "dev-sanitize-gcc",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-benchmark-gcc",
+      "configurePreset": "dev-benchmark-gcc",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-gcc",
+      "configurePreset": "ci-gcc",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-sanitize-gcc",
+      "configurePreset": "ci-sanitize-gcc",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-benchmark-gcc",
+      "configurePreset": "ci-benchmark-gcc",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-clang",
+      "configurePreset": "dev-clang",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-sanitize-clang",
+      "configurePreset": "dev-sanitize-clang",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-benchmark-clang",
+      "configurePreset": "dev-benchmark-clang",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-clang",
+      "configurePreset": "ci-clang",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-sanitize-clang",
+      "configurePreset": "ci-sanitize-clang",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-benchmark-clang",
+      "configurePreset": "ci-benchmark-clang",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-msvc",
+      "configurePreset": "dev-msvc",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "dev-sanitize-msvc",
+      "configurePreset": "dev-sanitize-msvc",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "dev-benchmark-msvc",
+      "configurePreset": "dev-benchmark-msvc",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "ci-msvc",
+      "configurePreset": "ci-msvc",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "ci-sanitize-msvc",
+      "configurePreset": "ci-sanitize-msvc",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "ci-benchmark-msvc",
+      "configurePreset": "ci-benchmark-msvc",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "dev-make",
+      "configurePreset": "dev-make",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-sanitize-make",
+      "configurePreset": "dev-sanitize-make",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-benchmark-make",
+      "configurePreset": "dev-benchmark-make",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-make",
+      "configurePreset": "ci-make",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-sanitize-make",
+      "configurePreset": "ci-sanitize-make",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-benchmark-make",
+      "configurePreset": "ci-benchmark-make",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-xcode",
+      "configurePreset": "dev-xcode",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-sanitize-xcode",
+      "configurePreset": "dev-sanitize-xcode",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-benchmark-xcode",
+      "configurePreset": "dev-benchmark-xcode",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-xcode",
+      "configurePreset": "ci-xcode",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-sanitize-xcode",
+      "configurePreset": "ci-sanitize-xcode",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "ci-benchmark-xcode",
+      "configurePreset": "ci-benchmark-xcode",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "dev-vs",
+      "configurePreset": "dev-vs",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "dev-sanitize-vs",
+      "configurePreset": "dev-sanitize-vs",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "dev-benchmark-vs",
+      "configurePreset": "dev-benchmark-vs",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "ci-vs",
+      "configurePreset": "ci-vs",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "ci-sanitize-vs",
+      "configurePreset": "ci-sanitize-vs",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "ci-benchmark-vs",
+      "configurePreset": "ci-benchmark-vs",
+      "generators": [
+        "ZIP"
+      ]
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "dev-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-gcc"
+        },
+        {
+          "type": "build",
+          "name": "dev-gcc"
+        },
+        {
+          "type": "test",
+          "name": "dev-gcc"
+        },
+        {
+          "type": "package",
+          "name": "dev-gcc"
+        }
+      ]
+    },
+    {
+      "name": "dev-sanitize-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-sanitize-gcc"
+        },
+        {
+          "type": "build",
+          "name": "dev-sanitize-gcc"
+        },
+        {
+          "type": "test",
+          "name": "dev-sanitize-gcc"
+        },
+        {
+          "type": "package",
+          "name": "dev-sanitize-gcc"
+        }
+      ]
+    },
+    {
+      "name": "dev-benchmark-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-benchmark-gcc"
+        },
+        {
+          "type": "build",
+          "name": "dev-benchmark-gcc"
+        },
+        {
+          "type": "test",
+          "name": "dev-benchmark-gcc"
+        },
+        {
+          "type": "package",
+          "name": "dev-benchmark-gcc"
+        }
+      ]
+    },
+    {
+      "name": "ci-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-gcc"
+        },
+        {
+          "type": "build",
+          "name": "ci-gcc"
+        },
+        {
+          "type": "test",
+          "name": "ci-gcc"
+        },
+        {
+          "type": "package",
+          "name": "ci-gcc"
+        }
+      ]
+    },
+    {
+      "name": "ci-sanitize-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-sanitize-gcc"
+        },
+        {
+          "type": "build",
+          "name": "ci-sanitize-gcc"
+        },
+        {
+          "type": "test",
+          "name": "ci-sanitize-gcc"
+        },
+        {
+          "type": "package",
+          "name": "ci-sanitize-gcc"
+        }
+      ]
+    },
+    {
+      "name": "ci-benchmark-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-benchmark-gcc"
+        },
+        {
+          "type": "build",
+          "name": "ci-benchmark-gcc"
+        },
+        {
+          "type": "test",
+          "name": "ci-benchmark-gcc"
+        },
+        {
+          "type": "package",
+          "name": "ci-benchmark-gcc"
+        }
+      ]
+    },
+    {
+      "name": "dev-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-clang"
+        },
+        {
+          "type": "test",
+          "name": "dev-clang"
+        },
+        {
+          "type": "package",
+          "name": "dev-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-sanitize-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-sanitize-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-sanitize-clang"
+        },
+        {
+          "type": "test",
+          "name": "dev-sanitize-clang"
+        },
+        {
+          "type": "package",
+          "name": "dev-sanitize-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-benchmark-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-benchmark-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-benchmark-clang"
+        },
+        {
+          "type": "test",
+          "name": "dev-benchmark-clang"
+        },
+        {
+          "type": "package",
+          "name": "dev-benchmark-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-clang"
+        },
+        {
+          "type": "test",
+          "name": "ci-clang"
+        },
+        {
+          "type": "package",
+          "name": "ci-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-sanitize-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-sanitize-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-sanitize-clang"
+        },
+        {
+          "type": "test",
+          "name": "ci-sanitize-clang"
+        },
+        {
+          "type": "package",
+          "name": "ci-sanitize-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-benchmark-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-benchmark-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-benchmark-clang"
+        },
+        {
+          "type": "test",
+          "name": "ci-benchmark-clang"
+        },
+        {
+          "type": "package",
+          "name": "ci-benchmark-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-msvc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-msvc"
+        },
+        {
+          "type": "build",
+          "name": "dev-msvc"
+        },
+        {
+          "type": "test",
+          "name": "dev-msvc"
+        },
+        {
+          "type": "package",
+          "name": "dev-msvc"
+        }
+      ]
+    },
+    {
+      "name": "dev-sanitize-msvc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-sanitize-msvc"
+        },
+        {
+          "type": "build",
+          "name": "dev-sanitize-msvc"
+        },
+        {
+          "type": "test",
+          "name": "dev-sanitize-msvc"
+        },
+        {
+          "type": "package",
+          "name": "dev-sanitize-msvc"
+        }
+      ]
+    },
+    {
+      "name": "dev-benchmark-msvc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-benchmark-msvc"
+        },
+        {
+          "type": "build",
+          "name": "dev-benchmark-msvc"
+        },
+        {
+          "type": "test",
+          "name": "dev-benchmark-msvc"
+        },
+        {
+          "type": "package",
+          "name": "dev-benchmark-msvc"
+        }
+      ]
+    },
+    {
+      "name": "ci-msvc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-msvc"
+        },
+        {
+          "type": "build",
+          "name": "ci-msvc"
+        },
+        {
+          "type": "test",
+          "name": "ci-msvc"
+        },
+        {
+          "type": "package",
+          "name": "ci-msvc"
+        }
+      ]
+    },
+    {
+      "name": "ci-sanitize-msvc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-sanitize-msvc"
+        },
+        {
+          "type": "build",
+          "name": "ci-sanitize-msvc"
+        },
+        {
+          "type": "test",
+          "name": "ci-sanitize-msvc"
+        },
+        {
+          "type": "package",
+          "name": "ci-sanitize-msvc"
+        }
+      ]
+    },
+    {
+      "name": "ci-benchmark-msvc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-benchmark-msvc"
+        },
+        {
+          "type": "build",
+          "name": "ci-benchmark-msvc"
+        },
+        {
+          "type": "test",
+          "name": "ci-benchmark-msvc"
+        },
+        {
+          "type": "package",
+          "name": "ci-benchmark-msvc"
+        }
+      ]
+    },
+    {
+      "name": "dev-make",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-make"
+        },
+        {
+          "type": "build",
+          "name": "dev-make"
+        },
+        {
+          "type": "test",
+          "name": "dev-make"
+        },
+        {
+          "type": "package",
+          "name": "dev-make"
+        }
+      ]
+    },
+    {
+      "name": "dev-sanitize-make",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-sanitize-make"
+        },
+        {
+          "type": "build",
+          "name": "dev-sanitize-make"
+        },
+        {
+          "type": "test",
+          "name": "dev-sanitize-make"
+        },
+        {
+          "type": "package",
+          "name": "dev-sanitize-make"
+        }
+      ]
+    },
+    {
+      "name": "dev-benchmark-make",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-benchmark-make"
+        },
+        {
+          "type": "build",
+          "name": "dev-benchmark-make"
+        },
+        {
+          "type": "test",
+          "name": "dev-benchmark-make"
+        },
+        {
+          "type": "package",
+          "name": "dev-benchmark-make"
+        }
+      ]
+    },
+    {
+      "name": "ci-make",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-make"
+        },
+        {
+          "type": "build",
+          "name": "ci-make"
+        },
+        {
+          "type": "test",
+          "name": "ci-make"
+        },
+        {
+          "type": "package",
+          "name": "ci-make"
+        }
+      ]
+    },
+    {
+      "name": "ci-sanitize-make",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-sanitize-make"
+        },
+        {
+          "type": "build",
+          "name": "ci-sanitize-make"
+        },
+        {
+          "type": "test",
+          "name": "ci-sanitize-make"
+        },
+        {
+          "type": "package",
+          "name": "ci-sanitize-make"
+        }
+      ]
+    },
+    {
+      "name": "ci-benchmark-make",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-benchmark-make"
+        },
+        {
+          "type": "build",
+          "name": "ci-benchmark-make"
+        },
+        {
+          "type": "test",
+          "name": "ci-benchmark-make"
+        },
+        {
+          "type": "package",
+          "name": "ci-benchmark-make"
+        }
+      ]
+    },
+    {
+      "name": "dev-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-xcode"
+        },
+        {
+          "type": "build",
+          "name": "dev-xcode"
+        },
+        {
+          "type": "test",
+          "name": "dev-xcode"
+        },
+        {
+          "type": "package",
+          "name": "dev-xcode"
+        }
+      ]
+    },
+    {
+      "name": "dev-sanitize-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-sanitize-xcode"
+        },
+        {
+          "type": "build",
+          "name": "dev-sanitize-xcode"
+        },
+        {
+          "type": "test",
+          "name": "dev-sanitize-xcode"
+        },
+        {
+          "type": "package",
+          "name": "dev-sanitize-xcode"
+        }
+      ]
+    },
+    {
+      "name": "dev-benchmark-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-benchmark-xcode"
+        },
+        {
+          "type": "build",
+          "name": "dev-benchmark-xcode"
+        },
+        {
+          "type": "test",
+          "name": "dev-benchmark-xcode"
+        },
+        {
+          "type": "package",
+          "name": "dev-benchmark-xcode"
+        }
+      ]
+    },
+    {
+      "name": "ci-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-xcode"
+        },
+        {
+          "type": "build",
+          "name": "ci-xcode"
+        },
+        {
+          "type": "test",
+          "name": "ci-xcode"
+        },
+        {
+          "type": "package",
+          "name": "ci-xcode"
+        }
+      ]
+    },
+    {
+      "name": "ci-sanitize-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-sanitize-xcode"
+        },
+        {
+          "type": "build",
+          "name": "ci-sanitize-xcode"
+        },
+        {
+          "type": "test",
+          "name": "ci-sanitize-xcode"
+        },
+        {
+          "type": "package",
+          "name": "ci-sanitize-xcode"
+        }
+      ]
+    },
+    {
+      "name": "ci-benchmark-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-benchmark-xcode"
+        },
+        {
+          "type": "build",
+          "name": "ci-benchmark-xcode"
+        },
+        {
+          "type": "test",
+          "name": "ci-benchmark-xcode"
+        },
+        {
+          "type": "package",
+          "name": "ci-benchmark-xcode"
+        }
+      ]
+    },
+    {
+      "name": "dev-vs",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-vs"
+        },
+        {
+          "type": "build",
+          "name": "dev-vs"
+        },
+        {
+          "type": "test",
+          "name": "dev-vs"
+        },
+        {
+          "type": "package",
+          "name": "dev-vs"
+        }
+      ]
+    },
+    {
+      "name": "dev-sanitize-vs",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-sanitize-vs"
+        },
+        {
+          "type": "build",
+          "name": "dev-sanitize-vs"
+        },
+        {
+          "type": "test",
+          "name": "dev-sanitize-vs"
+        },
+        {
+          "type": "package",
+          "name": "dev-sanitize-vs"
+        }
+      ]
+    },
+    {
+      "name": "dev-benchmark-vs",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-benchmark-vs"
+        },
+        {
+          "type": "build",
+          "name": "dev-benchmark-vs"
+        },
+        {
+          "type": "test",
+          "name": "dev-benchmark-vs"
+        },
+        {
+          "type": "package",
+          "name": "dev-benchmark-vs"
+        }
+      ]
+    },
+    {
+      "name": "ci-vs",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-vs"
+        },
+        {
+          "type": "build",
+          "name": "ci-vs"
+        },
+        {
+          "type": "test",
+          "name": "ci-vs"
+        },
+        {
+          "type": "package",
+          "name": "ci-vs"
+        }
+      ]
+    },
+    {
+      "name": "ci-sanitize-vs",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-sanitize-vs"
+        },
+        {
+          "type": "build",
+          "name": "ci-sanitize-vs"
+        },
+        {
+          "type": "test",
+          "name": "ci-sanitize-vs"
+        },
+        {
+          "type": "package",
+          "name": "ci-sanitize-vs"
+        }
+      ]
+    },
+    {
+      "name": "ci-benchmark-vs",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-benchmark-vs"
+        },
+        {
+          "type": "build",
+          "name": "ci-benchmark-vs"
+        },
+        {
+          "type": "test",
+          "name": "ci-benchmark-vs"
+        },
+        {
+          "type": "package",
+          "name": "ci-benchmark-vs"
+        }
+      ]
     }
   ]
 }
