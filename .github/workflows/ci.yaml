@@ -32,6 +32,16 @@ jobs:
             compiler: msvc
 
     steps:
+      - name: Install prerequisites
+        run: |
+          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            sudo apt install -y ninja-build
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            brew install ninja
+          elif [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            choco install ninja
+          fi
+
       - uses: actions/checkout@v4
 
       - id: current_branch
