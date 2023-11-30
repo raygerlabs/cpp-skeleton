@@ -1,3 +1,6 @@
+set(CMAKE_C_COMPILER gcc)
+set(CMAKE_CXX_COMPILER g++)
+
 set(GCC_COMMON_FLAGS
   -pedantic               # Strict ISO C and ISO C++
   -Wall                   # Enable all warnings
