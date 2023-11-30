@@ -20,9 +20,24 @@ jobs:
         compiler: [ gcc, clang ]
         include:
           - os: ubuntu-latest
-            check: [asan, lsan, tsan, ubsan]
+            check: asan
+          - os: ubuntu-latest
+            check: lsan
+          - os: ubuntu-latest
+            check: tsan
+          - os: ubuntu-latest
+            check: ubsan
           - os: macos-latest
-            check: [asan, lsan, msan, tsan, ubsan]
+            check: asan
+          - os: macos-latest
+            check: lsan
+          - os: macos-latest
+            check: msan
+          - os: macos-latest
+            check: tsan
+          - os: macos-latest
+            check: ubsan
+
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
