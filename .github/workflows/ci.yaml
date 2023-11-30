@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
   CONAN_LOG_RUN_TO_FILE: true
@@ -30,34 +30,34 @@ jobs:
             compiler: msvc
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - id: current_branch
-      run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      - id: current_branch
+        run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
 
-    - uses: actions/cache@v3
-      with:
-        path: ~/.conan
-        key: conan-package-cache-${{ steps.current_branch.outputs.name }}
-        restore-keys: |
-          conan-package-cache-main
+      - uses: actions/cache@v3
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-main
 
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
-    - name: Setup environment
-      run: |
-        pip3 install --upgrade conan
-        conan --version
-        conan profile detect -f
-        conan profile list
-        conan profile show
+      - name: Setup environment
+        run: |
+          pip3 install --upgrade conan
+          conan --version
+          conan profile detect -f
+          conan profile list
+          conan profile show
 
-    - name: Download dependencies
-      run: |
-        conan install . -b missing
+      - name: Download dependencies
+        run: |
+          conan install . -b missing
 
-    -name: Build
-      run: |
-        cmake --workflow --fresh --preset ci-{{ matrix.compiler }}
+      - name: Build
+        run: |
+          cmake --workflow --fresh --preset ci-${{ matrix.compiler }}
