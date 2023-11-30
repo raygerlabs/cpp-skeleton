@@ -12,9 +12,30 @@
       ]
     },
     {
-      "name": "dev-sanitize-gcc",
+      "name": "dev-asan-gcc",
       "inherits": [
-        "_dev_sanitize",
+        "_dev_asan",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "dev-lsan-gcc",
+      "inherits": [
+        "_dev_lsan",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "dev-tsan-gcc",
+      "inherits": [
+        "_dev_tsan",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "dev-ubsan-gcc",
+      "inherits": [
+        "_dev_ubsan",
         "_gcc"
       ]
     },
@@ -33,9 +54,30 @@
       ]
     },
     {
-      "name": "ci-sanitize-gcc",
+      "name": "ci-asan-gcc",
       "inherits": [
-        "_ci_sanitize",
+        "_ci_asan",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "ci-lsan-gcc",
+      "inherits": [
+        "_ci_lsan",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "ci-tsan-gcc",
+      "inherits": [
+        "_ci_tsan",
+        "_gcc"
+      ]
+    },
+    {
+      "name": "ci-ubsan-gcc",
+      "inherits": [
+        "_ci_ubsan",
         "_gcc"
       ]
     },
@@ -54,9 +96,37 @@
       ]
     },
     {
-      "name": "dev-sanitize-clang",
+      "name": "dev-asan-clang",
       "inherits": [
-        "_dev_sanitize",
+        "_dev_asan",
+        "_clang"
+      ]
+    },
+    {
+      "name": "dev-lsan-clang",
+      "inherits": [
+        "_dev_lsan",
+        "_clang"
+      ]
+    },
+    {
+      "name": "dev-msan-clang",
+      "inherits": [
+        "_dev_msan",
+        "_clang"
+      ]
+    },
+    {
+      "name": "dev-tsan-clang",
+      "inherits": [
+        "_dev_tsan",
+        "_clang"
+      ]
+    },
+    {
+      "name": "dev-ubsan-clang",
+      "inherits": [
+        "_dev_ubsan",
         "_clang"
       ]
     },
@@ -75,9 +145,37 @@
       ]
     },
     {
-      "name": "ci-sanitize-clang",
+      "name": "ci-asan-clang",
       "inherits": [
-        "_ci_sanitize",
+        "_ci_asan",
+        "_clang"
+      ]
+    },
+    {
+      "name": "ci-lsan-clang",
+      "inherits": [
+        "_ci_lsan",
+        "_clang"
+      ]
+    },
+    {
+      "name": "ci-msan-clang",
+      "inherits": [
+        "_ci_msan",
+        "_clang"
+      ]
+    },
+    {
+      "name": "ci-tsan-clang",
+      "inherits": [
+        "_ci_tsan",
+        "_clang"
+      ]
+    },
+    {
+      "name": "ci-ubsan-clang",
+      "inherits": [
+        "_ci_ubsan",
         "_clang"
       ]
     },
@@ -96,13 +194,6 @@
       ]
     },
     {
-      "name": "dev-sanitize-msvc",
-      "inherits": [
-        "_dev_sanitize",
-        "_msvc"
-      ]
-    },
-    {
       "name": "dev-benchmark-msvc",
       "inherits": [
         "_dev_benchmark",
@@ -113,13 +204,6 @@
       "name": "ci-msvc",
       "inherits": [
         "_ci",
-        "_msvc"
-      ]
-    },
-    {
-      "name": "ci-sanitize-msvc",
-      "inherits": [
-        "_ci_sanitize",
         "_msvc"
       ]
     },
@@ -138,9 +222,30 @@
       ]
     },
     {
-      "name": "dev-sanitize-make",
+      "name": "dev-asan-make",
       "inherits": [
-        "_dev_sanitize",
+        "_dev_asan",
+        "_make"
+      ]
+    },
+    {
+      "name": "dev-lsan-make",
+      "inherits": [
+        "_dev_lsan",
+        "_make"
+      ]
+    },
+    {
+      "name": "dev-tsan-make",
+      "inherits": [
+        "_dev_tsan",
+        "_make"
+      ]
+    },
+    {
+      "name": "dev-ubsan-make",
+      "inherits": [
+        "_dev_ubsan",
         "_make"
       ]
     },
@@ -152,27 +257,6 @@
       ]
     },
     {
-      "name": "ci-make",
-      "inherits": [
-        "_ci",
-        "_make"
-      ]
-    },
-    {
-      "name": "ci-sanitize-make",
-      "inherits": [
-        "_ci_sanitize",
-        "_make"
-      ]
-    },
-    {
-      "name": "ci-benchmark-make",
-      "inherits": [
-        "_ci_benchmark",
-        "_make"
-      ]
-    },
-    {
       "name": "dev-xcode",
       "inherits": [
         "_dev",
@@ -180,9 +264,37 @@
       ]
     },
     {
-      "name": "dev-sanitize-xcode",
+      "name": "dev-asan-xcode",
       "inherits": [
-        "_dev_sanitize",
+        "_dev_asan",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "dev-lsan-xcode",
+      "inherits": [
+        "_dev_lsan",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "dev-msan-xcode",
+      "inherits": [
+        "_dev_msan",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "dev-tsan-xcode",
+      "inherits": [
+        "_dev_tsan",
+        "_xcode"
+      ]
+    },
+    {
+      "name": "dev-ubsan-xcode",
+      "inherits": [
+        "_dev_ubsan",
         "_xcode"
       ]
     },
@@ -194,27 +306,6 @@
       ]
     },
     {
-      "name": "ci-xcode",
-      "inherits": [
-        "_ci",
-        "_xcode"
-      ]
-    },
-    {
-      "name": "ci-sanitize-xcode",
-      "inherits": [
-        "_ci_sanitize",
-        "_xcode"
-      ]
-    },
-    {
-      "name": "ci-benchmark-xcode",
-      "inherits": [
-        "_ci_benchmark",
-        "_xcode"
-      ]
-    },
-    {
       "name": "dev-vs",
       "inherits": [
         "_dev",
@@ -222,37 +313,9 @@
       ]
     },
     {
-      "name": "dev-sanitize-vs",
-      "inherits": [
-        "_dev_sanitize",
-        "_vs"
-      ]
-    },
-    {
       "name": "dev-benchmark-vs",
       "inherits": [
         "_dev_benchmark",
-        "_vs"
-      ]
-    },
-    {
-      "name": "ci-vs",
-      "inherits": [
-        "_ci",
-        "_vs"
-      ]
-    },
-    {
-      "name": "ci-sanitize-vs",
-      "inherits": [
-        "_ci_sanitize",
-        "_vs"
-      ]
-    },
-    {
-      "name": "ci-benchmark-vs",
-      "inherits": [
-        "_ci_benchmark",
         "_vs"
       ]
     }
@@ -263,8 +326,20 @@
       "configurePreset": "dev-gcc"
     },
     {
-      "name": "dev-sanitize-gcc",
-      "configurePreset": "dev-sanitize-gcc"
+      "name": "dev-asan-gcc",
+      "configurePreset": "dev-asan-gcc"
+    },
+    {
+      "name": "dev-lsan-gcc",
+      "configurePreset": "dev-lsan-gcc"
+    },
+    {
+      "name": "dev-tsan-gcc",
+      "configurePreset": "dev-tsan-gcc"
+    },
+    {
+      "name": "dev-ubsan-gcc",
+      "configurePreset": "dev-ubsan-gcc"
     },
     {
       "name": "dev-benchmark-gcc",
@@ -275,8 +350,20 @@
       "configurePreset": "ci-gcc"
     },
     {
-      "name": "ci-sanitize-gcc",
-      "configurePreset": "ci-sanitize-gcc"
+      "name": "ci-asan-gcc",
+      "configurePreset": "ci-asan-gcc"
+    },
+    {
+      "name": "ci-lsan-gcc",
+      "configurePreset": "ci-lsan-gcc"
+    },
+    {
+      "name": "ci-tsan-gcc",
+      "configurePreset": "ci-tsan-gcc"
+    },
+    {
+      "name": "ci-ubsan-gcc",
+      "configurePreset": "ci-ubsan-gcc"
     },
     {
       "name": "ci-benchmark-gcc",
@@ -287,8 +374,24 @@
       "configurePreset": "dev-clang"
     },
     {
-      "name": "dev-sanitize-clang",
-      "configurePreset": "dev-sanitize-clang"
+      "name": "dev-asan-clang",
+      "configurePreset": "dev-asan-clang"
+    },
+    {
+      "name": "dev-lsan-clang",
+      "configurePreset": "dev-lsan-clang"
+    },
+    {
+      "name": "dev-msan-clang",
+      "configurePreset": "dev-msan-clang"
+    },
+    {
+      "name": "dev-tsan-clang",
+      "configurePreset": "dev-tsan-clang"
+    },
+    {
+      "name": "dev-ubsan-clang",
+      "configurePreset": "dev-ubsan-clang"
     },
     {
       "name": "dev-benchmark-clang",
@@ -299,8 +402,24 @@
       "configurePreset": "ci-clang"
     },
     {
-      "name": "ci-sanitize-clang",
-      "configurePreset": "ci-sanitize-clang"
+      "name": "ci-asan-clang",
+      "configurePreset": "ci-asan-clang"
+    },
+    {
+      "name": "ci-lsan-clang",
+      "configurePreset": "ci-lsan-clang"
+    },
+    {
+      "name": "ci-msan-clang",
+      "configurePreset": "ci-msan-clang"
+    },
+    {
+      "name": "ci-tsan-clang",
+      "configurePreset": "ci-tsan-clang"
+    },
+    {
+      "name": "ci-ubsan-clang",
+      "configurePreset": "ci-ubsan-clang"
     },
     {
       "name": "ci-benchmark-clang",
@@ -311,20 +430,12 @@
       "configurePreset": "dev-msvc"
     },
     {
-      "name": "dev-sanitize-msvc",
-      "configurePreset": "dev-sanitize-msvc"
-    },
-    {
       "name": "dev-benchmark-msvc",
       "configurePreset": "dev-benchmark-msvc"
     },
     {
       "name": "ci-msvc",
       "configurePreset": "ci-msvc"
-    },
-    {
-      "name": "ci-sanitize-msvc",
-      "configurePreset": "ci-sanitize-msvc"
     },
     {
       "name": "ci-benchmark-msvc",
@@ -335,72 +446,60 @@
       "configurePreset": "dev-make"
     },
     {
-      "name": "dev-sanitize-make",
-      "configurePreset": "dev-sanitize-make"
+      "name": "dev-asan-make",
+      "configurePreset": "dev-asan-make"
+    },
+    {
+      "name": "dev-lsan-make",
+      "configurePreset": "dev-lsan-make"
+    },
+    {
+      "name": "dev-tsan-make",
+      "configurePreset": "dev-tsan-make"
+    },
+    {
+      "name": "dev-ubsan-make",
+      "configurePreset": "dev-ubsan-make"
     },
     {
       "name": "dev-benchmark-make",
       "configurePreset": "dev-benchmark-make"
     },
     {
-      "name": "ci-make",
-      "configurePreset": "ci-make"
-    },
-    {
-      "name": "ci-sanitize-make",
-      "configurePreset": "ci-sanitize-make"
-    },
-    {
-      "name": "ci-benchmark-make",
-      "configurePreset": "ci-benchmark-make"
-    },
-    {
       "name": "dev-xcode",
       "configurePreset": "dev-xcode"
     },
     {
-      "name": "dev-sanitize-xcode",
-      "configurePreset": "dev-sanitize-xcode"
+      "name": "dev-asan-xcode",
+      "configurePreset": "dev-asan-xcode"
+    },
+    {
+      "name": "dev-lsan-xcode",
+      "configurePreset": "dev-lsan-xcode"
+    },
+    {
+      "name": "dev-msan-xcode",
+      "configurePreset": "dev-msan-xcode"
+    },
+    {
+      "name": "dev-tsan-xcode",
+      "configurePreset": "dev-tsan-xcode"
+    },
+    {
+      "name": "dev-ubsan-xcode",
+      "configurePreset": "dev-ubsan-xcode"
     },
     {
       "name": "dev-benchmark-xcode",
       "configurePreset": "dev-benchmark-xcode"
     },
     {
-      "name": "ci-xcode",
-      "configurePreset": "ci-xcode"
-    },
-    {
-      "name": "ci-sanitize-xcode",
-      "configurePreset": "ci-sanitize-xcode"
-    },
-    {
-      "name": "ci-benchmark-xcode",
-      "configurePreset": "ci-benchmark-xcode"
-    },
-    {
       "name": "dev-vs",
       "configurePreset": "dev-vs"
     },
     {
-      "name": "dev-sanitize-vs",
-      "configurePreset": "dev-sanitize-vs"
-    },
-    {
       "name": "dev-benchmark-vs",
       "configurePreset": "dev-benchmark-vs"
-    },
-    {
-      "name": "ci-vs",
-      "configurePreset": "ci-vs"
-    },
-    {
-      "name": "ci-sanitize-vs",
-      "configurePreset": "ci-sanitize-vs"
-    },
-    {
-      "name": "ci-benchmark-vs",
-      "configurePreset": "ci-benchmark-vs"
     }
   ],
   "testPresets": [
@@ -425,28 +524,8 @@
       "inherits": "_testDefaults"
     },
     {
-      "name": "dev-sanitize-gcc",
-      "configurePreset": "dev-sanitize-gcc",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-benchmark-gcc",
-      "configurePreset": "dev-benchmark-gcc",
-      "inherits": "_testDefaults"
-    },
-    {
       "name": "ci-gcc",
       "configurePreset": "ci-gcc",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-sanitize-gcc",
-      "configurePreset": "ci-sanitize-gcc",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-benchmark-gcc",
-      "configurePreset": "ci-benchmark-gcc",
       "inherits": "_testDefaults"
     },
     {
@@ -455,28 +534,8 @@
       "inherits": "_testDefaults"
     },
     {
-      "name": "dev-sanitize-clang",
-      "configurePreset": "dev-sanitize-clang",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-benchmark-clang",
-      "configurePreset": "dev-benchmark-clang",
-      "inherits": "_testDefaults"
-    },
-    {
       "name": "ci-clang",
       "configurePreset": "ci-clang",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-sanitize-clang",
-      "configurePreset": "ci-sanitize-clang",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-benchmark-clang",
-      "configurePreset": "ci-benchmark-clang",
       "inherits": "_testDefaults"
     },
     {
@@ -485,28 +544,8 @@
       "inherits": "_testDefaults"
     },
     {
-      "name": "dev-sanitize-msvc",
-      "configurePreset": "dev-sanitize-msvc",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-benchmark-msvc",
-      "configurePreset": "dev-benchmark-msvc",
-      "inherits": "_testDefaults"
-    },
-    {
       "name": "ci-msvc",
       "configurePreset": "ci-msvc",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-sanitize-msvc",
-      "configurePreset": "ci-sanitize-msvc",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-benchmark-msvc",
-      "configurePreset": "ci-benchmark-msvc",
       "inherits": "_testDefaults"
     },
     {
@@ -515,88 +554,13 @@
       "inherits": "_testDefaults"
     },
     {
-      "name": "dev-sanitize-make",
-      "configurePreset": "dev-sanitize-make",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-benchmark-make",
-      "configurePreset": "dev-benchmark-make",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-make",
-      "configurePreset": "ci-make",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-sanitize-make",
-      "configurePreset": "ci-sanitize-make",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-benchmark-make",
-      "configurePreset": "ci-benchmark-make",
-      "inherits": "_testDefaults"
-    },
-    {
       "name": "dev-xcode",
       "configurePreset": "dev-xcode",
       "inherits": "_testDefaults"
     },
     {
-      "name": "dev-sanitize-xcode",
-      "configurePreset": "dev-sanitize-xcode",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-benchmark-xcode",
-      "configurePreset": "dev-benchmark-xcode",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-xcode",
-      "configurePreset": "ci-xcode",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-sanitize-xcode",
-      "configurePreset": "ci-sanitize-xcode",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-benchmark-xcode",
-      "configurePreset": "ci-benchmark-xcode",
-      "inherits": "_testDefaults"
-    },
-    {
       "name": "dev-vs",
       "configurePreset": "dev-vs",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-sanitize-vs",
-      "configurePreset": "dev-sanitize-vs",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-benchmark-vs",
-      "configurePreset": "dev-benchmark-vs",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-vs",
-      "configurePreset": "ci-vs",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-sanitize-vs",
-      "configurePreset": "ci-sanitize-vs",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-benchmark-vs",
-      "configurePreset": "ci-benchmark-vs",
       "inherits": "_testDefaults"
     }
   ],
@@ -609,36 +573,8 @@
       ]
     },
     {
-      "name": "dev-sanitize-gcc",
-      "configurePreset": "dev-sanitize-gcc",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "dev-benchmark-gcc",
-      "configurePreset": "dev-benchmark-gcc",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
       "name": "ci-gcc",
       "configurePreset": "ci-gcc",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-sanitize-gcc",
-      "configurePreset": "ci-sanitize-gcc",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-benchmark-gcc",
-      "configurePreset": "ci-benchmark-gcc",
       "generators": [
         "TGZ"
       ]
@@ -651,36 +587,8 @@
       ]
     },
     {
-      "name": "dev-sanitize-clang",
-      "configurePreset": "dev-sanitize-clang",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "dev-benchmark-clang",
-      "configurePreset": "dev-benchmark-clang",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
       "name": "ci-clang",
       "configurePreset": "ci-clang",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-sanitize-clang",
-      "configurePreset": "ci-sanitize-clang",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-benchmark-clang",
-      "configurePreset": "ci-benchmark-clang",
       "generators": [
         "TGZ"
       ]
@@ -693,36 +601,8 @@
       ]
     },
     {
-      "name": "dev-sanitize-msvc",
-      "configurePreset": "dev-sanitize-msvc",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "dev-benchmark-msvc",
-      "configurePreset": "dev-benchmark-msvc",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
       "name": "ci-msvc",
       "configurePreset": "ci-msvc",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "ci-sanitize-msvc",
-      "configurePreset": "ci-sanitize-msvc",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "ci-benchmark-msvc",
-      "configurePreset": "ci-benchmark-msvc",
       "generators": [
         "ZIP"
       ]
@@ -735,41 +615,6 @@
       ]
     },
     {
-      "name": "dev-sanitize-make",
-      "configurePreset": "dev-sanitize-make",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "dev-benchmark-make",
-      "configurePreset": "dev-benchmark-make",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-make",
-      "configurePreset": "ci-make",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-sanitize-make",
-      "configurePreset": "ci-sanitize-make",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-benchmark-make",
-      "configurePreset": "ci-benchmark-make",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
       "name": "dev-xcode",
       "configurePreset": "dev-xcode",
       "generators": [
@@ -777,78 +622,8 @@
       ]
     },
     {
-      "name": "dev-sanitize-xcode",
-      "configurePreset": "dev-sanitize-xcode",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "dev-benchmark-xcode",
-      "configurePreset": "dev-benchmark-xcode",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-xcode",
-      "configurePreset": "ci-xcode",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-sanitize-xcode",
-      "configurePreset": "ci-sanitize-xcode",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-benchmark-xcode",
-      "configurePreset": "ci-benchmark-xcode",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
       "name": "dev-vs",
       "configurePreset": "dev-vs",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "dev-sanitize-vs",
-      "configurePreset": "dev-sanitize-vs",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "dev-benchmark-vs",
-      "configurePreset": "dev-benchmark-vs",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "ci-vs",
-      "configurePreset": "ci-vs",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "ci-sanitize-vs",
-      "configurePreset": "ci-sanitize-vs",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "ci-benchmark-vs",
-      "configurePreset": "ci-benchmark-vs",
       "generators": [
         "ZIP"
       ]
@@ -877,23 +652,54 @@
       ]
     },
     {
-      "name": "dev-sanitize-gcc",
+      "name": "dev-asan-gcc",
       "steps": [
         {
           "type": "configure",
-          "name": "dev-sanitize-gcc"
+          "name": "dev-asan-gcc"
         },
         {
           "type": "build",
-          "name": "dev-sanitize-gcc"
+          "name": "dev-asan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "dev-lsan-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-lsan-gcc"
         },
         {
-          "type": "test",
-          "name": "dev-sanitize-gcc"
+          "type": "build",
+          "name": "dev-lsan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "dev-tsan-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-tsan-gcc"
         },
         {
-          "type": "package",
-          "name": "dev-sanitize-gcc"
+          "type": "build",
+          "name": "dev-tsan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "dev-ubsan-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-ubsan-gcc"
+        },
+        {
+          "type": "build",
+          "name": "dev-ubsan-gcc"
         }
       ]
     },
@@ -906,14 +712,6 @@
         },
         {
           "type": "build",
-          "name": "dev-benchmark-gcc"
-        },
-        {
-          "type": "test",
-          "name": "dev-benchmark-gcc"
-        },
-        {
-          "type": "package",
           "name": "dev-benchmark-gcc"
         }
       ]
@@ -940,23 +738,54 @@
       ]
     },
     {
-      "name": "ci-sanitize-gcc",
+      "name": "ci-asan-gcc",
       "steps": [
         {
           "type": "configure",
-          "name": "ci-sanitize-gcc"
+          "name": "ci-asan-gcc"
         },
         {
           "type": "build",
-          "name": "ci-sanitize-gcc"
+          "name": "ci-asan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "ci-lsan-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-lsan-gcc"
         },
         {
-          "type": "test",
-          "name": "ci-sanitize-gcc"
+          "type": "build",
+          "name": "ci-lsan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "ci-tsan-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-tsan-gcc"
         },
         {
-          "type": "package",
-          "name": "ci-sanitize-gcc"
+          "type": "build",
+          "name": "ci-tsan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "ci-ubsan-gcc",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-ubsan-gcc"
+        },
+        {
+          "type": "build",
+          "name": "ci-ubsan-gcc"
         }
       ]
     },
@@ -969,14 +798,6 @@
         },
         {
           "type": "build",
-          "name": "ci-benchmark-gcc"
-        },
-        {
-          "type": "test",
-          "name": "ci-benchmark-gcc"
-        },
-        {
-          "type": "package",
           "name": "ci-benchmark-gcc"
         }
       ]
@@ -1003,23 +824,67 @@
       ]
     },
     {
-      "name": "dev-sanitize-clang",
+      "name": "dev-asan-clang",
       "steps": [
         {
           "type": "configure",
-          "name": "dev-sanitize-clang"
+          "name": "dev-asan-clang"
         },
         {
           "type": "build",
-          "name": "dev-sanitize-clang"
+          "name": "dev-asan-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-lsan-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-lsan-clang"
         },
         {
-          "type": "test",
-          "name": "dev-sanitize-clang"
+          "type": "build",
+          "name": "dev-lsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-msan-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-msan-clang"
         },
         {
-          "type": "package",
-          "name": "dev-sanitize-clang"
+          "type": "build",
+          "name": "dev-msan-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-tsan-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-tsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-tsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-ubsan-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-ubsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-ubsan-clang"
         }
       ]
     },
@@ -1032,14 +897,6 @@
         },
         {
           "type": "build",
-          "name": "dev-benchmark-clang"
-        },
-        {
-          "type": "test",
-          "name": "dev-benchmark-clang"
-        },
-        {
-          "type": "package",
           "name": "dev-benchmark-clang"
         }
       ]
@@ -1066,23 +923,67 @@
       ]
     },
     {
-      "name": "ci-sanitize-clang",
+      "name": "ci-asan-clang",
       "steps": [
         {
           "type": "configure",
-          "name": "ci-sanitize-clang"
+          "name": "ci-asan-clang"
         },
         {
           "type": "build",
-          "name": "ci-sanitize-clang"
+          "name": "ci-asan-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-lsan-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-lsan-clang"
         },
         {
-          "type": "test",
-          "name": "ci-sanitize-clang"
+          "type": "build",
+          "name": "ci-lsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-msan-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-msan-clang"
         },
         {
-          "type": "package",
-          "name": "ci-sanitize-clang"
+          "type": "build",
+          "name": "ci-msan-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-tsan-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-tsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-tsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-ubsan-clang",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-ubsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-ubsan-clang"
         }
       ]
     },
@@ -1095,14 +996,6 @@
         },
         {
           "type": "build",
-          "name": "ci-benchmark-clang"
-        },
-        {
-          "type": "test",
-          "name": "ci-benchmark-clang"
-        },
-        {
-          "type": "package",
           "name": "ci-benchmark-clang"
         }
       ]
@@ -1129,27 +1022,6 @@
       ]
     },
     {
-      "name": "dev-sanitize-msvc",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-sanitize-msvc"
-        },
-        {
-          "type": "build",
-          "name": "dev-sanitize-msvc"
-        },
-        {
-          "type": "test",
-          "name": "dev-sanitize-msvc"
-        },
-        {
-          "type": "package",
-          "name": "dev-sanitize-msvc"
-        }
-      ]
-    },
-    {
       "name": "dev-benchmark-msvc",
       "steps": [
         {
@@ -1158,14 +1030,6 @@
         },
         {
           "type": "build",
-          "name": "dev-benchmark-msvc"
-        },
-        {
-          "type": "test",
-          "name": "dev-benchmark-msvc"
-        },
-        {
-          "type": "package",
           "name": "dev-benchmark-msvc"
         }
       ]
@@ -1192,27 +1056,6 @@
       ]
     },
     {
-      "name": "ci-sanitize-msvc",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-sanitize-msvc"
-        },
-        {
-          "type": "build",
-          "name": "ci-sanitize-msvc"
-        },
-        {
-          "type": "test",
-          "name": "ci-sanitize-msvc"
-        },
-        {
-          "type": "package",
-          "name": "ci-sanitize-msvc"
-        }
-      ]
-    },
-    {
       "name": "ci-benchmark-msvc",
       "steps": [
         {
@@ -1221,14 +1064,6 @@
         },
         {
           "type": "build",
-          "name": "ci-benchmark-msvc"
-        },
-        {
-          "type": "test",
-          "name": "ci-benchmark-msvc"
-        },
-        {
-          "type": "package",
           "name": "ci-benchmark-msvc"
         }
       ]
@@ -1255,23 +1090,54 @@
       ]
     },
     {
-      "name": "dev-sanitize-make",
+      "name": "dev-asan-make",
       "steps": [
         {
           "type": "configure",
-          "name": "dev-sanitize-make"
+          "name": "dev-asan-make"
         },
         {
           "type": "build",
-          "name": "dev-sanitize-make"
+          "name": "dev-asan-make"
+        }
+      ]
+    },
+    {
+      "name": "dev-lsan-make",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-lsan-make"
         },
         {
-          "type": "test",
-          "name": "dev-sanitize-make"
+          "type": "build",
+          "name": "dev-lsan-make"
+        }
+      ]
+    },
+    {
+      "name": "dev-tsan-make",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-tsan-make"
         },
         {
-          "type": "package",
-          "name": "dev-sanitize-make"
+          "type": "build",
+          "name": "dev-tsan-make"
+        }
+      ]
+    },
+    {
+      "name": "dev-ubsan-make",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-ubsan-make"
+        },
+        {
+          "type": "build",
+          "name": "dev-ubsan-make"
         }
       ]
     },
@@ -1285,77 +1151,6 @@
         {
           "type": "build",
           "name": "dev-benchmark-make"
-        },
-        {
-          "type": "test",
-          "name": "dev-benchmark-make"
-        },
-        {
-          "type": "package",
-          "name": "dev-benchmark-make"
-        }
-      ]
-    },
-    {
-      "name": "ci-make",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-make"
-        },
-        {
-          "type": "build",
-          "name": "ci-make"
-        },
-        {
-          "type": "test",
-          "name": "ci-make"
-        },
-        {
-          "type": "package",
-          "name": "ci-make"
-        }
-      ]
-    },
-    {
-      "name": "ci-sanitize-make",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-sanitize-make"
-        },
-        {
-          "type": "build",
-          "name": "ci-sanitize-make"
-        },
-        {
-          "type": "test",
-          "name": "ci-sanitize-make"
-        },
-        {
-          "type": "package",
-          "name": "ci-sanitize-make"
-        }
-      ]
-    },
-    {
-      "name": "ci-benchmark-make",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-benchmark-make"
-        },
-        {
-          "type": "build",
-          "name": "ci-benchmark-make"
-        },
-        {
-          "type": "test",
-          "name": "ci-benchmark-make"
-        },
-        {
-          "type": "package",
-          "name": "ci-benchmark-make"
         }
       ]
     },
@@ -1381,23 +1176,67 @@
       ]
     },
     {
-      "name": "dev-sanitize-xcode",
+      "name": "dev-asan-xcode",
       "steps": [
         {
           "type": "configure",
-          "name": "dev-sanitize-xcode"
+          "name": "dev-asan-xcode"
         },
         {
           "type": "build",
-          "name": "dev-sanitize-xcode"
+          "name": "dev-asan-xcode"
+        }
+      ]
+    },
+    {
+      "name": "dev-lsan-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-lsan-xcode"
         },
         {
-          "type": "test",
-          "name": "dev-sanitize-xcode"
+          "type": "build",
+          "name": "dev-lsan-xcode"
+        }
+      ]
+    },
+    {
+      "name": "dev-msan-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-msan-xcode"
         },
         {
-          "type": "package",
-          "name": "dev-sanitize-xcode"
+          "type": "build",
+          "name": "dev-msan-xcode"
+        }
+      ]
+    },
+    {
+      "name": "dev-tsan-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-tsan-xcode"
+        },
+        {
+          "type": "build",
+          "name": "dev-tsan-xcode"
+        }
+      ]
+    },
+    {
+      "name": "dev-ubsan-xcode",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-ubsan-xcode"
+        },
+        {
+          "type": "build",
+          "name": "dev-ubsan-xcode"
         }
       ]
     },
@@ -1411,77 +1250,6 @@
         {
           "type": "build",
           "name": "dev-benchmark-xcode"
-        },
-        {
-          "type": "test",
-          "name": "dev-benchmark-xcode"
-        },
-        {
-          "type": "package",
-          "name": "dev-benchmark-xcode"
-        }
-      ]
-    },
-    {
-      "name": "ci-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-xcode"
-        },
-        {
-          "type": "build",
-          "name": "ci-xcode"
-        },
-        {
-          "type": "test",
-          "name": "ci-xcode"
-        },
-        {
-          "type": "package",
-          "name": "ci-xcode"
-        }
-      ]
-    },
-    {
-      "name": "ci-sanitize-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-sanitize-xcode"
-        },
-        {
-          "type": "build",
-          "name": "ci-sanitize-xcode"
-        },
-        {
-          "type": "test",
-          "name": "ci-sanitize-xcode"
-        },
-        {
-          "type": "package",
-          "name": "ci-sanitize-xcode"
-        }
-      ]
-    },
-    {
-      "name": "ci-benchmark-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-benchmark-xcode"
-        },
-        {
-          "type": "build",
-          "name": "ci-benchmark-xcode"
-        },
-        {
-          "type": "test",
-          "name": "ci-benchmark-xcode"
-        },
-        {
-          "type": "package",
-          "name": "ci-benchmark-xcode"
         }
       ]
     },
@@ -1507,27 +1275,6 @@
       ]
     },
     {
-      "name": "dev-sanitize-vs",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-sanitize-vs"
-        },
-        {
-          "type": "build",
-          "name": "dev-sanitize-vs"
-        },
-        {
-          "type": "test",
-          "name": "dev-sanitize-vs"
-        },
-        {
-          "type": "package",
-          "name": "dev-sanitize-vs"
-        }
-      ]
-    },
-    {
       "name": "dev-benchmark-vs",
       "steps": [
         {
@@ -1537,77 +1284,6 @@
         {
           "type": "build",
           "name": "dev-benchmark-vs"
-        },
-        {
-          "type": "test",
-          "name": "dev-benchmark-vs"
-        },
-        {
-          "type": "package",
-          "name": "dev-benchmark-vs"
-        }
-      ]
-    },
-    {
-      "name": "ci-vs",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-vs"
-        },
-        {
-          "type": "build",
-          "name": "ci-vs"
-        },
-        {
-          "type": "test",
-          "name": "ci-vs"
-        },
-        {
-          "type": "package",
-          "name": "ci-vs"
-        }
-      ]
-    },
-    {
-      "name": "ci-sanitize-vs",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-sanitize-vs"
-        },
-        {
-          "type": "build",
-          "name": "ci-sanitize-vs"
-        },
-        {
-          "type": "test",
-          "name": "ci-sanitize-vs"
-        },
-        {
-          "type": "package",
-          "name": "ci-sanitize-vs"
-        }
-      ]
-    },
-    {
-      "name": "ci-benchmark-vs",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-benchmark-vs"
-        },
-        {
-          "type": "build",
-          "name": "ci-benchmark-vs"
-        },
-        {
-          "type": "test",
-          "name": "ci-benchmark-vs"
-        },
-        {
-          "type": "package",
-          "name": "ci-benchmark-vs"
         }
       ]
     }

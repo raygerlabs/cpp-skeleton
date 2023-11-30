@@ -25,20 +25,6 @@
       "hidden": true
     },
     {
-      "name": "_commons_sanitize",
-      "displayName": "Common Features (With Sanity Checks)",
-      "description": "Preset for standalone: Common Features (With Sanity Checks)",
-      "inherits": [
-        "_commons",
-        "_asan",
-        "_msan",
-        "_lsan",
-        "_tsan",
-        "_ubsan"
-      ],
-      "hidden": true
-    },
-    {
       "name": "_dev",
       "displayName": "Developer Mode",
       "description": "Preset for standalone: Developer Mode",
@@ -49,11 +35,56 @@
       "hidden": true
     },
     {
-      "name": "_dev_sanitize",
-      "displayName": "Developer Mode (With Sanity Checks)",
-      "description": "Preset for standalone: Developer Mode (With Sanity Checks)",
+      "name": "_dev_asan",
+      "displayName": "Developer Mode (With ASAN Checks)",
+      "description": "Preset for standalone: Developer Mode (With ASAN Checks)",
       "inherits": [
-        "_commons_sanitize",
+        "_asan",
+        "_ninja",
+        "_debug"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_dev_lsan",
+      "displayName": "Developer Mode (With LSAN Checks)",
+      "description": "Preset for standalone: Developer Mode (With LSAN Checks)",
+      "inherits": [
+        "_lsan",
+        "_ninja",
+        "_debug"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_dev_msan",
+      "displayName": "Developer Mode (With MSAN Checks)",
+      "description": "Preset for standalone: Developer Mode (With MSAN Checks)",
+      "inherits": [
+        "_msan",
+        "_ninja",
+        "_debug"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_dev_tsan",
+      "displayName": "Developer Mode (With TSAN Checks)",
+      "description": "Preset for standalone: Developer Mode (With TSAN Checks)",
+      "inherits": [
+        "_tsan",
+        "_ninja",
+        "_debug"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_dev_ubsan",
+      "displayName": "Developer Mode (With UBSAN Checks)",
+      "description": "Preset for standalone: Developer Mode (With UBSAN Checks)",
+      "inherits": [
+        "_ubsan",
+        "_ninja",
         "_debug"
       ],
       "hidden": true
@@ -63,7 +94,6 @@
       "displayName": "Developer Mode (With Benchmarks)",
       "description": "Preset for standalone: Developer Mode (With Benchmarks)",
       "inherits": [
-        "_commons",
         "_benchmarks",
         "_profile"
       ],
@@ -80,11 +110,55 @@
       "hidden": true
     },
     {
-      "name": "_ci_sanitize",
-      "displayName": "Continuous Integration Mode (With Sanity Checks)",
-      "description": "Preset for standalone: Continuous Integration Mode (With Sanity Checks)",
+      "name": "_ci_asan",
+      "displayName": "Continuous Integration Mode (With ASAN Checks)",
+      "description": "Preset for standalone: Continuous Integration Mode (With ASAN Checks)",
       "inherits": [
-        "_commons_sanitize",
+        "_asan",
+        "_ninja",
+        "_release"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_ci_lsan",
+      "displayName": "Continuous Integration Mode (With LSAN Checks)",
+      "description": "Preset for standalone: Continuous Integration Mode (With LSAN Checks)",
+      "inherits": [
+        "_lsan",
+        "_ninja",
+        "_release"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_ci_msan",
+      "displayName": "Continuous Integration Mode (With MSAN Checks)",
+      "description": "Preset for standalone: Continuous Integration Mode (With MSAN Checks)",
+      "inherits": [
+        "_msan",
+        "_ninja",
+        "_release"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_ci_tsan",
+      "displayName": "Continuous Integration Mode (With TSAN Checks)",
+      "description": "Preset for standalone: Continuous Integration Mode (With TSAN Checks)",
+      "inherits": [
+        "_tsan",
+        "_release"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "_ci_ubsan",
+      "displayName": "Continuous Integration Mode (With UBSAN Checks)",
+      "description": "Preset for standalone: Continuous Integration Mode (With UBSAN Checks)",
+      "inherits": [
+        "_ubsan",
+        "_ninja",
         "_release"
       ],
       "hidden": true
