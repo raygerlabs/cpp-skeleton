@@ -57,7 +57,6 @@
       "name": "dev-sanitize-clang",
       "inherits": [
         "_dev_sanitize",
-        "_msan",
         "_clang"
       ]
     },
@@ -79,7 +78,6 @@
       "name": "ci-sanitize-clang",
       "inherits": [
         "_ci_sanitize",
-        "_msan",
         "_clang"
       ]
     },
