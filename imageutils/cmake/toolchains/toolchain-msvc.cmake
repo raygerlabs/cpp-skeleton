@@ -1,11 +1,7 @@
-message("Loaded toolchain-msvc.cmake")
-
-set(CMAKE_CXX_FLAGS
+set(MSVC_COMMON_FLAGS
   /permissive-            # Disable non-standard behavior
   /W4                     # Set warning level 4
   /WX                     # Treat warnings as errors
-  /EHs-c-                 # No C++ structured exception handling
-  /GR-                    # Disable C++ RTTI (Run-Time Type Information)
   /MP12                   # Use multiple processors for compilation
   /GF                     # Eliminate duplicate strings
   /Gy                     # Enable function-level linking
@@ -31,71 +27,61 @@ set(CMAKE_CXX_FLAGS
   /w14928                 # Illegal copy initialization warning
   /wd4530                 # Disable warning for exception handling in function signatures
 )
+string(REPLACE ";" " " MSVC_COMMON_FLAGS "${MSVC_COMMON_FLAGS}")
 
-set(CMAKE_CXX_FLAGS_DEBUG
-  /D_DEBUG                # Define build type as a macro
-  /DDEBUG                 # Enable assertions
-  /RTC1                   # Enable runtime error checks
-  /GS                     # Enable security checks
-  /sdl                    # Enable additional security checks
-  /Od                     # Disable optimization
-  /Zi                     # Generate debug information
-  /Zo                     # Enhance debug information
-)
+# Override C++ flags
+# Disable exceptions (/EHs-c-)
+# Disable RTTI (/GR-)
+set(CMAKE_CXX_FLAGS "${MSVC_COMMON_FLAGS} /EHs-c- /GR-")
+set(CMAKE_C_FLAGS "${MSVC_COMMON_FLAGS}")
 
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO
-  /D_RELWITHDEBINFO       # Define build type as a macro
-  /D_PROFILE              # Define build type as a macro
-  /DNDEBUG                # Disable assertions
-  /Ox                     # Enable full optimization
-  /Oy-                    # Keep frame pointers as omitted frame pointers may interfere debugging
-  /Zi                     # Generate debug information
-  /Zo                     # Enhance debug information
-)
+# Define build type macro (/D_DEBUG, /D_RELWITHDEBINFO, /D_RELEASE)
+# Enable runtime error checks (/RTC1)
+# Enable buffer security checks (/GS)
+# Enable additional security checks (/sdl)
+# Enable debug information (/Zi)
+# Disable optimizations (/Od)
+set(CMAKE_CXX_FLAGS_DEBUG "/D_DEBUG /DDEBUG /RTC1 /GS /sdl /Zi /Od")
+set(CMAKE_C_FLAGS_DEBUG "/D_DEBUG /DDEBUG /RTC1 /GS /sdl /Zi /Od")
+# Disable debug assertions (/DNDEBUG)
+# Keep frame pointers (/Oy-)
+# Generate debug information (/Zi)
+# Enable full optimization (/Ox)
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/D_RELWITHDEBINFO /DNDEBUG /Oy- /Zi /Ox")
+set(CMAKE_C_FLAGS_RELWITHDEBINFO "/D_RELWITHDEBINFO /DNDEBUG /Oy- /Zi /Ox")
+set(CMAKE_CXX_FLAGS_RELEASE "/D_RELEASE /DNDEBUG /Ox")
+set(CMAKE_C_FLAGS_RELEASE "/D_RELEASE /DNDEBUG /Ox")
 
-set(CMAKE_CXX_FLAGS_RELEASE
-  /D_RELEASE              # Define build type as a macro
-  /DNDEBUG                # Disable assertions
-  /Ox                     # Enable full optimization
-)
+### Linker flags
 
-set(BUILD_TYPES "" "DEBUG" "RELWITHDEBINFO" "RELEASE" "MINSIZEREL")
-set(LINK_TYPES "EXE" "SHARED" "MODULE" "STATIC")
+# Generate PDB (/debug)
+set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "/debug")
+set(CMAKE_MODULE_LINKER_FLAGS_DEBUG "/debug")
+set(CMAKE_EXE_LINKER_FLAGS_DEBUG "/debug")
 
-# Set link flags
-foreach(BUILD_TYPE IN ITEMS ${BUILD_TYPES})
-  foreach (LINK_TYPE IN ITEMS ${LINK_TYPES})
-    if (NOT "${BUILD_TYPE}" STREQUAL "DEBUG") # Optimize 
-      set(CMAKE_${LINK_TYPE}_LINKER_FLAGS_${BUILD_TYPE}
-        /incremental:no   # Disable incremental linking
-        /opt:ref          # Remove unreferenced data or functions
-        /opt:icf=2        # Remove duplicated COMBAT foldings
-        /debug            # Generate debug symbol table
-      )
-    else () # unless if it's debug...
-      set(CMAKE_${LINK_TYPE}_LINKER_FLAGS_${BUILD_TYPE}
-        /debug            # Generate debug symbol table
-      )
-    endif()
+# Disable incremental linking (/incremental:no)
+# Remove unreferenced data or function (/opt:ref)
+# Remove duplicated COMDAT (/opt:icf=2)
+set(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO "/incremental:no /debug /opt:ref /opt:icf=2")
+set(CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO "/incremental:no /debug /opt:ref /opt:icf=2")
+set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "/incremental:no /debug /opt:ref /opt:icf=2")
+set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "/opt:ref /opt:icf=2")
+set(CMAKE_MODULE_LINKER_FLAGS_RELEASE "/opt:ref /opt:icf=2")
+set(CMAKE_EXE_LINKER_FLAGS_RELEASE "/opt:ref /opt:icf=2")
+
+### Print
+
+message("Loaded toolchain-msvc.cmake")
+set(_LANGUAGES C CXX)
+set(_BUILD_TYPES "" _DEBUG _RELEASE _MINSIZEREL _RELWITHDEBINFO)
+set(_LINK_TYPES EXE STATIC SHARED MODULE)
+foreach(_LANGUAGE ${_LANGUAGES})
+  foreach(_BUILD_TYPE ${_BUILD_TYPES})
+    message(STATUS "CMAKE_${_LANGUAGE}_FLAGS${_BUILD_TYPE}: ${CMAKE_${_LANGUAGE}_FLAGS${_BUILD_TYPE}}")
   endforeach()
 endforeach()
-
-# Convert lists to space-separated strings (required for passing to compilers and linkers)
-foreach(BUILD_TYPE IN ITEMS ${BUILD_TYPES})
-  if (NOT "${BUILD_TYPE}" STREQUAL "") # If build type is non-empty, update and print flags
-    string(REPLACE ";" " " CMAKE_CXX_FLAGS_${BUILD_TYPE} "${CMAKE_CXX_FLAGS_${BUILD_TYPE}}")
-    message("CMAKE_CXX_FLAGS_${BUILD_TYPE} = ${CMAKE_CXX_FLAGS_${BUILD_TYPE}}")
-  else() # otherwise, don't add underscore
-    string(REPLACE ";" " " CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    message("CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
-  endif()
-  foreach (LINK_TYPE IN ITEMS ${LINK_TYPES})
-    if (NOT "${BUILD_TYPE}" STREQUAL "")
-      string(REPLACE ";" " " CMAKE_${LINK_TYPE}_LINKER_FLAGS_${BUILD_TYPE} "${CMAKE_${LINK_TYPE}_LINKER_FLAGS_${BUILD_TYPE}}")
-      message("CMAKE_${LINK_TYPE}_LINKER_FLAGS_${BUILD_TYPE} = ${CMAKE_${LINK_TYPE}_LINKER_FLAGS_${BUILD_TYPE}}")
-    else()
-      string(REPLACE ";" " " CMAKE_${LINK_TYPE}_LINKER_FLAGS "${CMAKE_${LINK_TYPE}_LINKER_FLAGS}")
-      message("CMAKE_${LINK_TYPE}_LINKER_FLAGS = ${CMAKE_${LINK_TYPE}_LINKER_FLAGS}")
-    endif()
+foreach(_LINK_TYPE ${_LINK_TYPES})
+  foreach(_BUILD_TYPE ${_BUILD_TYPES})
+    message(STATUS "CMAKE_${_LINK_TYPE}_LINKER_FLAGS${_BUILD_TYPE}: ${CMAKE_${_LINK_TYPE}_LINKER_FLAGS${_BUILD_TYPE}}")
   endforeach()
 endforeach()
