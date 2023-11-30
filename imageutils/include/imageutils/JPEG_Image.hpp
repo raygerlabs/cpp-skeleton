@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint>
+
 #include <string>
 #include <vector>
 
