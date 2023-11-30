@@ -32,7 +32,6 @@
         "_commons",
         "_asan",
         "_lsan",
-        "_msan",
         "_tsan",
         "_ubsan"
       ],
