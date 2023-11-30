@@ -50,13 +50,13 @@ jobs:
         run: |
           pip3 install --upgrade conan
           conan --version
-          conan profile detect -f
+          conan profile detect
           conan profile list
           conan profile show
 
       - name: Download dependencies
         run: |
-          conan install . -b missing
+          conan install imageutils -b missing
 
       - name: Build
         run: |
