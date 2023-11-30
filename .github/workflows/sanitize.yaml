@@ -13,21 +13,20 @@ env:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
-    env:
-      working-directory: ./imageutils
-
     strategy:
       fail-fast: true
       matrix:
         os: [ ubuntu-latest, macos-latest ]
         compiler: [ gcc, clang ]
-         include:
-           - os: ubuntu-latest
-             check: [asan, lsan, tsan, ubsan]
-           - os: macos-latest
-             check: [asan, lsan, msan, tsan, ubsan]
+        include:
+          - os: ubuntu-latest
+            check: [asan, lsan, tsan, ubsan]
+          - os: macos-latest
+            check: [asan, lsan, msan, tsan, ubsan]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      working-directory: ./imageutils
 
     steps:
       - name: Install Dependencies (Linux)
