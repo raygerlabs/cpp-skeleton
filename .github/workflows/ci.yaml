@@ -54,10 +54,12 @@ jobs:
         conan profile list
         conan profile show
 
-    - name: Deploy artifact
+    - name: Download dependencies
       run: |
-        conan create imageutils/ -b missing
+        conan install . -s build_type=Debug -b missing
+        conan install . -s build_type=RelWithDebInfo -b missing
+        conan install . -s build_type=Release -b missing
 
-    - name: Run integration tests
+    -name: Build
       run: |
-        conan test imageutils/tests/integration imageutils/1.0
+        cmake --workflow --fresh --preset ci-{{ compiler }}
