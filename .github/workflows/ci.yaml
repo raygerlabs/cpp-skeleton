@@ -56,10 +56,8 @@ jobs:
 
     - name: Download dependencies
       run: |
-        conan install . -s build_type=Debug -b missing
-        conan install . -s build_type=RelWithDebInfo -b missing
-        conan install . -s build_type=Release -b missing
+        conan install . -b missing
 
     -name: Build
       run: |
-        cmake --workflow --fresh --preset ci-{{ compiler }}
+        cmake --workflow --fresh --preset ci-{{ matrix.compiler }}
