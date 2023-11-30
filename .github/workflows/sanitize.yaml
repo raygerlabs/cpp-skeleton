@@ -1,4 +1,4 @@
-name: CI
+name: sanitize
 
 on:
   push:
@@ -32,15 +32,17 @@ jobs:
             compiler: msvc
 
     steps:
-      - name: Install prerequisites
-        run: |
-          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
-            sudo apt install -y ninja-build
-          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-            brew install ninja
-          elif [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            choco install ninja
-          fi
+      - name: Install Dependencies (Linux)
+        run: sudo apt-get install ninja-build
+        if: matrix.os == 'ubuntu-latest'
+
+      - name: Install Dependencies (Windows)
+        run: choco install ninja
+        if: matrix.os == 'windows-latest'
+
+      - name: Install Dependencies (macOS)
+        run: brew install ninja
+        if: matrix.os == 'macos-latest'
 
       - uses: actions/checkout@v4
 
@@ -71,5 +73,5 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
       - name: Build
-        run: cmake --workflow --fresh --preset ci-${{ matrix.compiler }}
+        run: cmake --workflow --fresh --preset ci-sanitize-${{ matrix.compiler }}
         working-directory: ${{ env.working-directory }}
