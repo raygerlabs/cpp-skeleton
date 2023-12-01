@@ -1,12 +1,17 @@
 from conan import ConanFile
-from conan.tools.build import cross_building
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import collect_libs, rmdir, copy
+from conan.tools.files import rmdir, copy
 
 class MainRecipe(ConanFile):
   name = "imageutils"
   version = "1.0"
   settings = "os", "arch", "compiler", "build_type"
+  options = { "shared": [True, False], "fPIC": [True, False] }
+  default_options = { "shared": False, "fPIC": True }
+
+  @property
+  def _with_unit_tests(self):
+    return not self.conf.get("tools.build:skip_test", default=True, check_type=bool)
 
   def export_sources(self) -> None:
     src_files = [
@@ -18,7 +23,7 @@ class MainRecipe(ConanFile):
       "tests/*"
     ]
     for pattern in src_files:
-      self.copy(pattern, src=self.recipe_folder, dst=self.export_sources_folder)
+      copy(self, pattern, src=self.recipe_folder, dst=self.export_sources_folder)
 
   def requirements(self) -> None:
     self.requires("libjpeg-turbo/3.0.1", transitive_headers=True, transitive_libs=True)
@@ -39,8 +44,6 @@ class MainRecipe(ConanFile):
   def build(self) -> None:
     cmake = self._configure_cmake()
     cmake.build()
-    if self.should_test:
-      cmake.test()
 
   def package(self) -> None:
     cmake = self._configure_cmake()
@@ -60,7 +63,7 @@ class MainRecipe(ConanFile):
   def _generate_toolchain(self) -> None:
     tc = CMakeToolchain(self)
     tc.user_presets_path = None
-    tc.generate()    
+    tc.generate()
 
   def _generate_cmakedeps(self) -> None:
     deps = CMakeDeps(self)
@@ -68,15 +71,9 @@ class MainRecipe(ConanFile):
 
   def _configure_cmake(self) -> CMake:
     cmake = CMake(self)
+    #yes_no = lambda v: "yes" if v else "no"
     cmake.configure(variables={
       "BUILD_SHARED_LIBS": self.options.shared,
-      "BUILD_STATIC_LIBS": not self.options.shared,
-      "ENABLE_TESTS": self.should_test,
-      "ENABLE_BENCHMARKS": False,
-      "ENABLE_EXAMPLES": False,
-      "ENABLE_SANITIZERS": False,
-      "ENABLE_COVERAGE": self.should_test,
-      "ENABLE_DOCS": True,
-      "ENABLE_PACKAGE": False
+      "BUILD_STATIC_LIBS": not self.options.shared
     })
     return cmake

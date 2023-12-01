@@ -1,4 +1,4 @@
-message(STATUS "*** loading toolchain-gcc.cmake")
+message(STATUS "*** loading toolchain-clang.cmake")
 
 include("${CMAKE_CURRENT_LIST_DIR}/overrides-gcc.cmake")
 
@@ -31,4 +31,4 @@ foreach(_LINK_TYPE ${_LINK_TYPES})
   endforeach()
 endforeach()
 
-message(STATUS "*** loaded toolchain-gcc.cmake")
+message(STATUS "*** loaded toolchain-clang.cmake")

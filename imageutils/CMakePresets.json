@@ -19,13 +19,6 @@
       ]
     },
     {
-      "name": "dev-lsan-gcc",
-      "inherits": [
-        "_dev_lsan",
-        "_gcc"
-      ]
-    },
-    {
       "name": "dev-tsan-gcc",
       "inherits": [
         "_dev_tsan",
@@ -57,13 +50,6 @@
       "name": "ci-asan-gcc",
       "inherits": [
         "_ci_asan",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "ci-lsan-gcc",
-      "inherits": [
-        "_ci_lsan",
         "_gcc"
       ]
     },
@@ -103,20 +89,6 @@
       ]
     },
     {
-      "name": "dev-lsan-clang",
-      "inherits": [
-        "_dev_lsan",
-        "_clang"
-      ]
-    },
-    {
-      "name": "dev-msan-clang",
-      "inherits": [
-        "_dev_msan",
-        "_clang"
-      ]
-    },
-    {
       "name": "dev-tsan-clang",
       "inherits": [
         "_dev_tsan",
@@ -148,20 +120,6 @@
       "name": "ci-asan-clang",
       "inherits": [
         "_ci_asan",
-        "_clang"
-      ]
-    },
-    {
-      "name": "ci-lsan-clang",
-      "inherits": [
-        "_ci_lsan",
-        "_clang"
-      ]
-    },
-    {
-      "name": "ci-msan-clang",
-      "inherits": [
-        "_ci_msan",
         "_clang"
       ]
     },
@@ -229,13 +187,6 @@
       ]
     },
     {
-      "name": "dev-lsan-make",
-      "inherits": [
-        "_dev_lsan",
-        "_make"
-      ]
-    },
-    {
       "name": "dev-tsan-make",
       "inherits": [
         "_dev_tsan",
@@ -267,20 +218,6 @@
       "name": "dev-asan-xcode",
       "inherits": [
         "_dev_asan",
-        "_xcode"
-      ]
-    },
-    {
-      "name": "dev-lsan-xcode",
-      "inherits": [
-        "_dev_lsan",
-        "_xcode"
-      ]
-    },
-    {
-      "name": "dev-msan-xcode",
-      "inherits": [
-        "_dev_msan",
         "_xcode"
       ]
     },
@@ -330,10 +267,6 @@
       "configurePreset": "dev-asan-gcc"
     },
     {
-      "name": "dev-lsan-gcc",
-      "configurePreset": "dev-lsan-gcc"
-    },
-    {
       "name": "dev-tsan-gcc",
       "configurePreset": "dev-tsan-gcc"
     },
@@ -352,10 +285,6 @@
     {
       "name": "ci-asan-gcc",
       "configurePreset": "ci-asan-gcc"
-    },
-    {
-      "name": "ci-lsan-gcc",
-      "configurePreset": "ci-lsan-gcc"
     },
     {
       "name": "ci-tsan-gcc",
@@ -378,14 +307,6 @@
       "configurePreset": "dev-asan-clang"
     },
     {
-      "name": "dev-lsan-clang",
-      "configurePreset": "dev-lsan-clang"
-    },
-    {
-      "name": "dev-msan-clang",
-      "configurePreset": "dev-msan-clang"
-    },
-    {
       "name": "dev-tsan-clang",
       "configurePreset": "dev-tsan-clang"
     },
@@ -404,14 +325,6 @@
     {
       "name": "ci-asan-clang",
       "configurePreset": "ci-asan-clang"
-    },
-    {
-      "name": "ci-lsan-clang",
-      "configurePreset": "ci-lsan-clang"
-    },
-    {
-      "name": "ci-msan-clang",
-      "configurePreset": "ci-msan-clang"
     },
     {
       "name": "ci-tsan-clang",
@@ -450,10 +363,6 @@
       "configurePreset": "dev-asan-make"
     },
     {
-      "name": "dev-lsan-make",
-      "configurePreset": "dev-lsan-make"
-    },
-    {
       "name": "dev-tsan-make",
       "configurePreset": "dev-tsan-make"
     },
@@ -472,14 +381,6 @@
     {
       "name": "dev-asan-xcode",
       "configurePreset": "dev-asan-xcode"
-    },
-    {
-      "name": "dev-lsan-xcode",
-      "configurePreset": "dev-lsan-xcode"
-    },
-    {
-      "name": "dev-msan-xcode",
-      "configurePreset": "dev-msan-xcode"
     },
     {
       "name": "dev-tsan-xcode",
@@ -665,19 +566,6 @@
       ]
     },
     {
-      "name": "dev-lsan-gcc",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-lsan-gcc"
-        },
-        {
-          "type": "build",
-          "name": "dev-lsan-gcc"
-        }
-      ]
-    },
-    {
       "name": "dev-tsan-gcc",
       "steps": [
         {
@@ -747,19 +635,6 @@
         {
           "type": "build",
           "name": "ci-asan-gcc"
-        }
-      ]
-    },
-    {
-      "name": "ci-lsan-gcc",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-lsan-gcc"
-        },
-        {
-          "type": "build",
-          "name": "ci-lsan-gcc"
         }
       ]
     },
@@ -837,32 +712,6 @@
       ]
     },
     {
-      "name": "dev-lsan-clang",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-lsan-clang"
-        },
-        {
-          "type": "build",
-          "name": "dev-lsan-clang"
-        }
-      ]
-    },
-    {
-      "name": "dev-msan-clang",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-msan-clang"
-        },
-        {
-          "type": "build",
-          "name": "dev-msan-clang"
-        }
-      ]
-    },
-    {
       "name": "dev-tsan-clang",
       "steps": [
         {
@@ -932,32 +781,6 @@
         {
           "type": "build",
           "name": "ci-asan-clang"
-        }
-      ]
-    },
-    {
-      "name": "ci-lsan-clang",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-lsan-clang"
-        },
-        {
-          "type": "build",
-          "name": "ci-lsan-clang"
-        }
-      ]
-    },
-    {
-      "name": "ci-msan-clang",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-msan-clang"
-        },
-        {
-          "type": "build",
-          "name": "ci-msan-clang"
         }
       ]
     },
@@ -1103,19 +926,6 @@
       ]
     },
     {
-      "name": "dev-lsan-make",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-lsan-make"
-        },
-        {
-          "type": "build",
-          "name": "dev-lsan-make"
-        }
-      ]
-    },
-    {
       "name": "dev-tsan-make",
       "steps": [
         {
@@ -1185,32 +995,6 @@
         {
           "type": "build",
           "name": "dev-asan-xcode"
-        }
-      ]
-    },
-    {
-      "name": "dev-lsan-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-lsan-xcode"
-        },
-        {
-          "type": "build",
-          "name": "dev-lsan-xcode"
-        }
-      ]
-    },
-    {
-      "name": "dev-msan-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-msan-xcode"
-        },
-        {
-          "type": "build",
-          "name": "dev-msan-xcode"
         }
       ]
     },

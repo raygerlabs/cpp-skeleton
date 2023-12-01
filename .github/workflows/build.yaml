@@ -13,23 +13,25 @@ env:
 
 jobs:
   build:
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - os: windows-latest
+            compiler: msvc
+          - os: ubuntu-latest
+            compiler: gcc
+          - os: ubuntu-latest
+            compiler: clang
+          - os: macos-latest
+            compiler: gcc
+          - os: macos-latest
+            compiler: clang
+
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
       working-directory: ./imageutils
-
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        compiler: [gcc, clang, msvc]
-        exclude:
-          - os: windows-latest
-            compiler: gcc
-          - os: ubuntu-latest
-            compiler: msvc
-          - os: macos-latest
-            compiler: msvc
 
     steps:
       - uses: actions/checkout@v4

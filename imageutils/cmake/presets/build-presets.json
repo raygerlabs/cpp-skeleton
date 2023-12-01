@@ -14,18 +14,6 @@
       "hidden": true
     },
     {
-      "name": "_profile",
-      "displayName": "Profile (Performance Mode)",
-      "description": "Preset for build type: Profile (Performance Mode)",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators"
-      },
-      "hidden": true
-    },
-    {
       "name": "_release",
       "displayName": "Release (Delivery Mode)",
       "description": "Preset for build type: Release (Delivery Mode)",
@@ -34,18 +22,6 @@
         "CMAKE_CONFIGURATION_TYPES": "Release",
         "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
         "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators"
-      },
-      "hidden": true
-    },
-    {
-      "name": "_multi",
-      "displayName": "Multi (Combined Mode)",
-      "description": "Preset for build type: Multi (Combined Mode)",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_CONFIGURATION_TYPES": "Debug;RelWithDebInfo;Release",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators"
       },
       "hidden": true
     }

@@ -19,6 +19,7 @@
       "displayName": "Developer Mode",
       "description": "Preset for standalone: Developer Mode",
       "inherits": [
+        "_default",
         "_test",
         "_coverage",
         "_doxygen",
@@ -26,7 +27,6 @@
         "_cppcheck",
         "_clang_format",
         "_clang_tidy",
-        "_default",
         "_debug"
       ],
       "hidden": true
@@ -36,30 +36,10 @@
       "displayName": "Developer Mode (With ASAN Checks)",
       "description": "Preset for standalone: Developer Mode (With ASAN Checks)",
       "inherits": [
+        "_default",
         "_asan",
-        "_default",
-        "_debug"
-      ],
-      "hidden": true
-    },
-    {
-      "name": "_dev_lsan",
-      "displayName": "Developer Mode (With LSAN Checks)",
-      "description": "Preset for standalone: Developer Mode (With LSAN Checks)",
-      "inherits": [
         "_lsan",
-        "_default",
-        "_debug"
-      ],
-      "hidden": true
-    },
-    {
-      "name": "_dev_msan",
-      "displayName": "Developer Mode (With MSAN Checks)",
-      "description": "Preset for standalone: Developer Mode (With MSAN Checks)",
-      "inherits": [
         "_msan",
-        "_default",
         "_debug"
       ],
       "hidden": true
@@ -69,8 +49,8 @@
       "displayName": "Developer Mode (With TSAN Checks)",
       "description": "Preset for standalone: Developer Mode (With TSAN Checks)",
       "inherits": [
-        "_tsan",
         "_default",
+        "_tsan",
         "_debug"
       ],
       "hidden": true
@@ -80,8 +60,8 @@
       "displayName": "Developer Mode (With UBSAN Checks)",
       "description": "Preset for standalone: Developer Mode (With UBSAN Checks)",
       "inherits": [
-        "_ubsan",
         "_default",
+        "_ubsan",
         "_debug"
       ],
       "hidden": true
@@ -93,7 +73,7 @@
       "inherits": [
         "_benchmarks",
         "_default",
-        "_profile"
+        "_release"
       ],
       "hidden": true
     },
@@ -119,30 +99,10 @@
       "displayName": "Continuous Integration Mode (With ASAN Checks)",
       "description": "Preset for standalone: Continuous Integration Mode (With ASAN Checks)",
       "inherits": [
+        "_default",
         "_asan",
-        "_default",
-        "_release"
-      ],
-      "hidden": true
-    },
-    {
-      "name": "_ci_lsan",
-      "displayName": "Continuous Integration Mode (With LSAN Checks)",
-      "description": "Preset for standalone: Continuous Integration Mode (With LSAN Checks)",
-      "inherits": [
         "_lsan",
-        "_default",
-        "_release"
-      ],
-      "hidden": true
-    },
-    {
-      "name": "_ci_msan",
-      "displayName": "Continuous Integration Mode (With MSAN Checks)",
-      "description": "Preset for standalone: Continuous Integration Mode (With MSAN Checks)",
-      "inherits": [
         "_msan",
-        "_default",
         "_release"
       ],
       "hidden": true
@@ -152,8 +112,8 @@
       "displayName": "Continuous Integration Mode (With TSAN Checks)",
       "description": "Preset for standalone: Continuous Integration Mode (With TSAN Checks)",
       "inherits": [
-        "_tsan",
         "_default",
+        "_tsan",
         "_release"
       ],
       "hidden": true
@@ -163,8 +123,8 @@
       "displayName": "Continuous Integration Mode (With UBSAN Checks)",
       "description": "Preset for standalone: Continuous Integration Mode (With UBSAN Checks)",
       "inherits": [
-        "_ubsan",
         "_default",
+        "_ubsan",
         "_release"
       ],
       "hidden": true

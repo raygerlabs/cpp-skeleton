@@ -18,25 +18,7 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
         compiler: [ gcc, clang ]
-        include:
-          - os: ubuntu-latest
-            check: asan
-          - os: ubuntu-latest
-            check: lsan
-          - os: ubuntu-latest
-            check: tsan
-          - os: ubuntu-latest
-            check: ubsan
-          - os: macos-latest
-            check: asan
-          - os: macos-latest
-            check: lsan
-          - os: macos-latest
-            check: msan
-          - os: macos-latest
-            check: tsan
-          - os: macos-latest
-            check: ubsan
+        sanity_check: [ asan, tsan, ubsan ]
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -75,5 +57,5 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
       - name: Build
-        run: cmake --workflow --fresh --preset ci-${{ matrix.check }}-${{ matrix.compiler }}
+        run: cmake --workflow --fresh --preset ci-${{ matrix.sanity_check }}-${{ matrix.compiler }}
         working-directory: ${{ env.working-directory }}

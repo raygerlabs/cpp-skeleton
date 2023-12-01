@@ -9,13 +9,15 @@
       "displayName": "GNU C/C++ Toolchain",
       "description": "Preset for toolchain: GNU C/C++",
       "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake",
+      "inherits": [ "_linux_and_macos_only" ],
       "hidden": true
     },
     {
       "name": "_clang",
       "displayName": "Clang C/C++ (LLVM) Toolchain",
       "description": "Preset for toolchain: Clang C/C++ (LLVM)",
-      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-clang.cmake",
+      "inherits": [ "_linux_and_macos_only" ],
       "hidden": true
     },
     {
