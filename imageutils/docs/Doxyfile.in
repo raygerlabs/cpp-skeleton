@@ -6,7 +6,7 @@ PROJECT_BRIEF                             = "@PROJECT_DESCRIPTION@"
 
 OUTPUT_DIRECTORY                          = "@PROJECT_BINARY_DIR@/docs"
 
-INPUT                                     = @DOXYGEN_INPUT@                           
+INPUT                                     = @DOXYGEN_INPUT@
 FILE_PATTERNS                             = *.h *.hpp *.md *.dox
 RECURSIVE                                 = YES
 
