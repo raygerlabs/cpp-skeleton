@@ -1,6 +1,3 @@
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
-
 set(CLANG_COMMON_FLAGS
   -pedantic               # Strict ISO C and ISO C++
   -Wall                   # Enable all warnings

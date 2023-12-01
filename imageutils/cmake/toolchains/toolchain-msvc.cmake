@@ -1,6 +1,3 @@
-set(CMAKE_C_COMPILER cl)
-set(CMAKE_CXX_COMPILER cl)
-
 set(MSVC_COMMON_FLAGS
   /permissive-            # Disable non-standard behavior
   /W4                     # Set warning level 4

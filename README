@@ -1,6 +1,6 @@
-[![Build Status](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/ci-build.yml/badge.svg)](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/ci-build.yml)
+[![build](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/build.yaml/badge.svg)](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/build.yaml)
+[![sanitize](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/sanitize.yaml/badge.svg)](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/sanitize.yaml)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Code Coverage](https://coveralls.io/repos/github/raygerlabs/modern-cpp-init/badge.svg)](https://coveralls.io/github/raygerlabs/modern-cpp-init)
 
 # Modern C++ Template Library
 
