@@ -15,7 +15,7 @@
       "name": "_clang",
       "displayName": "Clang C/C++ (LLVM) Toolchain",
       "description": "Preset for toolchain: Clang C/C++ (LLVM)",
-      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-clang.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake",
       "hidden": true
     },
     {

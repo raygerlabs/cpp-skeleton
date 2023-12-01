@@ -44,15 +44,9 @@ jobs:
       working-directory: ./imageutils
 
     steps:
-      - name: Install Dependencies (Linux)
-        run: sudo apt-get install ninja-build
-        if: matrix.os == 'ubuntu-latest'
-
-      - name: Install Dependencies (macOS)
-        run: brew install ninja
-        if: matrix.os == 'macos-latest'
-
       - uses: actions/checkout@v4
+
+      - uses: seanmiddleditch/gha-setup-ninja@v4
 
       - id: current_branch
         run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
