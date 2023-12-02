@@ -36,13 +36,13 @@
       "inherits": "ci-default",
       "hidden": true
     },
+    { "name": "ci-linux-aarch64",   "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-aarch64.cmake" },
     { "name": "ci-linux-arm",       "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-arm.cmake" },
-    { "name": "ci-linux-arm64",     "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-arm64.cmake" },
     { "name": "ci-linux-i386",      "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-i386.cmake" },
     { "name": "ci-linux-mips",      "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-mips.cmake" },
     { "name": "ci-linux-mips64",    "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-mips64.cmake" },
-    { "name": "ci-linux-powerpc",   "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-powerpc.cmake" },
-    { "name": "ci-linux-powerpc64", "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-powerpc64.cmake" },
+    { "name": "ci-linux-ppc",       "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-ppc.cmake" },
+    { "name": "ci-linux-ppc64",     "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-ppc64.cmake" },
     { "name": "ci-linux-s390x",     "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-s390x.cmake" },
     { "name": "ci-linux-x86_64",    "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-x86_64.cmake" },
     { "name": "ci-macosx-arm64",    "inherits": "ci-macosx",  "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-macosx-arm64.cmake" },
@@ -53,13 +53,13 @@
     { "name": "ci-windows-x86_64",  "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-x86_64.cmake" }
   ],
   "buildPresets": [
+    { "name": "ci-linux-aarch64",   "configurePreset": "ci-linux-aarch64" },
     { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm" },
-    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64" },
     { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386" },
     { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips" },
     { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64" },
-    { "name": "ci-linux-powerpc",   "configurePreset": "ci-linux-powerpc" },
-    { "name": "ci-linux-powerpc64", "configurePreset": "ci-linux-powerpc64" },
+    { "name": "ci-linux-ppc",       "configurePreset": "ci-linux-ppc" },
+    { "name": "ci-linux-ppc64",     "configurePreset": "ci-linux-ppc64" },
     { "name": "ci-linux-s390x",     "configurePreset": "ci-linux-s390x" },
     { "name": "ci-linux-x86_64",    "configurePreset": "ci-linux-x86_64" },
     { "name": "ci-macosx-arm64",    "configurePreset": "ci-macosx-arm64" },
@@ -70,13 +70,13 @@
     { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64" }
   ],
   "testPresets": [
+    { "name": "ci-linux-aarch64",   "configurePreset": "ci-linux-aarch64",   "output": {"outputOnFailure": true} },
     { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm",       "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64",     "output": {"outputOnFailure": true} },
     { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386",      "output": {"outputOnFailure": true} },
     { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips",      "output": {"outputOnFailure": true} },
     { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64",    "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-powerpc",   "configurePreset": "ci-linux-powerpc",   "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-powerpc64", "configurePreset": "ci-linux-powerpc64", "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-ppc",       "configurePreset": "ci-linux-ppc",       "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-ppc64",     "configurePreset": "ci-linux-ppc64",     "output": {"outputOnFailure": true} },
     { "name": "ci-linux-s390x",     "configurePreset": "ci-linux-s390x",     "output": {"outputOnFailure": true} },
     { "name": "ci-linux-x86_64",    "configurePreset": "ci-linux-x86_64",    "output": {"outputOnFailure": true} },
     { "name": "ci-macosx-arm64",    "configurePreset": "ci-macosx-arm64",    "output": {"outputOnFailure": true} },
@@ -87,13 +87,13 @@
     { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64",  "output": {"outputOnFailure": true} }
   ],
   "packagePresets": [
+    { "name": "ci-linux-aarch64",   "configurePreset": "ci-linux-aarch64",   "generators": ["TGZ"] },
     { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm",       "generators": ["TGZ"] },
-    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64",     "generators": ["TGZ"] },
     { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386",      "generators": ["TGZ"] },
     { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips",      "generators": ["TGZ"] },
     { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64",    "generators": ["TGZ"] },
-    { "name": "ci-linux-powerpc",   "configurePreset": "ci-linux-powerpc",   "generators": ["TGZ"] },
-    { "name": "ci-linux-powerpc64", "configurePreset": "ci-linux-powerpc64", "generators": ["TGZ"] },
+    { "name": "ci-linux-ppc",       "configurePreset": "ci-linux-ppc",       "generators": ["TGZ"] },
+    { "name": "ci-linux-ppc64",     "configurePreset": "ci-linux-ppc64",     "generators": ["TGZ"] },
     { "name": "ci-linux-s390x",     "configurePreset": "ci-linux-s390x",     "generators": ["TGZ"] },
     { "name": "ci-linux-x86_64",    "configurePreset": "ci-linux-x86_64",    "generators": ["TGZ"] },
     { "name": "ci-macosx-arm64",    "configurePreset": "ci-macosx-arm64",    "generators": ["TGZ"] },
@@ -105,21 +105,21 @@
   ],
   "workflowPresets": [
     {
+      "name": "ci-linux-aarch64",
+      "steps": [
+        { "type": "configure", "name": "ci-linux-aarch64" },
+        { "type": "build",     "name": "ci-linux-aarch64" },
+        { "type": "test",      "name": "ci-linux-aarch64" },
+        { "type": "package",   "name": "ci-linux-aarch64" }
+      ]
+    },
+    {
       "name": "ci-linux-arm",
       "steps": [
         { "type": "configure", "name": "ci-linux-arm" },
         { "type": "build",     "name": "ci-linux-arm" },
         { "type": "test",      "name": "ci-linux-arm" },
         { "type": "package",   "name": "ci-linux-arm" }
-      ]
-    },
-    {
-      "name": "ci-linux-arm64",
-      "steps": [
-        { "type": "configure", "name": "ci-linux-arm64" },
-        { "type": "build",     "name": "ci-linux-arm64" },
-        { "type": "test",      "name": "ci-linux-arm64" },
-        { "type": "package",   "name": "ci-linux-arm64" }
       ]
     },
     {
@@ -150,21 +150,21 @@
       ]
     },
     {
-      "name": "ci-linux-powerpc",
+      "name": "ci-linux-ppc",
       "steps": [
-        { "type": "configure", "name": "ci-linux-powerpc" },
-        { "type": "build",     "name": "ci-linux-powerpc" },
-        { "type": "test",      "name": "ci-linux-powerpc" },
-        { "type": "package",   "name": "ci-linux-powerpc" }
+        { "type": "configure", "name": "ci-linux-ppc" },
+        { "type": "build",     "name": "ci-linux-ppc" },
+        { "type": "test",      "name": "ci-linux-ppc" },
+        { "type": "package",   "name": "ci-linux-ppc" }
       ]
     },
     {
-      "name": "ci-linux-powerpc64",
+      "name": "ci-linux-ppc64",
       "steps": [
-        { "type": "configure", "name": "ci-linux-powerpc64" },
-        { "type": "build",     "name": "ci-linux-powerpc64" },
-        { "type": "test",      "name": "ci-linux-powerpc64" },
-        { "type": "package",   "name": "ci-linux-powerpc64" }
+        { "type": "configure", "name": "ci-linux-ppc64" },
+        { "type": "build",     "name": "ci-linux-ppc64" },
+        { "type": "test",      "name": "ci-linux-ppc64" },
+        { "type": "package",   "name": "ci-linux-ppc64" }
       ]
     },
     {
