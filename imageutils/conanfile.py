@@ -73,8 +73,7 @@ class MainRecipe(ConanFile):
     configure_variables = {
       "BUILD_SHARED_LIBS": self.options.shared,
       "BUILD_STATIC_LIBS": not self.options.shared,
-      "ENABLE_TESTS": not self.conf.get("tools.build:skip_test", default=False),
-      "ENABLE_DOXYGEN": True
+      "ENABLE_TESTS": not self.conf.get("tools.build:skip_test", default=False)
     }
     cmake.configure(variables=configure_variables, cli_args=['--log-level=DEBUG'])
     return cmake

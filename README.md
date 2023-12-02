@@ -1,5 +1,4 @@
 [![build](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/build.yaml/badge.svg)](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/build.yaml)
-[![sanitize](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/sanitize.yaml/badge.svg)](https://github.com/raygerlabs/modern-cpp-init/actions/workflows/sanitize.yaml)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 # Modern C++ Template Library
@@ -40,125 +39,15 @@ The project supports multiple workflows. Depending on your preference, you can b
 
 ### CMake
 
-CMake is a cross-platform build system generator. Projects specify their build process with platform-independent CMake listfiles included in each directory of a source tree with the name CMakeLists.txt. 
-
-Before working with CMake, it's crucial to ensure that the project dependencies are installed. Installing these dependencies in the CMAKE_BINARY_DIR is recommended for seamless integration. This is because CMAKE_BINARY_DIR is the path to the top level of the build tree, and having the dependencies installed here makes it easier for CMake to locate them during the build process.
-
-Here is a short cheatsheet for your convenience. Paths are relative from the project root.
-
-```
-# 1. Install project dependencies from the Conan remote:
-$ conan install . -s build_type=Debug -pr:b default -b missing -of <path/to/build>
-$ conan install . -s build_type=Release -pr:b default -b missing -of <path/to/build>
-
-# 2.a For a single-configuration generator:
-$ cmake -DCMAKE_BUILD_TYPE=Debug -S . -B <path/to/build>
-$ cmake -DCMAKE_BUILD_TYPE=Release -S . -B <path/to/build>
-$ cmake --build <path/to/build>
-$ cmake --install <path/to/build> --prefix <path/to/install>
-$ ctest -VV -C Debug --test-dir <path/to/build>
-$ ctest -VV -C Release --test-dir <path/to/build>
-
-# 2.b For a multi-configuration generator:
-$ cmake -S . -B <path/to/build>
-$ cmake --build <path/to/build> --config Debug
-$ cmake --build <path/to/build> --config Release
-$ cmake --install <path/to/build> --config Debug --prefix <path/to/install>
-$ cmake --install <path/to/build> --config Release --prefix <path/to/install>
-$ ctest -VV -C Debug --test-dir <path/to/build>
-$ ctest -VV -C Release --test-dir <path/to/build>
-
-# 2.c For cmake presets:
-
-# Visual Studio
-$ cmake --preset dev-msvc
-$ cmake --preset perf-msvc
-$ cmake --build --preset dev-msvc
-$ cmake --build --preset perf-msvc
-$ ctest --preset dev-msvc
-
-# GCC
-$ cmake --preset dev-gcc
-$ cmake --preset perf-gcc
-$ cmake --build --preset dev-gcc
-$ cmake --build --preset perf-gcc
-$ ctest --preset dev-gcc
-
-# Clang
-$ cmake --preset dev-clang
-$ cmake --preset perf-clang
-$ cmake --build --preset dev-clang
-$ cmake --build --preset perf-clang
-$ ctest --preset dev-clang
-
-# 3.a Packaging by cmake
-$ cmake --build <path/to/build> --config Debug --target package
-$ cmake --build <path/to/build> --config Release --target package
-
-# 3.b Packaging by cpack
-# Alternatively, you can call cpack
-$ cd <path/to/build>
-$ cpack
-```
-
-The project supports both single-configuration and multi-configuration generators. Single-configuration generators (like Make and Ninja) can only build one configuration at a time, while multi-configuration generators (like Visual Studio and Xcode) can build multiple configurations at once.
-
-The project also supports Conan, a package manager for C and C++ developers. Conan simplifies dependency management and works well with CMake. The goal is to allow both CMake and Conan to work interchangeably without any interference. This is achieved by integrating Conan into the CMake project in a non-intrusive manner. 
-
-Non-intrusive integration is important because it allows developers to use Conan for dependency management without changing their existing build system or environment. This means that developers can continue to use the tools and workflows they are familiar with, while also benefiting from the powerful features of Conan. It also ensures that the build process remains consistent and predictable, regardless of whether Conan is used or not. This flexibility and consistency are key to maintaining a smooth and efficient development workflow.
+# TODO: Complete rework needed!
 
 ### Conan
 
-Conan is a powerful, open-source package manager for C and C++ developers. It simplifies and automates the process of managing dependencies in C and C++ projects. While Conan was initially introduced as a package manager for managing third-party dependencies, it has proven capable of managing the entire software build cycle. This includes tasks such as building from source, packaging binaries, and even deploying the software.
-
-For more details, refer to the [Conan build stages](https://docs.conan.io/en/latest/reference/commands/development/build.html).
-
-Here is a short cheatsheet for your convenience:
-
-```
-$ mkdir build && cd build
-
-# Install dependencies from Conan remote:
-$ conan install .. -s build_type=Debug -b missing
-$ conan install .. -s build_type=Release -b missing
-
-# Build the project
-$ conan build .. -s build_type=Debug
-$ conan build .. -s build_type=Release
-
-# Create package
-$ conan create .. -s build_type=Debug
-$ conan create .. -s build_type=Release
-
-# Execute integration tests
-$ conan test ../integration imageutils/1.0
-```
+# TODO: Complete rework needed!
 
 ## CMake Presets
 
-The CMake Presets in your project provide a structured way to manage build configurations and compiler settings. The three build types suggested by the presets cater to different development needs:
-
-- **Debug**: This build type, similar to CMake's default Debug setting, disables all optimizations and provides full debugging support. It's intended for developers who are in the process of writing and debugging code.
-
-- **Profile**: This build type is akin to RelWithDebInfo. It enables most optimizations but retains debugging support. This is useful when you need to fix bugs or handle challenging situations where the Debug build type doesn't suffice.
-
-- **Release**: This build type enables all possible optimizations and removes debugging support. It's used when you're ready to create a new release of your software.
-
-When it comes to compiler settings, the presets recommend using every available and reasonable set of warning options. Some warnings, such as `-Wnull-dereference`, only work with optimizations enabled, or work better the higher the optimization setting is. Therefore, it's highly advisable to build the project with the **Profile** build type whenever possible. This approach ensures that you catch as many potential issues as possible during the build process, leading to more robust and reliable code.
-
-We recommend **not** to override any compiler setting in the project's CMake. Instead, use presets. The project provides a default CMake preset: CMakePresets.json. This preset offers suggestions for build and compiler settings.
-
-### Debug
-
-The Debug build type is akin to the default Debug setting provided by CMake. It disables all optimizations and provides comprehensive debugging support. This type is intended for developers.
-
-### Profile
-
-The Profile build type is similar to RelWithDebInfo. It enables most optimizations while maintaining debugging support. This type is intended for bug fixing or other challenging situations where the Debug build type is insufficient.
-
-### Release
-
-The Release build type enables all possible optimizations and omits debugging support. This type is intended for creating a new release.
+# TODO: Complete rework needed!
 
 ## Supported compilers
 
@@ -280,73 +169,4 @@ TODO
 
 ### Doxygen
 
-Doxygen is a popular tool for generating documentation from annotated C++ sources. It can generate an on-line documentation browser (in HTML) and/or an off-line reference manual (in LaTeX) from a set of documented source files. The documentation is extracted directly from the sources, which makes it much easier to keep the documentation consistent with the source code.
-
-To generate documentation using Doxygen in this project, ensure that you have Doxygen, Graphviz, and texlive-latex-extra installed on your Unix system.
-
-```
-$ sudo apt update
-$ sudo apt install -y doxygen graphviz texlive-latex-extra
-```
-
-Then, include the generate_doc module from the project’s CMake configuration. This will add a new target, doc, to your CMake build.
-
-You can generate the documentation by configuring CMake with the -DBUILD_DOC=TRUE and -DONLY_DOC options, and then building the doc target. This will generate API documentation under /path/to/the/build/doc/.
-
-The user manual is automatically generated when the release job runs. This ensures that the documentation is always up-to-date with the latest version of the software.
-
-Ensure the following tools are available on your Unix system:
-
-Usage:
-```
-list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-include(generate_doc)
-```
-
-CMake Target: doc
-
-To generate the documentation, configure CMake as follows:
-
-```
-$ cmake -B /path/to/the/build -DBUILD_DOC=TRUE -DONLY_DOC
-$ cmake --build /path/to/the/build --target doc
-```
-
-API documentation will be generated under /path/to/the/build/doc/
-
-The user manual is automatically generated when the release job runs.
-
-## CI/CD
-
-Continuous Integration (CI) and Continuous Deployment (CD) are critical practices in modern software development. They help ensure code quality, catch issues early, and streamline the release process.
-
-This template provides a basic infrastructure for CI/CD workflows.
-
-### Build
-
-Every new Pull Request or merge to the *main* branch triggers a new build. This is a key aspect of CI, ensuring that the codebase remains in a releasable state at all times.
-
-The build job performs the following:
-- Configures the environment (Linux, Windows, Mac)
-- Compiles the code
-- Runs the unit tests
-- Generates code coverage
-- Packages the output binaries
-- Exports the package to local Conan cache
-- Runs the integration test
-- Uploads the artifacts to the Artifactory
-
-These steps help catch any integration issues early, maintain code quality, and ensure that the software is always ready for deployment.
-
-### Release
-
-The release job behaves similarly to the build job, except it gets triggered when a new git tag is pushed. This is a part of the CD process, automating the release of the software to end-users.
-
-```
-$ git tag v1.0.0
-$ git push origin v1.0.0
-```
-
-In addition to performing a new build, it generates the API documentation and uploads it to the new GitHub release along with the build package. This ensures that the released software is always accompanied by up-to-date documentation, providing end-users with the information they need to effectively use the software.
-
-By automating these processes, CI/CD helps reduce manual errors, speeds up the development process, and ensures that the software delivered to end-users is of high quality and up-to-date.
+TODO
