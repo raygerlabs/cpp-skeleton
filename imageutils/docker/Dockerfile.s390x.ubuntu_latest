@@ -44,8 +44,5 @@ RUN conan install . -b missing
 # Run build
 RUN cmake --workflow --fresh --preset ci-linux-s390x
 
-# Expose port 80 to outside world
-EXPOSE 80
-
 # Set the default command
 CMD ["/bin/bash"]
