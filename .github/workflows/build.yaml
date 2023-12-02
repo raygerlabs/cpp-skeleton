@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            sys: msvc
+            sys: windows
             arch: x86_64
           - os: ubuntu-latest
             sys: linux
