@@ -49,5 +49,5 @@ jobs:
           conan profile show
 
       - name: Run build
-        run: conan create .
+        run: conan create . --build missing
         working-directory: ${{ env.working-directory }}
