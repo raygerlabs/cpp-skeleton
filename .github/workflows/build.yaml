@@ -62,5 +62,5 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
       - name: Build
-        run: cmake --workflow --fresh --preset ci-{{ matrix.sys }}-{{ matrix.arch }}
+        run: cmake --workflow --fresh --preset ci-${{ matrix.sys }}-${{ matrix.arch }}
         working-directory: ${{ env.working-directory }}
