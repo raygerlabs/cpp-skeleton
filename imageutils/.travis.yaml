@@ -1,11 +1,63 @@
 language: cpp
-arch:        # Removed from below: uname_result(system='Linux', node='XYZ')
-  - amd64    # uname_result(release='4.15.0-1028-gcp',  version='#29~16.04.1-Ubuntu SMP', machine='x86_64',  processor='x86_64')
-  - arm64    # uname_result(release='5.0.0-23-generic', version='#24~18.04.1-Ubuntu SMP', machine='aarch64', processor='aarch64')
-  - aarch64  # Same as `arch: amd64`
-  - ppc64le  # uname_result(release='5.0.0-23-generic', version='#24~18.04.1-Ubuntu SMP', machine='ppc64le', processor='ppc64le')
-  - s390x    # uname_result(release='5.0.0-23-generic', version='#24~18.04.1-Ubuntu SMP', machine='s390x',   processor='s390x')
-  - x86_64   # Same as `arch: amd64`
+
+compiler:
+  - clang
+  - gcc
+  - msvc
+
+arch:
+  - amd64
+  - ppc64le
+  - s390x
+  - arm64
+
+os:
+  - linux
+  - osx
+  - windows
+
+jobs:
+  include:
+    - name: "Linux ARM64"
+      os: linux
+      arch: arm64
+      env: PRESET=ci-linux-arm64
+
+    - name: "Linux PowerPC64"
+      os: linux
+      arch: ppc64le
+      env: PRESET=ci-linux-powerpc64
+
+    - name: "Linux S390X"
+      os: linux
+      arch: s390x
+      env: PRESET=ci-linux-s390x
+
+    - name: "Linux x86_64"
+      os: linux
+      arch: amd64
+      env: PRESET=ci-linux-x86_64
+
+    - name: "macOSX ARM64"
+      os: osx
+      arch: arm64
+      env: PRESET=ci-macosx-arm64
+
+    - name: "macOSX x86_64"
+      os: osx
+      arch: amd64
+      env: PRESET=ci-macosx-x86_64
+
+    - name: "Windows ARM64"
+      os: windows
+      arch: arm64
+      env: PRESET=ci-windows-arm64
+
+    - name: "Windows x86_64"
+      os: windows
+      arch: amd64
+      env: PRESET=ci-windows-x86_64
+
 script:
-  - uname -a
-  - python3 -c "import platform ; print(platform.uname())"
+  - conan install . -b missing
+  - cmake --workflow --fresh --preset $PRESET
