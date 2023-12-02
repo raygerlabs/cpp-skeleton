@@ -1,6 +1,6 @@
-# aarch64
+# linux-arm64
 set(CMAKE_SYSTEM_NAME Linux)
-set(CMAKE_SYSTEM_PROCESSOR aarch64)
+set(CMAKE_SYSTEM_PROCESSOR arm64)
 
 if (NOT DEFINED CMAKE_C_COMPILER)
   set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)

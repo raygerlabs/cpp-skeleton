@@ -1,0 +1,51 @@
+# Dockerfile.s390x.ubuntu_latest
+
+FROM s390x/ubuntu:latest
+
+# Install system dependencies
+RUN apt-get -qq update \
+    && apt-get -qq install -y --no-install-recommends \
+        software-properties-common \
+        gcc-s390x-linux-gnu \
+        g++-s390x-linux-gnu \
+        binutils-s390x-linux-gnu \
+        python3 \
+        python3-pip \
+        make \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip3 install -q --no-cache-dir conan conan-package-tools cmake --upgrade \
+    && conan profile new default --detect \
+    && conan profile update settings.compiler.libcxx=libstdc++11 default \
+    && conan profile new s390x --detect \
+    && conan profile update settings.arch=s390x s390x \
+    && conan profile update settings.compiler.libcxx=libstdc++11 s390x \
+    && conan profile update env.CC=/usr/bin/s390x-linux-gnu-gcc s390x \
+    && conan profile update env.CXX=/usr/bin/s390x-linux-gnu-g++ s390x \
+    && conan profile update env.CMAKE_C_COMPILER=/usr/bin/s390x-linux-gnu-gcc s390x \
+    && conan profile update env.CMAKE_CXX_COMPILER=/usr/bin/s390x-linux-gnu-g++ s390x \
+    && conan profile update env.STRIP=/usr/bin/s390x-linux-gnu-strip s390x \
+    && conan profile update env.AS=/usr/bin/s390x-linux-gnu-as s390x \
+    && conan profile update env.AR=/usr/bin/s390x-linux-gnu-ar s390x \
+    && conan profile update env.LD=/usr/bin/s390x-linux-gnu-ld s390x \
+    && conan profile update env.FC=/usr/bin/s390x-linux-gnu-gfortran s390x \
+    && conan profile update env.GCOV=/usr/bin/s390x-linux-gnu-gcov s390x \
+    && apt-get -qq clean \
+    && apt-get -qq autoclean \
+    && apt-get -qq autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create project workspace
+WORKDIR /app
+COPY . /app
+
+# Install project dependencies
+RUN conan install . -b missing
+
+# Run build
+RUN cmake --workflow --fresh --preset ci-linux-s390x
+
+# Expose port 80 to outside world
+EXPOSE 80
+
+# Set the default command
+CMD ["/bin/bash"]
