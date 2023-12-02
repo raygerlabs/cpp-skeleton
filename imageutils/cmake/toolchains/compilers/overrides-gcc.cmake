@@ -16,7 +16,7 @@ string(APPEND GCC_COMMON_FLAGS
   " -Wdouble-promotion "      # Warns if a float is implicitly promoted to double
   " -Wunreachable-code "      # Warns if a code block is never be executed
   " -Wpointer-arith "         # Warns for anything that depends on the "size of" a function type or of void
-  " -Wold-style-cast "        # Warns for old-style (C-style) casts
+  " -Wnull-dereference "      # Warn if null pointer dereference is detected
   " -Wswitch-enum "           # Warns whenever a switch statement is lacking a case for one or more named enums
   " -Wswitch-default "        # Warns whenever a switch statement is lacking a default case
   " -Wimplicit-fallthrough "  # Warns when a switch case falls through
@@ -30,10 +30,10 @@ string(APPEND GCC_COMMON_FLAGS
 
 # Warn when a function declaration hides virtual functions from a base class (-Woverloaded-virtual)
 # Warn when a class declares a non-virtual destructor (-Wnon-virtual-dtor)
-# Warn if null pointer dereference is detected (-Wnull-dereference)
+# Warns for old-style (C-style) casts (-Wold-style-cast)
 # Disable exceptions (-fno-exceptions)
 # Disable run-time type information (-fno-rtti)
-set(CMAKE_CXX_FLAGS " ${GCC_COMMON_FLAGS} -Woverloaded-virtual -Wnon-virtual-dtor -Wnull-dereference -fno-exceptions -fno-rtti ")
+set(CMAKE_CXX_FLAGS " ${GCC_COMMON_FLAGS} -Woverloaded-virtual -Wnon-virtual-dtor -Wold-style-cast -fno-exceptions -fno-rtti ")
 set(CMAKE_C_FLAGS " ${GCC_COMMON_FLAGS} ")
 # Define build type macro (-D_DEBUG, -D_RELWITHDEBINFO, -D_RELEASE)
 # Enable debug assertions (-DDEBUG)
@@ -48,8 +48,8 @@ set(CMAKE_C_FLAGS_DEBUG " -D_DEBUG -DDEBUG -D_FORTIFY_SOURCE=2 -D_GLIBC_ASSERTIO
 # Disable debug assertions (-DNDEBUG)
 # Keep frame pointers (-fno-omit-frame-pointer)
 # Enable full optimizations (-O3)
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO " -D_RELWITHDEBINFO -DNDEBUG -fno-omit-frame-pointer -g -O3 ")
-set(CMAKE_C_FLAGS_RELWITHDEBINFO " -D_RELWITHDEBINFO -DNDEBUG -fno-omit-frame-pointer -g -O3 ")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO " -D_RELWITHDEBINFO -DNDEBUG -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS -fno-omit-frame-pointer -g -O3 ")
+set(CMAKE_C_FLAGS_RELWITHDEBINFO " -D_RELWITHDEBINFO -DNDEBUG -D_FORTIFY_SOURCE=2 -D_GLIBC_ASSERTIONS -fno-omit-frame-pointer -g -O3 ")
 set(CMAKE_CXX_FLAGS_RELEASE " -D_RELEASE -DNDEBUG -O3 ")
 set(CMAKE_C_FLAGS_RELEASE " -D_RELEASE -DNDEBUG -O3 ")
 

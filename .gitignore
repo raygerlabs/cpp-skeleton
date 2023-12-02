@@ -19,3 +19,4 @@ __pycache__
 /**/build/
 /**/dist/
 /**/install/
+/**/.hidden

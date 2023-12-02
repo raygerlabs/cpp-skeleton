@@ -1,1075 +1,247 @@
 {
   "version": 6,
-  "include": [
-    "./cmake/presets/standalone-presets.json"
-  ],
   "configurePresets": [
     {
-      "name": "dev-gcc",
-      "inherits": [
-        "_dev",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "dev-asan-gcc",
-      "inherits": [
-        "_dev_asan",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "dev-tsan-gcc",
-      "inherits": [
-        "_dev_tsan",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "dev-ubsan-gcc",
-      "inherits": [
-        "_dev_ubsan",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "dev-benchmark-gcc",
-      "inherits": [
-        "_dev_benchmark",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "ci-gcc",
-      "inherits": [
-        "_ci",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "ci-asan-gcc",
-      "inherits": [
-        "_ci_asan",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "ci-tsan-gcc",
-      "inherits": [
-        "_ci_tsan",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "ci-ubsan-gcc",
-      "inherits": [
-        "_ci_ubsan",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "ci-benchmark-gcc",
-      "inherits": [
-        "_ci_benchmark",
-        "_gcc"
-      ]
-    },
-    {
-      "name": "dev-clang",
-      "inherits": [
-        "_dev",
-        "_clang"
-      ]
-    },
-    {
-      "name": "dev-asan-clang",
-      "inherits": [
-        "_dev_asan",
-        "_clang"
-      ]
-    },
-    {
-      "name": "dev-tsan-clang",
-      "inherits": [
-        "_dev_tsan",
-        "_clang"
-      ]
-    },
-    {
-      "name": "dev-ubsan-clang",
-      "inherits": [
-        "_dev_ubsan",
-        "_clang"
-      ]
-    },
-    {
-      "name": "dev-benchmark-clang",
-      "inherits": [
-        "_dev_benchmark",
-        "_clang"
-      ]
-    },
-    {
-      "name": "ci-clang",
-      "inherits": [
-        "_ci",
-        "_clang"
-      ]
-    },
-    {
-      "name": "ci-asan-clang",
-      "inherits": [
-        "_ci_asan",
-        "_clang"
-      ]
-    },
-    {
-      "name": "ci-tsan-clang",
-      "inherits": [
-        "_ci_tsan",
-        "_clang"
-      ]
-    },
-    {
-      "name": "ci-ubsan-clang",
-      "inherits": [
-        "_ci_ubsan",
-        "_clang"
-      ]
-    },
-    {
-      "name": "ci-benchmark-clang",
-      "inherits": [
-        "_ci_benchmark",
-        "_clang"
-      ]
-    },
-    {
-      "name": "dev-msvc",
-      "inherits": [
-        "_dev",
-        "_msvc"
-      ]
-    },
-    {
-      "name": "dev-benchmark-msvc",
-      "inherits": [
-        "_dev_benchmark",
-        "_msvc"
-      ]
-    },
-    {
-      "name": "ci-msvc",
-      "inherits": [
-        "_ci",
-        "_msvc"
-      ]
-    },
-    {
-      "name": "ci-benchmark-msvc",
-      "inherits": [
-        "_ci_benchmark",
-        "_msvc"
-      ]
-    },
-    {
-      "name": "dev-make",
-      "inherits": [
-        "_dev",
-        "_make"
-      ]
-    },
-    {
-      "name": "dev-asan-make",
-      "inherits": [
-        "_dev_asan",
-        "_make"
-      ]
-    },
-    {
-      "name": "dev-tsan-make",
-      "inherits": [
-        "_dev_tsan",
-        "_make"
-      ]
-    },
-    {
-      "name": "dev-ubsan-make",
-      "inherits": [
-        "_dev_ubsan",
-        "_make"
-      ]
-    },
-    {
-      "name": "dev-benchmark-make",
-      "inherits": [
-        "_dev_benchmark",
-        "_make"
-      ]
-    },
-    {
-      "name": "dev-xcode",
-      "inherits": [
-        "_dev",
-        "_xcode"
-      ]
-    },
-    {
-      "name": "dev-asan-xcode",
-      "inherits": [
-        "_dev_asan",
-        "_xcode"
-      ]
-    },
-    {
-      "name": "dev-tsan-xcode",
-      "inherits": [
-        "_dev_tsan",
-        "_xcode"
-      ]
-    },
-    {
-      "name": "dev-ubsan-xcode",
-      "inherits": [
-        "_dev_ubsan",
-        "_xcode"
-      ]
-    },
-    {
-      "name": "dev-benchmark-xcode",
-      "inherits": [
-        "_dev_benchmark",
-        "_xcode"
-      ]
-    },
-    {
-      "name": "dev-vs",
-      "inherits": [
-        "_dev",
-        "_vs"
-      ]
-    },
-    {
-      "name": "dev-benchmark-vs",
-      "inherits": [
-        "_dev_benchmark",
-        "_vs"
-      ]
-    }
-  ],
-  "buildPresets": [
-    {
-      "name": "dev-gcc",
-      "configurePreset": "dev-gcc"
-    },
-    {
-      "name": "dev-asan-gcc",
-      "configurePreset": "dev-asan-gcc"
-    },
-    {
-      "name": "dev-tsan-gcc",
-      "configurePreset": "dev-tsan-gcc"
-    },
-    {
-      "name": "dev-ubsan-gcc",
-      "configurePreset": "dev-ubsan-gcc"
-    },
-    {
-      "name": "dev-benchmark-gcc",
-      "configurePreset": "dev-benchmark-gcc"
-    },
-    {
-      "name": "ci-gcc",
-      "configurePreset": "ci-gcc"
-    },
-    {
-      "name": "ci-asan-gcc",
-      "configurePreset": "ci-asan-gcc"
-    },
-    {
-      "name": "ci-tsan-gcc",
-      "configurePreset": "ci-tsan-gcc"
-    },
-    {
-      "name": "ci-ubsan-gcc",
-      "configurePreset": "ci-ubsan-gcc"
-    },
-    {
-      "name": "ci-benchmark-gcc",
-      "configurePreset": "ci-benchmark-gcc"
-    },
-    {
-      "name": "dev-clang",
-      "configurePreset": "dev-clang"
-    },
-    {
-      "name": "dev-asan-clang",
-      "configurePreset": "dev-asan-clang"
-    },
-    {
-      "name": "dev-tsan-clang",
-      "configurePreset": "dev-tsan-clang"
-    },
-    {
-      "name": "dev-ubsan-clang",
-      "configurePreset": "dev-ubsan-clang"
-    },
-    {
-      "name": "dev-benchmark-clang",
-      "configurePreset": "dev-benchmark-clang"
-    },
-    {
-      "name": "ci-clang",
-      "configurePreset": "ci-clang"
-    },
-    {
-      "name": "ci-asan-clang",
-      "configurePreset": "ci-asan-clang"
-    },
-    {
-      "name": "ci-tsan-clang",
-      "configurePreset": "ci-tsan-clang"
-    },
-    {
-      "name": "ci-ubsan-clang",
-      "configurePreset": "ci-ubsan-clang"
-    },
-    {
-      "name": "ci-benchmark-clang",
-      "configurePreset": "ci-benchmark-clang"
-    },
-    {
-      "name": "dev-msvc",
-      "configurePreset": "dev-msvc"
-    },
-    {
-      "name": "dev-benchmark-msvc",
-      "configurePreset": "dev-benchmark-msvc"
-    },
-    {
-      "name": "ci-msvc",
-      "configurePreset": "ci-msvc"
-    },
-    {
-      "name": "ci-benchmark-msvc",
-      "configurePreset": "ci-benchmark-msvc"
-    },
-    {
-      "name": "dev-make",
-      "configurePreset": "dev-make"
-    },
-    {
-      "name": "dev-asan-make",
-      "configurePreset": "dev-asan-make"
-    },
-    {
-      "name": "dev-tsan-make",
-      "configurePreset": "dev-tsan-make"
-    },
-    {
-      "name": "dev-ubsan-make",
-      "configurePreset": "dev-ubsan-make"
-    },
-    {
-      "name": "dev-benchmark-make",
-      "configurePreset": "dev-benchmark-make"
-    },
-    {
-      "name": "dev-xcode",
-      "configurePreset": "dev-xcode"
-    },
-    {
-      "name": "dev-asan-xcode",
-      "configurePreset": "dev-asan-xcode"
-    },
-    {
-      "name": "dev-tsan-xcode",
-      "configurePreset": "dev-tsan-xcode"
-    },
-    {
-      "name": "dev-ubsan-xcode",
-      "configurePreset": "dev-ubsan-xcode"
-    },
-    {
-      "name": "dev-benchmark-xcode",
-      "configurePreset": "dev-benchmark-xcode"
-    },
-    {
-      "name": "dev-vs",
-      "configurePreset": "dev-vs"
-    },
-    {
-      "name": "dev-benchmark-vs",
-      "configurePreset": "dev-benchmark-vs"
-    }
-  ],
-  "testPresets": [
-    {
-      "name": "_testDefaults",
-      "output": {
-        "outputOnFailure": true,
-        "shortProgress": true,
-        "verbosity": "verbose"
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "scheduleRandom": true,
-        "stopOnFailure": false,
-        "timeout": 60
+      "name": "ci-default",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CONFIGURATION_TYPES": "Release",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "ENABLE_PCH": true,
+        "ENABLE_TESTS": true,
+        "ENABLE_EXAMPLES": true,
+        "ENABLE_COVERAGE": true,
+        "ENABLE_DOXYGEN": true
       },
       "hidden": true
     },
     {
-      "name": "dev-gcc",
-      "configurePreset": "dev-gcc",
-      "inherits": "_testDefaults"
+      "name": "ci-linux",
+      "condition": { "lhs": "${hostSystemName}", "type": "equals", "rhs": "Linux" },
+      "generator": "Unix Makefiles",
+      "inherits": "ci-default",
+      "hidden": true
     },
     {
-      "name": "ci-gcc",
-      "configurePreset": "ci-gcc",
-      "inherits": "_testDefaults"
+      "name": "ci-macosx",
+      "condition": { "lhs": "${hostSystemName}", "type": "equals", "rhs": "Darwin" },
+      "generator": "Xcode",
+      "inherits": "ci-default",
+      "hidden": true
     },
-    {
-      "name": "dev-clang",
-      "configurePreset": "dev-clang",
-      "inherits": "_testDefaults"
+    { "name": "ci-windows",
+      "condition": { "lhs": "${hostSystemName}", "type": "equals", "rhs": "Windows" },
+      "generator": "Visual Studio 17 2022",
+      "inherits": "ci-default",
+      "hidden": true
     },
-    {
-      "name": "ci-clang",
-      "configurePreset": "ci-clang",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-msvc",
-      "configurePreset": "dev-msvc",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "ci-msvc",
-      "configurePreset": "ci-msvc",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-make",
-      "configurePreset": "dev-make",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-xcode",
-      "configurePreset": "dev-xcode",
-      "inherits": "_testDefaults"
-    },
-    {
-      "name": "dev-vs",
-      "configurePreset": "dev-vs",
-      "inherits": "_testDefaults"
-    }
+    { "name": "ci-linux-arm",       "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-arm.cmake" },
+    { "name": "ci-linux-arm64",     "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-arm64.cmake" },
+    { "name": "ci-linux-i386",      "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-i386.cmake" },
+    { "name": "ci-linux-mips",      "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-mips.cmake" },
+    { "name": "ci-linux-mips64",    "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-mips64.cmake" },
+    { "name": "ci-linux-powerpc",   "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-powerpc.cmake" },
+    { "name": "ci-linux-powerpc64", "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-powerpc64.cmake" },
+    { "name": "ci-linux-s390x",     "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-s390x.cmake" },
+    { "name": "ci-linux-x86_64",    "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-x86_64.cmake" },
+    { "name": "ci-macosx-arm64",    "inherits": "ci-macosx",  "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-macosx-arm64.cmake" },
+    { "name": "ci-macosx-x86_64",   "inherits": "ci-macosx",  "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-macosx-x86_64.cmake" },
+    { "name": "ci-windows-arm",     "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-arm.cmake" },
+    { "name": "ci-windows-arm64",   "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-arm64.cmake" },
+    { "name": "ci-windows-x86",     "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-x86.cmake" },
+    { "name": "ci-windows-x86_64",  "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-x86_64.cmake" }
+  ],
+  "buildPresets": [
+    { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm" },
+    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64" },
+    { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386" },
+    { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips" },
+    { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64" },
+    { "name": "ci-linux-powerpc",   "configurePreset": "ci-linux-powerpc" },
+    { "name": "ci-linux-powerpc64", "configurePreset": "ci-linux-powerpc64" },
+    { "name": "ci-linux-s390x",     "configurePreset": "ci-linux-s390x" },
+    { "name": "ci-linux-x86_64",    "configurePreset": "ci-linux-x86_64" },
+    { "name": "ci-macosx-arm64",    "configurePreset": "ci-macosx-arm64" },
+    { "name": "ci-macosx-x86_64",   "configurePreset": "ci-macosx-x86_64" },
+    { "name": "ci-windows-arm",     "configurePreset": "ci-windows-arm" },
+    { "name": "ci-windows-arm64",   "configurePreset": "ci-windows-arm64" },
+    { "name": "ci-windows-x86",     "configurePreset": "ci-windows-x86" },
+    { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64" }
+  ],
+  "testPresets": [
+    { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm",       "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64",     "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386",      "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips",      "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64",    "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-powerpc",   "configurePreset": "ci-linux-powerpc",   "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-powerpc64", "configurePreset": "ci-linux-powerpc64", "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-s390x",     "configurePreset": "ci-linux-s390x",     "output": {"outputOnFailure": true} },
+    { "name": "ci-linux-x86_64",    "configurePreset": "ci-linux-x86_64",    "output": {"outputOnFailure": true} },
+    { "name": "ci-macosx-arm64",    "configurePreset": "ci-macosx-arm64",    "output": {"outputOnFailure": true} },
+    { "name": "ci-macosx-x86_64",   "configurePreset": "ci-macosx-x86_64",   "output": {"outputOnFailure": true} },
+    { "name": "ci-windows-arm",     "configurePreset": "ci-windows-arm",     "output": {"outputOnFailure": true} },
+    { "name": "ci-windows-arm64",   "configurePreset": "ci-windows-arm64",   "output": {"outputOnFailure": true} },
+    { "name": "ci-windows-x86",     "configurePreset": "ci-windows-x86",     "output": {"outputOnFailure": true} },
+    { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64",  "output": {"outputOnFailure": true} }
   ],
   "packagePresets": [
-    {
-      "name": "dev-gcc",
-      "configurePreset": "dev-gcc",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-gcc",
-      "configurePreset": "ci-gcc",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "dev-clang",
-      "configurePreset": "dev-clang",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "ci-clang",
-      "configurePreset": "ci-clang",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "dev-msvc",
-      "configurePreset": "dev-msvc",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "ci-msvc",
-      "configurePreset": "ci-msvc",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "dev-make",
-      "configurePreset": "dev-make",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "dev-xcode",
-      "configurePreset": "dev-xcode",
-      "generators": [
-        "TGZ"
-      ]
-    },
-    {
-      "name": "dev-vs",
-      "configurePreset": "dev-vs",
-      "generators": [
-        "ZIP"
-      ]
-    }
+    { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm",       "generators": ["TGZ"] },
+    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64",     "generators": ["TGZ"] },
+    { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386",      "generators": ["TGZ"] },
+    { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips",      "generators": ["TGZ"] },
+    { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64",    "generators": ["TGZ"] },
+    { "name": "ci-linux-powerpc",   "configurePreset": "ci-linux-powerpc",   "generators": ["TGZ"] },
+    { "name": "ci-linux-powerpc64", "configurePreset": "ci-linux-powerpc64", "generators": ["TGZ"] },
+    { "name": "ci-linux-s390x",     "configurePreset": "ci-linux-s390x",     "generators": ["TGZ"] },
+    { "name": "ci-linux-x86_64",    "configurePreset": "ci-linux-x86_64",    "generators": ["TGZ"] },
+    { "name": "ci-macosx-arm64",    "configurePreset": "ci-macosx-arm64",    "generators": ["TGZ"] },
+    { "name": "ci-macosx-x86_64",   "configurePreset": "ci-macosx-x86_64",   "generators": ["TGZ"] },
+    { "name": "ci-windows-arm",     "configurePreset": "ci-windows-arm",     "generators": ["ZIP"] },
+    { "name": "ci-windows-arm64",   "configurePreset": "ci-windows-arm64",   "generators": ["ZIP"] },
+    { "name": "ci-windows-x86",     "configurePreset": "ci-windows-x86",     "generators": ["ZIP"] },
+    { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64",  "generators": ["ZIP"] }
   ],
   "workflowPresets": [
     {
-      "name": "dev-gcc",
+      "name": "ci-linux-arm",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-gcc"
-        },
-        {
-          "type": "build",
-          "name": "dev-gcc"
-        },
-        {
-          "type": "test",
-          "name": "dev-gcc"
-        },
-        {
-          "type": "package",
-          "name": "dev-gcc"
-        }
+        { "type": "configure", "name": "ci-linux-arm" },
+        { "type": "build",     "name": "ci-linux-arm" },
+        { "type": "test",      "name": "ci-linux-arm" },
+        { "type": "package",   "name": "ci-linux-arm" }
       ]
     },
     {
-      "name": "dev-asan-gcc",
+      "name": "ci-linux-arm64",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-asan-gcc"
-        },
-        {
-          "type": "build",
-          "name": "dev-asan-gcc"
-        }
+        { "type": "configure", "name": "ci-linux-arm64" },
+        { "type": "build",     "name": "ci-linux-arm64" },
+        { "type": "test",      "name": "ci-linux-arm64" },
+        { "type": "package",   "name": "ci-linux-arm64" }
       ]
     },
     {
-      "name": "dev-tsan-gcc",
+      "name": "ci-linux-i386",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-tsan-gcc"
-        },
-        {
-          "type": "build",
-          "name": "dev-tsan-gcc"
-        }
+        { "type": "configure", "name": "ci-linux-i386" },
+        { "type": "build",     "name": "ci-linux-i386" },
+        { "type": "test",      "name": "ci-linux-i386" },
+        { "type": "package",   "name": "ci-linux-i386" }
       ]
     },
     {
-      "name": "dev-ubsan-gcc",
+      "name": "ci-linux-mips",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-ubsan-gcc"
-        },
-        {
-          "type": "build",
-          "name": "dev-ubsan-gcc"
-        }
+        { "type": "configure", "name": "ci-linux-mips" },
+        { "type": "build",     "name": "ci-linux-mips" },
+        { "type": "test",      "name": "ci-linux-mips" },
+        { "type": "package",   "name": "ci-linux-mips" }
       ]
     },
     {
-      "name": "dev-benchmark-gcc",
+      "name": "ci-linux-mips64",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-benchmark-gcc"
-        },
-        {
-          "type": "build",
-          "name": "dev-benchmark-gcc"
-        }
+        { "type": "configure", "name": "ci-linux-mips64" },
+        { "type": "build",     "name": "ci-linux-mips64" },
+        { "type": "test",      "name": "ci-linux-mips64" },
+        { "type": "package",   "name": "ci-linux-mips64" }
       ]
     },
     {
-      "name": "ci-gcc",
+      "name": "ci-linux-powerpc",
       "steps": [
-        {
-          "type": "configure",
-          "name": "ci-gcc"
-        },
-        {
-          "type": "build",
-          "name": "ci-gcc"
-        },
-        {
-          "type": "test",
-          "name": "ci-gcc"
-        },
-        {
-          "type": "package",
-          "name": "ci-gcc"
-        }
+        { "type": "configure", "name": "ci-linux-powerpc" },
+        { "type": "build",     "name": "ci-linux-powerpc" },
+        { "type": "test",      "name": "ci-linux-powerpc" },
+        { "type": "package",   "name": "ci-linux-powerpc" }
       ]
     },
     {
-      "name": "ci-asan-gcc",
+      "name": "ci-linux-powerpc64",
       "steps": [
-        {
-          "type": "configure",
-          "name": "ci-asan-gcc"
-        },
-        {
-          "type": "build",
-          "name": "ci-asan-gcc"
-        }
+        { "type": "configure", "name": "ci-linux-powerpc64" },
+        { "type": "build",     "name": "ci-linux-powerpc64" },
+        { "type": "test",      "name": "ci-linux-powerpc64" },
+        { "type": "package",   "name": "ci-linux-powerpc64" }
       ]
     },
     {
-      "name": "ci-tsan-gcc",
+      "name": "ci-linux-s390x",
       "steps": [
-        {
-          "type": "configure",
-          "name": "ci-tsan-gcc"
-        },
-        {
-          "type": "build",
-          "name": "ci-tsan-gcc"
-        }
+        { "type": "configure", "name": "ci-linux-s390x" },
+        { "type": "build",     "name": "ci-linux-s390x" },
+        { "type": "test",      "name": "ci-linux-s390x" },
+        { "type": "package",   "name": "ci-linux-s390x" }
       ]
     },
     {
-      "name": "ci-ubsan-gcc",
+      "name": "ci-linux-x86_64",
       "steps": [
-        {
-          "type": "configure",
-          "name": "ci-ubsan-gcc"
-        },
-        {
-          "type": "build",
-          "name": "ci-ubsan-gcc"
-        }
+        { "type": "configure", "name": "ci-linux-x86_64" },
+        { "type": "build",     "name": "ci-linux-x86_64" },
+        { "type": "test",      "name": "ci-linux-x86_64" },
+        { "type": "package",   "name": "ci-linux-x86_64" }
       ]
     },
     {
-      "name": "ci-benchmark-gcc",
+      "name": "ci-macosx-arm64",
       "steps": [
-        {
-          "type": "configure",
-          "name": "ci-benchmark-gcc"
-        },
-        {
-          "type": "build",
-          "name": "ci-benchmark-gcc"
-        }
+        { "type": "configure", "name": "ci-macosx-arm64" },
+        { "type": "build",     "name": "ci-macosx-arm64" },
+        { "type": "test",      "name": "ci-macosx-arm64" },
+        { "type": "package",   "name": "ci-macosx-arm64" }
       ]
     },
     {
-      "name": "dev-clang",
+      "name": "ci-macosx-x86_64",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-clang"
-        },
-        {
-          "type": "build",
-          "name": "dev-clang"
-        },
-        {
-          "type": "test",
-          "name": "dev-clang"
-        },
-        {
-          "type": "package",
-          "name": "dev-clang"
-        }
+        { "type": "configure", "name": "ci-macosx-x86_64" },
+        { "type": "build",     "name": "ci-macosx-x86_64" },
+        { "type": "test",      "name": "ci-macosx-x86_64" },
+        { "type": "package",   "name": "ci-macosx-x86_64" }
       ]
     },
     {
-      "name": "dev-asan-clang",
+      "name": "ci-windows-arm",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-asan-clang"
-        },
-        {
-          "type": "build",
-          "name": "dev-asan-clang"
-        }
+        { "type": "configure", "name": "ci-windows-arm" },
+        { "type": "build",     "name": "ci-windows-arm" },
+        { "type": "test",      "name": "ci-windows-arm" },
+        { "type": "package",   "name": "ci-windows-arm" }
       ]
     },
     {
-      "name": "dev-tsan-clang",
+      "name": "ci-windows-arm64",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-tsan-clang"
-        },
-        {
-          "type": "build",
-          "name": "dev-tsan-clang"
-        }
+        { "type": "configure", "name": "ci-windows-arm64" },
+        { "type": "build",     "name": "ci-windows-arm64" },
+        { "type": "test",      "name": "ci-windows-arm64" },
+        { "type": "package",   "name": "ci-windows-arm64" }
       ]
     },
     {
-      "name": "dev-ubsan-clang",
+      "name": "ci-windows-x86",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-ubsan-clang"
-        },
-        {
-          "type": "build",
-          "name": "dev-ubsan-clang"
-        }
+        { "type": "configure", "name": "ci-windows-x86" },
+        { "type": "build",     "name": "ci-windows-x86" },
+        { "type": "test",      "name": "ci-windows-x86" },
+        { "type": "package",   "name": "ci-windows-x86" }
       ]
     },
     {
-      "name": "dev-benchmark-clang",
+      "name": "ci-windows-x86_64",
       "steps": [
-        {
-          "type": "configure",
-          "name": "dev-benchmark-clang"
-        },
-        {
-          "type": "build",
-          "name": "dev-benchmark-clang"
-        }
-      ]
-    },
-    {
-      "name": "ci-clang",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-clang"
-        },
-        {
-          "type": "build",
-          "name": "ci-clang"
-        },
-        {
-          "type": "test",
-          "name": "ci-clang"
-        },
-        {
-          "type": "package",
-          "name": "ci-clang"
-        }
-      ]
-    },
-    {
-      "name": "ci-asan-clang",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-asan-clang"
-        },
-        {
-          "type": "build",
-          "name": "ci-asan-clang"
-        }
-      ]
-    },
-    {
-      "name": "ci-tsan-clang",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-tsan-clang"
-        },
-        {
-          "type": "build",
-          "name": "ci-tsan-clang"
-        }
-      ]
-    },
-    {
-      "name": "ci-ubsan-clang",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-ubsan-clang"
-        },
-        {
-          "type": "build",
-          "name": "ci-ubsan-clang"
-        }
-      ]
-    },
-    {
-      "name": "ci-benchmark-clang",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-benchmark-clang"
-        },
-        {
-          "type": "build",
-          "name": "ci-benchmark-clang"
-        }
-      ]
-    },
-    {
-      "name": "dev-msvc",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-msvc"
-        },
-        {
-          "type": "build",
-          "name": "dev-msvc"
-        },
-        {
-          "type": "test",
-          "name": "dev-msvc"
-        },
-        {
-          "type": "package",
-          "name": "dev-msvc"
-        }
-      ]
-    },
-    {
-      "name": "dev-benchmark-msvc",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-benchmark-msvc"
-        },
-        {
-          "type": "build",
-          "name": "dev-benchmark-msvc"
-        }
-      ]
-    },
-    {
-      "name": "ci-msvc",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-msvc"
-        },
-        {
-          "type": "build",
-          "name": "ci-msvc"
-        },
-        {
-          "type": "test",
-          "name": "ci-msvc"
-        },
-        {
-          "type": "package",
-          "name": "ci-msvc"
-        }
-      ]
-    },
-    {
-      "name": "ci-benchmark-msvc",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci-benchmark-msvc"
-        },
-        {
-          "type": "build",
-          "name": "ci-benchmark-msvc"
-        }
-      ]
-    },
-    {
-      "name": "dev-make",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-make"
-        },
-        {
-          "type": "build",
-          "name": "dev-make"
-        },
-        {
-          "type": "test",
-          "name": "dev-make"
-        },
-        {
-          "type": "package",
-          "name": "dev-make"
-        }
-      ]
-    },
-    {
-      "name": "dev-asan-make",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-asan-make"
-        },
-        {
-          "type": "build",
-          "name": "dev-asan-make"
-        }
-      ]
-    },
-    {
-      "name": "dev-tsan-make",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-tsan-make"
-        },
-        {
-          "type": "build",
-          "name": "dev-tsan-make"
-        }
-      ]
-    },
-    {
-      "name": "dev-ubsan-make",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-ubsan-make"
-        },
-        {
-          "type": "build",
-          "name": "dev-ubsan-make"
-        }
-      ]
-    },
-    {
-      "name": "dev-benchmark-make",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-benchmark-make"
-        },
-        {
-          "type": "build",
-          "name": "dev-benchmark-make"
-        }
-      ]
-    },
-    {
-      "name": "dev-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-xcode"
-        },
-        {
-          "type": "build",
-          "name": "dev-xcode"
-        },
-        {
-          "type": "test",
-          "name": "dev-xcode"
-        },
-        {
-          "type": "package",
-          "name": "dev-xcode"
-        }
-      ]
-    },
-    {
-      "name": "dev-asan-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-asan-xcode"
-        },
-        {
-          "type": "build",
-          "name": "dev-asan-xcode"
-        }
-      ]
-    },
-    {
-      "name": "dev-tsan-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-tsan-xcode"
-        },
-        {
-          "type": "build",
-          "name": "dev-tsan-xcode"
-        }
-      ]
-    },
-    {
-      "name": "dev-ubsan-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-ubsan-xcode"
-        },
-        {
-          "type": "build",
-          "name": "dev-ubsan-xcode"
-        }
-      ]
-    },
-    {
-      "name": "dev-benchmark-xcode",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-benchmark-xcode"
-        },
-        {
-          "type": "build",
-          "name": "dev-benchmark-xcode"
-        }
-      ]
-    },
-    {
-      "name": "dev-vs",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-vs"
-        },
-        {
-          "type": "build",
-          "name": "dev-vs"
-        },
-        {
-          "type": "test",
-          "name": "dev-vs"
-        },
-        {
-          "type": "package",
-          "name": "dev-vs"
-        }
-      ]
-    },
-    {
-      "name": "dev-benchmark-vs",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "dev-benchmark-vs"
-        },
-        {
-          "type": "build",
-          "name": "dev-benchmark-vs"
-        }
+        { "type": "configure", "name": "ci-windows-x86_64" },
+        { "type": "build",     "name": "ci-windows-x86_64" },
+        { "type": "test",      "name": "ci-windows-x86_64" },
+        { "type": "package",   "name": "ci-windows-x86_64" }
       ]
     }
   ]
 }
+

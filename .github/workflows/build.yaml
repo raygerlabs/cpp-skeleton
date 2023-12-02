@@ -16,17 +16,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        include:
-          - os: windows-latest
-            compiler: msvc
-          - os: ubuntu-latest
-            compiler: gcc
-          - os: ubuntu-latest
-            compiler: clang
-          - os: macos-latest
-            compiler: gcc
-          - os: macos-latest
-            compiler: clang
+        config:
+          - { os: linux-latest,   system: linux,   arch: x86_64 }
+          - { os: macos-latest,   system: macosx,  arch: x86_64 }
+          - { os: windows-latest, system: windows, arch: x86_64 }
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -35,8 +28,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: seanmiddleditch/gha-setup-ninja@v4
 
       - id: current_branch
         run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
@@ -65,5 +56,5 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
       - name: Build
-        run: cmake --workflow --fresh --preset ci-${{ matrix.compiler }}
+        run: cmake --workflow --fresh --preset ci-{{ matrix.system }}-{{ matrix.arch }}
         working-directory: ${{ env.working-directory }}

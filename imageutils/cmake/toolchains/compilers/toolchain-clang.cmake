@@ -1,6 +1,6 @@
 message(STATUS "*** loading toolchain-clang.cmake")
 
-include("${CMAKE_CURRENT_LIST_DIR}/overrides-gcc.cmake")
+include(${CMAKE_CURRENT_LIST_DIR}/overrides-gcc.cmake)
 
 set(_LANGUAGES C CXX)
 set(_BUILD_TYPES "" _DEBUG _RELEASE _MINSIZEREL _RELWITHDEBINFO)
@@ -10,13 +10,13 @@ message(STATUS "CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME}")
 message(STATUS "CMAKE_SYSTEM_PROCESSOR = ${CMAKE_SYSTEM_PROCESSOR}")
 
 foreach(_LANGUAGE ${_LANGUAGES})
-  message("CMAKE_${_LANGUAGE}_COMPILER = ${CMAKE_${_LANGUAGE}_COMPILER}")
+  message(STATUS "CMAKE_${_LANGUAGE}_COMPILER = ${CMAKE_${_LANGUAGE}_COMPILER}")
 endforeach()
 
-message("CMAKE_LINKER = ${CMAKE_LINKER}")
+message(STATUS "CMAKE_LINKER = ${CMAKE_LINKER}")
 
 foreach(_LANGUAGE ${_LANGUAGES})
-  message("CMAKE_${_LANGUAGE}_LINKER = ${CMAKE_${_LANGUAGE}_LINKER}")
+  message(STATUS "CMAKE_${_LANGUAGE}_LINKER = ${CMAKE_${_LANGUAGE}_LINKER}")
 endforeach()
 
 foreach(_LANGUAGE ${_LANGUAGES})
