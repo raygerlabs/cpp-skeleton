@@ -36,8 +36,8 @@
       "inherits": "ci-default",
       "hidden": true
     },
+    { "name": "ci-linux-aarch64",   "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-aarch64.cmake" },
     { "name": "ci-linux-arm",       "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-arm.cmake" },
-    { "name": "ci-linux-arm64",     "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-arm64.cmake" },
     { "name": "ci-linux-i386",      "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-i386.cmake" },
     { "name": "ci-linux-mips",      "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-mips.cmake" },
     { "name": "ci-linux-mips64",    "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-mips64.cmake" },
@@ -53,8 +53,8 @@
     { "name": "ci-windows-x86_64",  "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-x86_64.cmake" }
   ],
   "buildPresets": [
+    { "name": "ci-linux-aarch64",   "configurePreset": "ci-linux-aarch64" },
     { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm" },
-    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64" },
     { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386" },
     { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips" },
     { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64" },
@@ -70,8 +70,8 @@
     { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64" }
   ],
   "testPresets": [
+    { "name": "ci-linux-aarch64",   "configurePreset": "ci-linux-aarch64",   "output": {"outputOnFailure": true} },
     { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm",       "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64",     "output": {"outputOnFailure": true} },
     { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386",      "output": {"outputOnFailure": true} },
     { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips",      "output": {"outputOnFailure": true} },
     { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64",    "output": {"outputOnFailure": true} },
@@ -87,8 +87,8 @@
     { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64",  "output": {"outputOnFailure": true} }
   ],
   "packagePresets": [
+    { "name": "ci-linux-aarch64",   "configurePreset": "ci-linux-aarch64",   "generators": ["TGZ"] },
     { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm",       "generators": ["TGZ"] },
-    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64",     "generators": ["TGZ"] },
     { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386",      "generators": ["TGZ"] },
     { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips",      "generators": ["TGZ"] },
     { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64",    "generators": ["TGZ"] },
@@ -105,21 +105,21 @@
   ],
   "workflowPresets": [
     {
+      "name": "ci-linux-aarch64",
+      "steps": [
+        { "type": "configure", "name": "ci-linux-aarch64" },
+        { "type": "build",     "name": "ci-linux-aarch64" },
+        { "type": "test",      "name": "ci-linux-aarch64" },
+        { "type": "package",   "name": "ci-linux-aarch64" }
+      ]
+    },
+    {
       "name": "ci-linux-arm",
       "steps": [
         { "type": "configure", "name": "ci-linux-arm" },
         { "type": "build",     "name": "ci-linux-arm" },
         { "type": "test",      "name": "ci-linux-arm" },
         { "type": "package",   "name": "ci-linux-arm" }
-      ]
-    },
-    {
-      "name": "ci-linux-arm64",
-      "steps": [
-        { "type": "configure", "name": "ci-linux-arm64" },
-        { "type": "build",     "name": "ci-linux-arm64" },
-        { "type": "test",      "name": "ci-linux-arm64" },
-        { "type": "package",   "name": "ci-linux-arm64" }
       ]
     },
     {
