@@ -16,10 +16,16 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        config:
-          - { os: linux-latest,   system: linux,   arch: x86_64 }
-          - { os: macos-latest,   system: macosx,  arch: x86_64 }
-          - { os: windows-latest, system: windows, arch: x86_64 }
+        include:
+          - os: windows-latest
+            sys: msvc
+            arch: x86_64
+          - os: ubuntu-latest
+            sys: linux
+            arch: x86_64
+          - os: macos-latest
+            sys: macosx
+            arch: x86_64
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -56,5 +62,5 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
       - name: Build
-        run: cmake --workflow --fresh --preset ci-{{ matrix.system }}-{{ matrix.arch }}
+        run: cmake --workflow --fresh --preset ci-{{ matrix.sys }}-{{ matrix.arch }}
         working-directory: ${{ env.working-directory }}
