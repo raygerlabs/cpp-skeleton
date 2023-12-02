@@ -16,16 +16,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        include:
-          - os: windows-latest
-            sys: windows
-            arch: x86_64
-          - os: ubuntu-latest
-            sys: linux
-            arch: x86_64
-          - os: macos-latest
-            sys: macosx
-            arch: x86_64
+        os: [ windows-latest, ubuntu-latest, macos-latest ]
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -57,10 +48,6 @@ jobs:
           conan profile list
           conan profile show
 
-      - name: Download dependencies
-        run: conan install . -b missing
-        working-directory: ${{ env.working-directory }}
-
-      - name: Build
-        run: cmake --workflow --fresh --preset ci-${{ matrix.sys }}-${{ matrix.arch }}
+      - name: Run build
+        run: conan create .
         working-directory: ${{ env.working-directory }}

@@ -22,20 +22,17 @@
     {
       "name": "ci-linux",
       "condition": { "lhs": "${hostSystemName}", "type": "equals", "rhs": "Linux" },
-      "generator": "Unix Makefiles",
       "inherits": "ci-default",
       "hidden": true
     },
     {
       "name": "ci-macosx",
       "condition": { "lhs": "${hostSystemName}", "type": "equals", "rhs": "Darwin" },
-      "generator": "Xcode",
       "inherits": "ci-default",
       "hidden": true
     },
     { "name": "ci-windows",
       "condition": { "lhs": "${hostSystemName}", "type": "equals", "rhs": "Windows" },
-      "generator": "Visual Studio 17 2022",
       "inherits": "ci-default",
       "hidden": true
     },

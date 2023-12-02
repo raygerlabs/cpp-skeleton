@@ -66,14 +66,14 @@ install(
 
 install(
   EXPORT imageutils-targets
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
+  DESTINATION ${CMAKE_INSTALL_DATADIR}/imageutils/cmake
   NAMESPACE imageutils::
 )
 
 configure_package_config_file(
   ${CMAKE_SOURCE_DIR}/cmake/config/imageutils-config.cmake.in
   ${PROJECT_BINARY_DIR}/imageutils-config.cmake
-  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
+  INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/imageutils/cmake
 )
 
 write_basic_package_version_file(

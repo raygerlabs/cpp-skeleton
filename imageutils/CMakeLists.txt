@@ -37,7 +37,7 @@ include(cmake/Init.cmake)
 include(cmake/Coverage.cmake)
 include(cmake/Sanitize.cmake)
 
-if (ENABLE_DOCS)
+if (ENABLE_DOXYGEN)
   add_subdirectory(docs)
 endif()
 
