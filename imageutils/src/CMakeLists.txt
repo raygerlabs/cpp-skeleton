@@ -12,7 +12,6 @@ set(_HEADER_LIST
   ${CMAKE_SOURCE_DIR}/include/imageutils/filters/invert_colors.hpp
   ${CMAKE_SOURCE_DIR}/include/imageutils/filters/grayscale.hpp
   ${CMAKE_SOURCE_DIR}/include/imageutils/filters/resize.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/color.hpp
   ${CMAKE_SOURCE_DIR}/include/imageutils/image.hpp
   ${CMAKE_SOURCE_DIR}/include/imageutils/image_filters.hpp
   ${CMAKE_SOURCE_DIR}/include/imageutils/image_processor.hpp
