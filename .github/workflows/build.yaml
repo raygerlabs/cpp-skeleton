@@ -42,8 +42,9 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip3 install --upgrade conan
+          pip3 install conan ninja --upgrade
           conan --version
+          ninja --version
           conan profile detect
 
       - name: Build
