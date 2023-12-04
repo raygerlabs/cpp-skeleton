@@ -17,6 +17,17 @@ jobs:
       fail-fast: true
       matrix:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
+        include:
+          - os: windows-latest
+            preset: ci-msvc
+          - os: ubuntu-latest
+            preset: ci-gcc
+          - os: ubuntu-latest
+            preset: ci-clang
+          - os: macos-latest
+            preset: ci-gcc
+          - os: macos-latest
+            preset: ci-clang
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -40,17 +51,23 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install Dependencies
+      - name: Install system dpendencies
         run: |
           pip3 install conan ninja --upgrade
           conan --version
           ninja --version
           conan profile detect
 
-      - name: Build
-        run: conan create . -b missing
+      - name: Install project dependencies
+        run: conan install . -s build_type=Release -b missing
         working-directory: ${{ env.working-directory }}
 
-      - name: Integration Tests
-        run: conan test integration imageutils/1.0
+      - name: Execute build and unit tests
+        run: cmake --workflow --fresh --preset ${{ matrix.preset }}
+        working-directory: ${{ env.working-directory }}
+
+      - name: Perform integration tests
+        run: |
+          conan create . -b missing
+          conan test integration imageutils/1.0
         working-directory: ${{ env.working-directory }}
