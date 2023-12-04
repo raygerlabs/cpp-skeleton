@@ -1,0 +1,75 @@
+name: sanitize
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: true
+      matrix:
+        config:
+          - os: ubuntu-latest
+            name: ci-asan-gcc
+          - os: ubuntu-latest
+            name: ci-tsan-gcc
+          - os: ubuntu-latest
+            name: ci-ubsan-gcc
+          - os: ubuntu-latest
+            name: ci-asan-clang
+          - os: ubuntu-latest
+            name: ci-tsan-clang
+          - os: ubuntu-latest
+            name: ci-ubsan-clang
+          - os: macos-latest
+            name: ci-asan-gcc
+          - os: macos-latest
+            name: ci-tsan-gcc
+          - os: macos-latest
+            name: ci-ubsan-gcc
+          - os: macos-latest
+            name: ci-asan-clang
+          - os: macos-latest
+            name: ci-tsan-clang
+          - os: macos-latest
+            name: ci-ubsan-clang
+            
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      working-directory: ./imageutils
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: current_branch
+        run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-main
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install system dependencies
+        run: |
+          pip3 install conan ninja --upgrade
+          conan --version
+          ninja --version
+          conan profile detect
+
+      - name: Install project dependencies
+        run: conan install . -b missing
+        working-directory: ${{ env.working-directory }}
+
+      - name: Execute sanity check
+        run: cmake --workflow --fresh --preset ${{ matrix.name }}
+        working-directory: ${{ env.working-directory }}
