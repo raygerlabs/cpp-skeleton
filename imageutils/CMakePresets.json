@@ -55,7 +55,10 @@
       "cacheVariables": {
         "ENABLE_ASAN": true,
         "ENABLE_LSAN": true,
-        "ENABLE_MSAN": true
+        "ENABLE_MSAN": true,
+        "ENABLE_TESTS": false,
+        "ENABLE_COVERAGE": false,
+        "ENABLE_DOXYGEN": false
       },
       "inherits": "base"
     },
@@ -63,7 +66,10 @@
       "name": "tsan",
       "hidden": true,
       "cacheVariables": {
-        "ENABLE_TSAN": true
+        "ENABLE_TSAN": true,
+        "ENABLE_TESTS": false,
+        "ENABLE_COVERAGE": false,
+        "ENABLE_DOXYGEN": false
       },
       "inherits": "base"
     },
@@ -71,7 +77,10 @@
       "name": "ubsan",
       "hidden": true,
       "cacheVariables": {
-        "ENABLE_UBSAN": true
+        "ENABLE_UBSAN": true,
+        "ENABLE_TESTS": false,
+        "ENABLE_COVERAGE": false,
+        "ENABLE_DOXYGEN": false
       },
       "inherits": "base"
     },
