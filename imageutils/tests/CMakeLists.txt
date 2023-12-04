@@ -1,6 +1,13 @@
-add_executable(benchmarks benchmarks.cpp)
-target_include_directories(benchmarks PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+set(_TEST_SOURCES
+  resource_path.hpp
+  image_filter_tests.cpp
+  image_processor_tests.cpp
+  jpeg_read_tests.cpp
+  jpeg_write_tests.cpp
+)
 
+add_executable(unit_tests ${_TEST_SOURCES})
+target_include_directories(unit_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 add_custom_command(
   TARGET unit_tests PRE_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/resources/ $<TARGET_FILE_DIR:unit_tests>/resources/
