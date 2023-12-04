@@ -11,32 +11,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        config:
-          - os: ubuntu-latest
-            name: ci-asan-gcc
-          - os: ubuntu-latest
-            name: ci-tsan-gcc
-          - os: ubuntu-latest
-            name: ci-ubsan-gcc
-          - os: ubuntu-latest
-            name: ci-asan-clang
-          - os: ubuntu-latest
-            name: ci-tsan-clang
-          - os: ubuntu-latest
-            name: ci-ubsan-clang
-          - os: macos-latest
-            name: ci-asan-gcc
-          - os: macos-latest
-            name: ci-tsan-gcc
-          - os: macos-latest
-            name: ci-ubsan-gcc
-          - os: macos-latest
-            name: ci-asan-clang
-          - os: macos-latest
-            name: ci-tsan-clang
-          - os: macos-latest
-            name: ci-ubsan-clang
-            
+        os: [ ubuntu-latest, macos-latest ]
+        preset: [ ci-asan-gcc, ci-tsan-gcc, ci-ubsan-gcc, ci-asan-clang, ci-tsan-clang, ci-ubsan-clang ]
+        
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
@@ -71,5 +48,5 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
       - name: Execute sanity check
-        run: cmake --workflow --fresh --preset ${{ matrix.name }}
+        run: cmake --workflow --fresh --preset ${{ matrix.preset }}
         working-directory: ${{ env.working-directory }}
