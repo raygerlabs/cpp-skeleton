@@ -1,0 +1,63 @@
+name: benchmark
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        preset: [ profile-gcc, profile-clang, profile-msvc ]
+        include:
+          - os: ubuntu-latest
+            preset: profile-gcc
+          - os: ubuntu-latest
+            preset: profile-clang
+          - os: macos-latest
+            preset: profile-gcc
+          - os: macos-latest
+            preset: profile-clang
+          - os: windows-latest
+            preset: profile-msvc
+        
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      working-directory: ./imageutils
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: current_branch
+        run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-main
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install system dependencies
+        run: |
+          pip3 install conan ninja --upgrade
+          conan --version
+          ninja --version
+          conan profile detect
+
+      - name: Install project dependencies
+        run: conan install . -b missing
+        working-directory: ${{ env.working-directory }}
+
+      - name: Execute benchmark
+        run: cmake --workflow --fresh --preset ${{ matrix.preset }}
+        working-directory: ${{ env.working-directory }}
