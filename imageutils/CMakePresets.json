@@ -2,589 +2,869 @@
   "version": 6,
   "configurePresets": [
     {
-      "name": "default",
-      "displayName": "Default",
-      "description": "Default preset",
+      "name": "base",
       "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
-      "installDir": "${sourceDir}/install/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}"
+    },
+    {
+      "name": "dev",
+      "hidden": true,
       "cacheVariables": {
-        "ENABLE_PCH": true,
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CONFIGURATION_TYPES": "Debug",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
         "ENABLE_TESTS": true,
-        "ENABLE_BENCHMARKS": true,
         "ENABLE_EXAMPLES": true,
         "ENABLE_COVERAGE": true,
         "ENABLE_DOXYGEN": true
-      }
+      },
+      "inherits": "base"
     },
     {
-      "name": "gcc-default",
-      "displayName": "GNU C/C++ (Default)",
-      "description": "GNU C/C++ default preset",
+      "name": "ci",
       "hidden": true,
-      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake",
-      "inherits": "default"
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CONFIGURATION_TYPES": "Release",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "ENABLE_TESTS": true,
+        "ENABLE_COVERAGE": true,
+        "ENABLE_DOXYGEN": true
+      },
+      "inherits": "base"
     },
     {
-      "name": "clang-default",
-      "displayName": "Clang (LLVM) C/C++ (Default)",
-      "description": "Clang (LLVM) C/C++ default preset",
+      "name": "profile",
       "hidden": true,
-      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-clang.cmake",
-      "inherits": "default"
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
+        "ENABLE_BENCHMARKS": true
+      },
+      "inherits": "base"
     },
     {
-      "name": "msvc-default",
-      "displayName": "Microsoft Visual C/C++ (Default)",
-      "description": "Microsoft Visual C/C++ default preset",
+      "name": "asan",
+      "hidden": true,
+      "cacheVariables": {
+        "ENABLE_ASAN": true,
+        "ENABLE_LSAN": true,
+        "ENABLE_MSAN": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "tsan",
+      "hidden": true,
+      "cacheVariables": {
+        "ENABLE_TSAN": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "ubsan",
+      "hidden": true,
+      "cacheVariables": {
+        "ENABLE_UBSAN": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "gcc",
+      "displayName": "GNU C/C++ compiler",
+      "description": "GNU C/C++ preset",
+      "hidden": true,
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake"
+    },
+    {
+      "name": "clang",
+      "displayName": "Clang (LLVM) C/C++ compiler",
+      "description": "Clang (LLVM) C/C++ compiler preset",
+      "hidden": true,
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-clang.cmake"
+    },
+    {
+      "name": "msvc",
+      "displayName": "Microsoft Visual C/C++ compiler",
+      "description": "Microsoft Visual C/C++ compiler preset",
       "hidden": true,
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
         "rhs": "Windows"
       },
-      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-msvc.cmake",
-      "inherits": "default"
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-msvc.cmake"
     },
     {
-      "name": "gcc-debug",
-      "displayName": "GNU C/C++ (Debug)",
-      "description": "GNU C/C++ debug preset",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CONFIGURATION_TYPES": "Debug",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators"
-      },
-      "inherits": "gcc-default"
+      "name": "dev-gcc",
+      "displayName": "Developer Mode (GNU C/C++)",
+      "description": "Developer mode preset (GNU C/C++)",
+      "inherits": [ "dev", "gcc" ]
     },
     {
-      "name": "gcc-profile",
-      "displayName": "GNU C/C++ (Profile)",
-      "description": "GNU C/C++ profile preset",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators"
-      },
-      "inherits": "gcc-default"
-
+      "name": "dev-asan-gcc",
+      "displayName": "Developer Mode - ASAN (GNU C/C++)",
+      "description": "Developer mode preset with address sanitizer enabled (GNU C/C++)",
+      "inherits": [ "dev", "asan", "gcc" ]
     },
     {
-      "name": "gcc-release",
-      "displayName": "GNU C/C++ (Release)",
-      "description": "GNU C/C++ release preset",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_CONFIGURATION_TYPES": "Release",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators"
-      },
-      "inherits": "gcc-default"
-
+      "name": "dev-tsan-gcc",
+      "displayName": "Developer Mode - TSAN (GNU C/C++)",
+      "description": "Developer mode preset with thread sanitizer enabled (GNU C/C++)",
+      "inherits": [ "dev", "tsan", "gcc" ]
     },
     {
-      "name": "clang-debug",
-      "displayName": "Clang (LLVM) C/C++ (Debug)",
-      "description": "Clang (LLVM) C/C++ debug profile",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CONFIGURATION_TYPES": "Debug",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators"
-      },
-      "inherits": "clang-default"
+      "name": "dev-ubsan-gcc",
+      "displayName": "Developer Mode - UBSAN (GNU C/C++)",
+      "description": "Developer mode preset with undefined sanitizer enabled (GNU C/C++)",
+      "inherits": [ "dev", "ubsan", "gcc" ]
     },
     {
-      "name": "clang-profile",
-      "displayName": "Clang (LLVM) C/C++ (Profile)",
-      "description": "Clang (LLVM) C/C++ profile preset",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators"
-      },
-      "inherits": "clang-default"
+      "name": "ci-gcc",
+      "displayName": "CI Mode (GNU C/C++)",
+      "description": "CI mode preset with GNU C/C++",
+      "inherits": [ "ci", "gcc" ]
     },
     {
-      "name": "clang-release",
-      "displayName": "Clang (LLVM) C/C++ (Release)",
-      "description": "Clang (LLVM) C/C++ release preset",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_CONFIGURATION_TYPES": "Release",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators"
-      },
-      "inherits": "clang-default"
+      "name": "ci-asan-gcc",
+      "displayName": "CI Mode - ASAN (GNU C/C++)",
+      "description": "CI mode preset with address sanitizer enabled (GNU C/C++)",
+      "inherits": [ "ci", "asan", "gcc" ]
     },
     {
-      "name": "msvc-debug",
-      "displayName": "Microsoft Visual C/C++ (Debug)",
-      "description": "Microsoft Visual C/C++ debug preset",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CONFIGURATION_TYPES": "Debug",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators"
-      },
-      "inherits": "msvc-default"
+      "name": "ci-tsan-gcc",
+      "displayName": "CI Mode - TSAN (GNU C/C++)",
+      "description": "CI mode preset with thread sanitizer enabled (GNU C/C++)",
+      "inherits": [ "ci", "tsan", "gcc" ]
     },
     {
-      "name": "msvc-profile",
-      "displayName": "Microsoft Visual C/C++ (Profile)",
-      "description": "Microsoft Visual C/C++ profile preset",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators"
-      },
-      "inherits": "msvc-default"
+      "name": "ci-ubsan-gcc",
+      "displayName": "CI Mode - UBSAN (GNU C/C++)",
+      "description": "CI mode preset with undefined sanitizer enabled (GNU C/C++)",
+      "inherits": [ "ci", "ubsan", "gcc" ]
     },
     {
-      "name": "msvc-release",
-      "displayName": "Microsoft Visual C/C++ (Release)",
-      "description": "Microsoft Visual C/C++ release preset",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_CONFIGURATION_TYPES": "Release",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators"
-      },
-      "inherits": "msvc-default"
+      "name": "profile-gcc",
+      "displayName": "Profiler Mode (GNU C/C++)",
+      "description": "Profiler mode preset with GNU C/C++",
+      "inherits": [ "profile", "gcc" ]
+    },
+    {
+      "name": "dev-clang",
+      "displayName": "Developer Mode (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset (Clang (LLVM) C/C++)",
+      "inherits": [ "dev", "clang" ]
+    },
+    {
+      "name": "dev-asan-clang",
+      "displayName": "Developer Mode - ASAN (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "inherits": [ "dev", "asan", "clang" ]
+    },
+    {
+      "name": "dev-tsan-clang",
+      "displayName": "Developer Mode - TSAN (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "inherits": [ "dev", "tsan", "clang" ]
+    },
+    {
+      "name": "dev-ubsan-clang",
+      "displayName": "Developer Mode - UBSAN (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "inherits": [ "dev", "ubsan", "clang" ]
+    },
+    {
+      "name": "ci-clang",
+      "displayName": "CI Mode (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with Clang (LLVM) C/C++",
+      "inherits": [ "ci", "clang" ]
+    },
+    {
+      "name": "ci-asan-clang",
+      "displayName": "CI Mode - ASAN (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "inherits": [ "ci", "asan", "clang" ]
+    },
+    {
+      "name": "ci-tsan-clang",
+      "displayName": "CI Mode - TSAN (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "inherits": [ "ci", "tsan", "clang" ]
+    },
+    {
+      "name": "ci-ubsan-clang",
+      "displayName": "CI Mode - UBSAN (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "inherits": [ "ci", "ubsan", "clang" ]
+    },
+    {
+      "name": "profile-clang",
+      "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
+      "description": "Profiler mode preset with Clang (LLVM) C/C++",
+      "inherits": [ "profile", "clang" ]
+    },
+    {
+      "name": "dev-msvc",
+      "displayName": "Developer Mode (Microsoft Visual C/C++)",
+      "description": "Developer mode preset (Microsoft Visual C/C++)",
+      "inherits": [ "dev", "msvc" ]
+    },
+    {
+      "name": "ci-msvc",
+      "displayName": "CI Mode (Microsoft Visual C/C++)",
+      "description": "CI mode preset with Microsoft Visual C/C++",
+      "inherits": [ "ci", "msvc" ]
+    },
+    {
+      "name": "profile-msvc",
+      "displayName": "Profiler Mode (Microsoft Visual C/C++)",
+      "description": "Profiler mode preset with Microsoft Visual C/C++",
+      "inherits": [ "profile", "msvc" ]
     }
   ],
   "buildPresets": [
     {
-      "name": "gcc-debug",
-      "displayName": "GNU C/C++ (Debug)",
-      "configurePreset": "gcc-debug"
+      "name": "dev-gcc",
+      "displayName": "Developer Mode (GNU C/C++)",
+      "description": "Developer mode preset (GNU C/C++)",
+      "configurePreset": "dev-gcc"
     },
     {
-      "name": "gcc-profile",
-      "displayName": "GNU C/C++ (Profile)",
-      "configurePreset": "gcc-profile"
+      "name": "dev-asan-gcc",
+      "displayName": "Developer Mode - ASAN (GNU C/C++)",
+      "description": "Developer mode preset with address sanitizer enabled (GNU C/C++)",
+      "configurePreset": "dev-asan-gcc"
     },
     {
-      "name": "gcc-release",
-      "displayName": "GNU C/C++ (Release)",
-      "configurePreset": "gcc-release"
+      "name": "dev-tsan-gcc",
+      "displayName": "Developer Mode - TSAN (GNU C/C++)",
+      "description": "Developer mode preset with thread sanitizer enabled (GNU C/C++)",
+      "configurePreset": "dev-tsan-gcc"
     },
     {
-      "name": "clang-debug",
-      "displayName": "Clang (LLVM) C/C++ (Debug)",
-      "configurePreset": "clang-debug"
+      "name": "dev-ubsan-gcc",
+      "displayName": "Developer Mode - UBSAN (GNU C/C++)",
+      "description": "Developer mode preset with undefined sanitizer enabled (GNU C/C++)",
+      "configurePreset": "dev-ubsan-gcc"
     },
     {
-      "name": "clang-profile",
-      "displayName": "Clang (LLVM) C/C++ (Profile)",
-      "configurePreset": "clang-profile"
+      "name": "ci-gcc",
+      "displayName": "CI Mode (GNU C/C++)",
+      "description": "CI mode preset with GNU C/C++",
+      "configurePreset": "ci-gcc"
     },
     {
-      "name": "clang-release",
-      "displayName": "Clang (LLVM) C/C++ (Release)",
-      "configurePreset": "clang-release"
+      "name": "ci-asan-gcc",
+      "displayName": "CI Mode - ASAN (GNU C/C++)",
+      "description": "CI mode preset with address sanitizer enabled (GNU C/C++)",
+      "configurePreset": "ci-asan-gcc"
     },
     {
-      "name": "msvc-debug",
-      "displayName": "Microsoft Visual C/C++ (Debug)",
-      "configurePreset": "msvc-debug"
+      "name": "ci-tsan-gcc",
+      "displayName": "CI Mode - TSAN (GNU C/C++)",
+      "description": "CI mode preset with thread sanitizer enabled (GNU C/C++)",
+      "configurePreset": "ci-tsan-gcc"
     },
     {
-      "name": "msvc-profile",
-      "displayName": "Microsoft Visual C/C++ (Profile)",
-      "configurePreset": "msvc-profile"
+      "name": "ci-ubsan-gcc",
+      "displayName": "CI Mode - UBSAN (GNU C/C++)",
+      "description": "CI mode preset with undefined sanitizer enabled (GNU C/C++)",
+      "configurePreset": "ci-ubsan-gcc"
     },
     {
-      "name": "msvc-release",
-      "displayName": "Microsoft Visual C/C++ (Release)",
-      "configurePreset": "msvc-release"
+      "name": "profile-gcc",
+      "displayName": "Profiler Mode (GNU C/C++)",
+      "description": "Profiler mode preset with GNU C/C++",
+      "configurePreset": "profile-gcc"
+    },
+    {
+      "name": "dev-clang",
+      "displayName": "Developer Mode (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset (Clang (LLVM) C/C++)",
+      "configurePreset": "dev-clang"
+    },
+    {
+      "name": "dev-asan-clang",
+      "displayName": "Developer Mode - ASAN (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "configurePreset": "dev-asan-clang"
+    },
+    {
+      "name": "dev-tsan-clang",
+      "displayName": "Developer Mode - TSAN (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "configurePreset": "dev-tsan-clang"
+    },
+    {
+      "name": "dev-ubsan-clang",
+      "displayName": "Developer Mode - UBSAN (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "configurePreset": "dev-ubsan-clang"
+    },
+    {
+      "name": "ci-clang",
+      "displayName": "CI Mode (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with Clang (LLVM) C/C++",
+      "configurePreset": "ci-clang"
+    },
+    {
+      "name": "ci-asan-clang",
+      "displayName": "CI Mode - ASAN (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "configurePreset": "ci-asan-clang"
+    },
+    {
+      "name": "ci-tsan-clang",
+      "displayName": "CI Mode - TSAN (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "configurePreset": "ci-tsan-clang"
+    },
+    {
+      "name": "ci-ubsan-clang",
+      "displayName": "CI Mode - UBSAN (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "configurePreset": "ci-ubsan-clang"
+    },
+    {
+      "name": "profile-clang",
+      "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
+      "description": "Profiler mode preset with Clang (LLVM) C/C++",
+      "configurePreset": "profile-clang"
+    },
+    {
+      "name": "dev-msvc",
+      "displayName": "Developer Mode (Microsoft Visual C/C++)",
+      "description": "Developer mode preset (Microsoft Visual C/C++)",
+      "configurePreset": "dev-msvc"
+    },
+    {
+      "name": "ci-msvc",
+      "displayName": "CI Mode (Microsoft Visual C/C++)",
+      "description": "CI mode preset with Microsoft Visual C/C++",
+      "configurePreset": "ci-msvc"
+    },
+    {
+      "name": "profile-msvc",
+      "displayName": "Profiler Mode (Microsoft Visual C/C++)",
+      "description": "Profiler mode preset with Microsoft Visual C/C++",
+      "configurePreset": "profile-msvc"
     }
   ],
   "testPresets": [
     {
-      "name": "gcc-debug",
-      "displayName": "GNU C/C++ (Debug)",
-      "configurePreset": "gcc-debug",
+      "name": "test-base",
+      "displayName": "Test Base",
+      "description": "Base test preset",
       "output": {
         "outputOnFailure": true
       },
       "execution": {
         "noTestsAction": "error",
         "stopOnFailure": true
-      }
+      },
+      "hidden": true
     },
     {
-      "name": "gcc-profile",
-      "displayName": "GNU C/C++ (Profile)",
-      "configurePreset": "gcc-profile",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
+      "name": "dev-gcc",
+      "displayName": "Developer Mode (GNU C/C++)",
+      "description": "Developer mode preset (GNU C/C++)",
+      "configurePreset": "dev-gcc",
+      "inherits": "test-base"
     },
     {
-      "name": "gcc-release",
-      "displayName": "GNU C/C++ (Release)",
-      "configurePreset": "gcc-release",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
+      "name": "ci-gcc",
+      "displayName": "CI Mode (GNU C/C++)",
+      "description": "CI mode preset with GNU C/C++",
+      "configurePreset": "ci-gcc",
+      "inherits": "test-base"
     },
     {
-      "name": "clang-debug",
-      "displayName": "Clang (LLVM) C/C++ (Debug)",
-      "configurePreset": "clang-debug",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
+      "name": "profile-gcc",
+      "displayName": "Profiler Mode (GNU C/C++)",
+      "description": "Profiler mode preset with GNU C/C++",
+      "configurePreset": "profile-gcc",
+      "inherits": "test-base"
     },
     {
-      "name": "clang-profile",
-      "displayName": "Clang (LLVM) C/C++ (Profile)",
-      "configurePreset": "clang-profile",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
+      "name": "dev-clang",
+      "displayName": "Developer Mode (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset (Clang (LLVM) C/C++)",
+      "configurePreset": "dev-clang",
+      "inherits": "test-base"
     },
     {
-      "name": "clang-release",
-      "displayName": "Clang (LLVM) C/C++ (Release)",
-      "configurePreset": "clang-release",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
+      "name": "ci-clang",
+      "displayName": "CI Mode (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with Clang (LLVM) C/C++",
+      "configurePreset": "ci-clang",
+      "inherits": "test-base"
     },
     {
-      "name": "msvc-debug",
-      "displayName": "Microsoft Visual C/C++ (Debug)",
-      "configurePreset": "msvc-debug",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
+      "name": "profile-clang",
+      "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
+      "description": "Profiler mode preset with Clang (LLVM) C/C++",
+      "configurePreset": "profile-clang",
+      "inherits": "test-base"
     },
     {
-      "name": "msvc-profile",
-      "displayName": "Microsoft Visual C/C++ (Profile)",
-      "configurePreset": "msvc-profile",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
+      "name": "dev-msvc",
+      "displayName": "Developer Mode (Microsoft Visual C/C++)",
+      "description": "Developer mode preset (Microsoft Visual C/C++)",
+      "configurePreset": "dev-msvc",
+      "inherits": "test-base"
     },
     {
-      "name": "msvc-release",
-      "displayName": "Microsoft Visual C/C++ (Release)",
-      "configurePreset": "msvc-release",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
+      "name": "ci-msvc",
+      "displayName": "CI Mode (Microsoft Visual C/C++)",
+      "description": "CI mode preset with Microsoft Visual C/C++",
+      "configurePreset": "ci-msvc",
+      "inherits": "test-base"
+    },
+    {
+      "name": "profile-msvc",
+      "displayName": "Profiler Mode (Microsoft Visual C/C++)",
+      "description": "Profiler mode preset with Microsoft Visual C/C++",
+      "configurePreset": "profile-msvc",
+      "inherits": "test-base"
     }
   ],
   "packagePresets": [
     {
-      "name": "gcc-debug",
-      "displayName": "GNU C/C++ (Debug)",
-      "configurePreset": "gcc-debug",
-      "generators": [
-        "TGZ"
-      ]
+      "name": "package-tgz",
+      "displayName": "TGZ Package Mode",
+      "description": "TGZ package mode preset",
+      "generators": [ "TGZ" ],
+      "hidden": true
     },
     {
-      "name": "gcc-profile",
-      "displayName": "GNU C/C++ (Profile)",
-      "configurePreset": "gcc-profile",
-      "generators": [
-        "TGZ"
-      ]
+      "name": "package-zip",
+      "displayName": "ZIP Package Mode",
+      "description": "ZIP package mode preset",
+      "generators": [ "ZIP" ],
+      "hidden": true
     },
     {
-      "name": "gcc-release",
-      "displayName": "GNU C/C++ (Release)",
-      "configurePreset": "gcc-release",
-      "generators": [
-        "TGZ"
-      ]
+      "name": "dev-gcc",
+      "displayName": "Developer Mode (GNU C/C++)",
+      "description": "Developer mode preset (GNU C/C++)",
+      "configurePreset": "dev-gcc",
+      "inherits": "package-tgz"
     },
     {
-      "name": "clang-debug",
-      "displayName": "Clang (LLVM) C/C++ (Debug)",
-      "configurePreset": "clang-debug",
-      "generators": [
-        "TGZ"
-      ]
+      "name": "ci-gcc",
+      "displayName": "CI Mode (GNU C/C++)",
+      "description": "CI mode preset with GNU C/C++",
+      "configurePreset": "ci-gcc",
+      "inherits": "package-tgz"
     },
     {
-      "name": "clang-profile",
-      "displayName": "Clang (LLVM) C/C++ (Profile)",
-      "configurePreset": "clang-profile",
-      "generators": [
-        "TGZ"
-      ]
+      "name": "dev-clang",
+      "displayName": "Developer Mode (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset (Clang (LLVM) C/C++)",
+      "configurePreset": "dev-clang",
+      "inherits": "package-tgz"
     },
     {
-      "name": "clang-release",
-      "displayName": "Clang (LLVM) C/C++ (Release)",
-      "configurePreset": "clang-release",
-      "generators": [
-        "TGZ"
-      ]
+      "name": "ci-clang",
+      "displayName": "CI Mode (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with Clang (LLVM) C/C++",
+      "configurePreset": "ci-clang",
+      "inherits": "package-tgz"
     },
     {
-      "name": "msvc-debug",
-      "displayName": "Microsoft Visual C/C++ (Debug)",
-      "configurePreset": "msvc-debug",
-      "generators": [
-        "ZIP"
-      ]
+      "name": "dev-msvc",
+      "displayName": "Developer Mode (Microsoft Visual C/C++)",
+      "description": "Developer mode preset (Microsoft Visual C/C++)",
+      "configurePreset": "dev-msvc",
+      "inherits": "package-zip"
     },
     {
-      "name": "msvc-profile",
-      "displayName": "Microsoft Visual C/C++ (Profile)",
-      "configurePreset": "msvc-profile",
-      "generators": [
-        "ZIP"
-      ]
-    },
-    {
-      "name": "msvc-release",
-      "displayName": "Microsoft Visual C/C++ (Release)",
-      "configurePreset": "msvc-release",
-      "generators": [
-        "ZIP"
-      ]
+      "name": "ci-msvc",
+      "displayName": "CI Mode (Microsoft Visual C/C++)",
+      "description": "CI mode preset with Microsoft Visual C/C++",
+      "configurePreset": "ci-msvc",
+      "inherits": "package-zip"
     }
   ],
   "workflowPresets": [
     {
-      "name": "gcc-debug",
-      "displayName": "GNU C/C++ (Debug)",
+      "name": "dev-gcc",
+      "displayName": "Developer Mode (GNU C/C++)",
+      "description": "Developer mode preset (GNU C/C++)",
       "steps": [
         {
           "type": "configure",
-          "name": "gcc-debug"
+          "name": "dev-gcc"
         },
         {
           "type": "build",
-          "name": "gcc-debug"
+          "name": "dev-gcc"
         },
         {
           "type": "test",
-          "name": "gcc-debug"
+          "name": "dev-gcc"
         },
         {
           "type": "package",
-          "name": "gcc-debug"
+          "name": "dev-gcc"
         }
       ]
     },
     {
-      "name": "gcc-profile",
-      "displayName": "GNU C/C++ (Profile)",
+      "name": "dev-asan-gcc",
+      "displayName": "Developer Mode - ASAN (GNU C/C++)",
+      "description": "Developer mode preset with address sanitizer enabled (GNU C/C++)",
       "steps": [
         {
           "type": "configure",
-          "name": "gcc-profile"
+          "name": "dev-asan-gcc"
         },
         {
           "type": "build",
-          "name": "gcc-profile"
-        },
-        {
-          "type": "test",
-          "name": "gcc-profile"
-        },
-        {
-          "type": "package",
-          "name": "gcc-profile"
+          "name": "dev-asan-gcc"
         }
       ]
     },
     {
-      "name": "gcc-release",
-      "displayName": "GNU C/C++ (Release)",
+      "name": "dev-tsan-gcc",
+      "displayName": "Developer Mode - TSAN (GNU C/C++)",
+      "description": "Developer mode preset with thread sanitizer enabled (GNU C/C++)",
       "steps": [
         {
           "type": "configure",
-          "name": "gcc-release"
+          "name": "dev-tsan-gcc"
         },
         {
           "type": "build",
-          "name": "gcc-release"
-        },
-        {
-          "type": "test",
-          "name": "gcc-release"
-        },
-        {
-          "type": "package",
-          "name": "gcc-release"
+          "name": "dev-tsan-gcc"
         }
       ]
     },
     {
-      "name": "clang-debug",
-      "displayName": "Clang (LLVM) C/C++ (Debug)",
+      "name": "dev-ubsan-gcc",
+      "displayName": "Developer Mode - UBSAN (GNU C/C++)",
+      "description": "Developer mode preset with undefined sanitizer enabled (GNU C/C++)",
       "steps": [
         {
           "type": "configure",
-          "name": "clang-debug"
+          "name": "dev-ubsan-gcc"
         },
         {
           "type": "build",
-          "name": "clang-debug"
-        },
-        {
-          "type": "test",
-          "name": "clang-debug"
-        },
-        {
-          "type": "package",
-          "name": "clang-debug"
+          "name": "dev-ubsan-gcc"
         }
       ]
     },
     {
-      "name": "clang-profile",
-      "displayName": "Clang (LLVM) C/C++ (Profile)",
+      "name": "ci-gcc",
+      "displayName": "CI Mode (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with Clang (LLVM) C/C++",
       "steps": [
         {
           "type": "configure",
-          "name": "clang-profile"
+          "name": "ci-gcc"
         },
         {
           "type": "build",
-          "name": "clang-profile"
+          "name": "ci-gcc"
         },
         {
           "type": "test",
-          "name": "clang-profile"
+          "name": "ci-gcc"
         },
         {
           "type": "package",
-          "name": "clang-profile"
+          "name": "ci-gcc"
         }
       ]
     },
     {
-      "name": "clang-release",
-      "displayName": "Clang (LLVM) C/C++ (Release)",
+      "name": "ci-asan-gcc",
+      "displayName": "CI Mode - ASAN (GNU C/C++)",
+      "description": "CI mode preset with address sanitizer enabled (GNU C/C++)",
       "steps": [
         {
           "type": "configure",
-          "name": "clang-release"
+          "name": "ci-asan-gcc"
         },
         {
           "type": "build",
-          "name": "clang-release"
-        },
-        {
-          "type": "test",
-          "name": "clang-release"
-        },
-        {
-          "type": "package",
-          "name": "clang-release"
+          "name": "ci-asan-gcc"
         }
       ]
     },
     {
-      "name": "msvc-debug",
-      "displayName": "Microsoft Visual C/C++ (Debug)",
+      "name": "ci-tsan-gcc",
+      "displayName": "CI Mode - TSAN (GNU C/C++)",
+      "description": "CI mode preset with thread sanitizer enabled (GNU C/C++)",
       "steps": [
         {
           "type": "configure",
-          "name": "msvc-debug"
+          "name": "ci-tsan-gcc"
         },
         {
           "type": "build",
-          "name": "msvc-debug"
-        },
-        {
-          "type": "test",
-          "name": "msvc-debug"
-        },
-        {
-          "type": "package",
-          "name": "msvc-debug"
+          "name": "ci-tsan-gcc"
         }
       ]
     },
     {
-      "name": "msvc-profile",
-      "displayName": "Microsoft Visual C/C++ (Profile)",
+      "name": "ci-ubsan-gcc",
+      "displayName": "CI Mode - UBSAN (GNU C/C++)",
+      "description": "CI mode preset with undefined sanitizer enabled (GNU C/C++)",
       "steps": [
         {
           "type": "configure",
-          "name": "msvc-profile"
+          "name": "ci-ubsan-gcc"
         },
         {
           "type": "build",
-          "name": "msvc-profile"
-        },
-        {
-          "type": "test",
-          "name": "msvc-profile"
-        },
-        {
-          "type": "package",
-          "name": "msvc-profile"
+          "name": "ci-ubsan-gcc"
         }
       ]
     },
     {
-      "name": "msvc-release",
-      "displayName": "Microsoft Visual C/C++ (Release)",
+      "name": "profile-gcc",
+      "displayName": "Profiler Mode (GNU C/C++)",
+      "description": "Profiler mode preset with GNU C/C++",
       "steps": [
         {
           "type": "configure",
-          "name": "msvc-release"
+          "name": "profile-gcc"
         },
         {
           "type": "build",
-          "name": "msvc-release"
+          "name": "profile-gcc"
         },
         {
           "type": "test",
-          "name": "msvc-release"
+          "name": "profile-gcc"
+        }
+      ]
+    },
+    {
+      "name": "dev-clang",
+      "displayName": "Developer Mode (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset (Clang (LLVM) C/C++)",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-clang"
+        },
+        {
+          "type": "test",
+          "name": "dev-clang"
         },
         {
           "type": "package",
-          "name": "msvc-release"
+          "name": "dev-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-asan-clang",
+      "displayName": "Developer Mode - ASAN (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-asan-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-asan-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-tsan-clang",
+      "displayName": "Developer Mode - TSAN (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-tsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-tsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-ubsan-clang",
+      "displayName": "Developer Mode - UBSAN (Clang (LLVM) C/C++)",
+      "description": "Developer mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-ubsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-ubsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-clang",
+      "displayName": "CI Mode (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with Clang (LLVM) C/C++",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-clang"
+        },
+        {
+          "type": "test",
+          "name": "ci-clang"
+        },
+        {
+          "type": "package",
+          "name": "ci-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-asan-clang",
+      "displayName": "CI Mode - ASAN (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-asan-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-asan-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-tsan-clang",
+      "displayName": "CI Mode - TSAN (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-tsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-tsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-ubsan-clang",
+      "displayName": "CI Mode - UBSAN (Clang (LLVM) C/C++)",
+      "description": "CI mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-ubsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-ubsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "profile-clang",
+      "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
+      "description": "Profiler mode preset with Clang (LLVM) C/C++",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "profile-clang"
+        },
+        {
+          "type": "build",
+          "name": "profile-clang"
+        },
+        {
+          "type": "test",
+          "name": "profile-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-msvc",
+      "displayName": "Developer Mode (Microsoft Visual C/C++)",
+      "description": "Developer mode preset (Microsoft Visual C/C++)",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-msvc"
+        },
+        {
+          "type": "build",
+          "name": "dev-msvc"
+        },
+        {
+          "type": "test",
+          "name": "dev-msvc"
+        },
+        {
+          "type": "package",
+          "name": "dev-msvc"
+        }
+      ]
+    },
+    {
+      "name": "ci-msvc",
+      "displayName": "CI Mode (Microsoft Visual C/C++)",
+      "description": "CI mode preset with Microsoft Visual C/C++",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-msvc"
+        },
+        {
+          "type": "build",
+          "name": "ci-msvc"
+        },
+        {
+          "type": "test",
+          "name": "ci-msvc"
+        },
+        {
+          "type": "package",
+          "name": "ci-msvc"
+        }
+      ]
+    },
+    {
+      "name": "profile-msvc",
+      "displayName": "Profiler Mode (Microsoft Visual C/C++)",
+      "description": "Profiler mode preset with Microsoft Visual C/C++",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "profile-msvc"
+        },
+        {
+          "type": "build",
+          "name": "profile-msvc"
+        },
+        {
+          "type": "test",
+          "name": "profile-msvc"
         }
       ]
     }

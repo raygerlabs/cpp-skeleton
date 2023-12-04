@@ -15,7 +15,6 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Features
-option(ENABLE_PCH          "Enable precompiled headers"          OFF)
 option(ENABLE_TESTS        "Enable unit tests"                   OFF)
 option(ENABLE_BENCHMARKS   "Enable benchmarks"                   OFF)
 option(ENABLE_EXAMPLES     "Enable examples"                     OFF)
@@ -53,6 +52,7 @@ if (ENABLE_EXAMPLES)
 endif()
 
 if (ENABLE_BENCHMARKS)
+  enable_testing()
   add_subdirectory(benchmarks)
 endif()
 
