@@ -26,7 +26,7 @@ class MainRecipe(ConanFile):
 
   def generate(self) -> None:
     self._generate_toolchain()
-    self._generate_cmakedeps()
+    self._generate_cmake_deps()
 
   def build(self) -> None:
     cmake = self._configure_cmake()
@@ -60,11 +60,11 @@ class MainRecipe(ConanFile):
       copy(self, pattern, src=self.recipe_folder, dst=self.export_sources_folder)
 
   def _generate_toolchain(self) -> None:
-    tc = CMakeToolchain(self)
-    tc.user_presets_path = None
+    tc = CMakeToolchain(self, generator = "Ninja")
+    tc.user_presets_path = False
     tc.generate()
 
-  def _generate_cmakedeps(self) -> None:
+  def _generate_cmake_deps(self) -> None:
     deps = CMakeDeps(self)
     deps.generate()
 
@@ -75,5 +75,5 @@ class MainRecipe(ConanFile):
       "BUILD_STATIC_LIBS": not self.options.shared,
       "ENABLE_TESTS": not self.conf.get("tools.build:skip_test", default=False)
     }
-    cmake.configure(variables=configure_variables, cli_args=['--log-level=DEBUG'])
+    cmake.configure(variables=configure_variables)
     return cmake

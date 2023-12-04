@@ -2,243 +2,591 @@
   "version": 6,
   "configurePresets": [
     {
-      "name": "ci-default",
+      "name": "default",
+      "displayName": "Default",
+      "description": "Default preset",
+      "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
       "installDir": "${sourceDir}/install/${presetName}",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_CONFIGURATION_TYPES": "Release",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
         "ENABLE_PCH": true,
         "ENABLE_TESTS": true,
+        "ENABLE_BENCHMARKS": true,
         "ENABLE_EXAMPLES": true,
         "ENABLE_COVERAGE": true,
         "ENABLE_DOXYGEN": true
+      }
+    },
+    {
+      "name": "gcc-default",
+      "displayName": "GNU C/C++ (Default)",
+      "description": "GNU C/C++ default preset",
+      "hidden": true,
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake",
+      "inherits": "default"
+    },
+    {
+      "name": "clang-default",
+      "displayName": "Clang (LLVM) C/C++ (Default)",
+      "description": "Clang (LLVM) C/C++ default preset",
+      "hidden": true,
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-clang.cmake",
+      "inherits": "default"
+    },
+    {
+      "name": "msvc-default",
+      "displayName": "Microsoft Visual C/C++ (Default)",
+      "description": "Microsoft Visual C/C++ default preset",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
       },
-      "hidden": true
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-msvc.cmake",
+      "inherits": "default"
     },
     {
-      "name": "ci-linux",
-      "condition": { "lhs": "${hostSystemName}", "type": "equals", "rhs": "Linux" },
-      "inherits": "ci-default",
-      "hidden": true
+      "name": "gcc-debug",
+      "displayName": "GNU C/C++ (Debug)",
+      "description": "GNU C/C++ debug preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CONFIGURATION_TYPES": "Debug",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators"
+      },
+      "inherits": "gcc-default"
     },
     {
-      "name": "ci-macosx",
-      "condition": { "lhs": "${hostSystemName}", "type": "equals", "rhs": "Darwin" },
-      "inherits": "ci-default",
-      "hidden": true
+      "name": "gcc-profile",
+      "displayName": "GNU C/C++ (Profile)",
+      "description": "GNU C/C++ profile preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators"
+      },
+      "inherits": "gcc-default"
+
     },
-    { "name": "ci-windows",
-      "condition": { "lhs": "${hostSystemName}", "type": "equals", "rhs": "Windows" },
-      "inherits": "ci-default",
-      "hidden": true
+    {
+      "name": "gcc-release",
+      "displayName": "GNU C/C++ (Release)",
+      "description": "GNU C/C++ release preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CONFIGURATION_TYPES": "Release",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators"
+      },
+      "inherits": "gcc-default"
+
     },
-    { "name": "ci-linux-arm",       "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-arm.cmake" },
-    { "name": "ci-linux-arm64",     "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-arm64.cmake" },
-    { "name": "ci-linux-i386",      "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-i386.cmake" },
-    { "name": "ci-linux-mips",      "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-mips.cmake" },
-    { "name": "ci-linux-mips64",    "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-mips64.cmake" },
-    { "name": "ci-linux-powerpc",   "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-powerpc.cmake" },
-    { "name": "ci-linux-powerpc64", "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-powerpc64.cmake" },
-    { "name": "ci-linux-s390x",     "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-s390x.cmake" },
-    { "name": "ci-linux-x86_64",    "inherits": "ci-linux",   "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-linux-x86_64.cmake" },
-    { "name": "ci-macosx-arm64",    "inherits": "ci-macosx",  "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-macosx-arm64.cmake" },
-    { "name": "ci-macosx-x86_64",   "inherits": "ci-macosx",  "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-macosx-x86_64.cmake" },
-    { "name": "ci-windows-arm",     "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-arm.cmake" },
-    { "name": "ci-windows-arm64",   "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-arm64.cmake" },
-    { "name": "ci-windows-x86",     "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-x86.cmake" },
-    { "name": "ci-windows-x86_64",  "inherits": "ci-windows", "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-windows-x86_64.cmake" }
+    {
+      "name": "clang-debug",
+      "displayName": "Clang (LLVM) C/C++ (Debug)",
+      "description": "Clang (LLVM) C/C++ debug profile",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CONFIGURATION_TYPES": "Debug",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators"
+      },
+      "inherits": "clang-default"
+    },
+    {
+      "name": "clang-profile",
+      "displayName": "Clang (LLVM) C/C++ (Profile)",
+      "description": "Clang (LLVM) C/C++ profile preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators"
+      },
+      "inherits": "clang-default"
+    },
+    {
+      "name": "clang-release",
+      "displayName": "Clang (LLVM) C/C++ (Release)",
+      "description": "Clang (LLVM) C/C++ release preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CONFIGURATION_TYPES": "Release",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators"
+      },
+      "inherits": "clang-default"
+    },
+    {
+      "name": "msvc-debug",
+      "displayName": "Microsoft Visual C/C++ (Debug)",
+      "description": "Microsoft Visual C/C++ debug preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CONFIGURATION_TYPES": "Debug",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators"
+      },
+      "inherits": "msvc-default"
+    },
+    {
+      "name": "msvc-profile",
+      "displayName": "Microsoft Visual C/C++ (Profile)",
+      "description": "Microsoft Visual C/C++ profile preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators"
+      },
+      "inherits": "msvc-default"
+    },
+    {
+      "name": "msvc-release",
+      "displayName": "Microsoft Visual C/C++ (Release)",
+      "description": "Microsoft Visual C/C++ release preset",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CONFIGURATION_TYPES": "Release",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators"
+      },
+      "inherits": "msvc-default"
+    }
   ],
   "buildPresets": [
-    { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm" },
-    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64" },
-    { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386" },
-    { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips" },
-    { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64" },
-    { "name": "ci-linux-powerpc",   "configurePreset": "ci-linux-powerpc" },
-    { "name": "ci-linux-powerpc64", "configurePreset": "ci-linux-powerpc64" },
-    { "name": "ci-linux-s390x",     "configurePreset": "ci-linux-s390x" },
-    { "name": "ci-linux-x86_64",    "configurePreset": "ci-linux-x86_64" },
-    { "name": "ci-macosx-arm64",    "configurePreset": "ci-macosx-arm64" },
-    { "name": "ci-macosx-x86_64",   "configurePreset": "ci-macosx-x86_64" },
-    { "name": "ci-windows-arm",     "configurePreset": "ci-windows-arm" },
-    { "name": "ci-windows-arm64",   "configurePreset": "ci-windows-arm64" },
-    { "name": "ci-windows-x86",     "configurePreset": "ci-windows-x86" },
-    { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64" }
+    {
+      "name": "gcc-debug",
+      "displayName": "GNU C/C++ (Debug)",
+      "configurePreset": "gcc-debug"
+    },
+    {
+      "name": "gcc-profile",
+      "displayName": "GNU C/C++ (Profile)",
+      "configurePreset": "gcc-profile"
+    },
+    {
+      "name": "gcc-release",
+      "displayName": "GNU C/C++ (Release)",
+      "configurePreset": "gcc-release"
+    },
+    {
+      "name": "clang-debug",
+      "displayName": "Clang (LLVM) C/C++ (Debug)",
+      "configurePreset": "clang-debug"
+    },
+    {
+      "name": "clang-profile",
+      "displayName": "Clang (LLVM) C/C++ (Profile)",
+      "configurePreset": "clang-profile"
+    },
+    {
+      "name": "clang-release",
+      "displayName": "Clang (LLVM) C/C++ (Release)",
+      "configurePreset": "clang-release"
+    },
+    {
+      "name": "msvc-debug",
+      "displayName": "Microsoft Visual C/C++ (Debug)",
+      "configurePreset": "msvc-debug"
+    },
+    {
+      "name": "msvc-profile",
+      "displayName": "Microsoft Visual C/C++ (Profile)",
+      "configurePreset": "msvc-profile"
+    },
+    {
+      "name": "msvc-release",
+      "displayName": "Microsoft Visual C/C++ (Release)",
+      "configurePreset": "msvc-release"
+    }
   ],
   "testPresets": [
-    { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm",       "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64",     "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386",      "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips",      "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64",    "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-powerpc",   "configurePreset": "ci-linux-powerpc",   "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-powerpc64", "configurePreset": "ci-linux-powerpc64", "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-s390x",     "configurePreset": "ci-linux-s390x",     "output": {"outputOnFailure": true} },
-    { "name": "ci-linux-x86_64",    "configurePreset": "ci-linux-x86_64",    "output": {"outputOnFailure": true} },
-    { "name": "ci-macosx-arm64",    "configurePreset": "ci-macosx-arm64",    "output": {"outputOnFailure": true} },
-    { "name": "ci-macosx-x86_64",   "configurePreset": "ci-macosx-x86_64",   "output": {"outputOnFailure": true} },
-    { "name": "ci-windows-arm",     "configurePreset": "ci-windows-arm",     "output": {"outputOnFailure": true} },
-    { "name": "ci-windows-arm64",   "configurePreset": "ci-windows-arm64",   "output": {"outputOnFailure": true} },
-    { "name": "ci-windows-x86",     "configurePreset": "ci-windows-x86",     "output": {"outputOnFailure": true} },
-    { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64",  "output": {"outputOnFailure": true} }
+    {
+      "name": "gcc-debug",
+      "displayName": "GNU C/C++ (Debug)",
+      "configurePreset": "gcc-debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "gcc-profile",
+      "displayName": "GNU C/C++ (Profile)",
+      "configurePreset": "gcc-profile",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "gcc-release",
+      "displayName": "GNU C/C++ (Release)",
+      "configurePreset": "gcc-release",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "clang-debug",
+      "displayName": "Clang (LLVM) C/C++ (Debug)",
+      "configurePreset": "clang-debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "clang-profile",
+      "displayName": "Clang (LLVM) C/C++ (Profile)",
+      "configurePreset": "clang-profile",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "clang-release",
+      "displayName": "Clang (LLVM) C/C++ (Release)",
+      "configurePreset": "clang-release",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "msvc-debug",
+      "displayName": "Microsoft Visual C/C++ (Debug)",
+      "configurePreset": "msvc-debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "msvc-profile",
+      "displayName": "Microsoft Visual C/C++ (Profile)",
+      "configurePreset": "msvc-profile",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "msvc-release",
+      "displayName": "Microsoft Visual C/C++ (Release)",
+      "configurePreset": "msvc-release",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    }
   ],
   "packagePresets": [
-    { "name": "ci-linux-arm",       "configurePreset": "ci-linux-arm",       "generators": ["TGZ"] },
-    { "name": "ci-linux-arm64",     "configurePreset": "ci-linux-arm64",     "generators": ["TGZ"] },
-    { "name": "ci-linux-i386",      "configurePreset": "ci-linux-i386",      "generators": ["TGZ"] },
-    { "name": "ci-linux-mips",      "configurePreset": "ci-linux-mips",      "generators": ["TGZ"] },
-    { "name": "ci-linux-mips64",    "configurePreset": "ci-linux-mips64",    "generators": ["TGZ"] },
-    { "name": "ci-linux-powerpc",   "configurePreset": "ci-linux-powerpc",   "generators": ["TGZ"] },
-    { "name": "ci-linux-powerpc64", "configurePreset": "ci-linux-powerpc64", "generators": ["TGZ"] },
-    { "name": "ci-linux-s390x",     "configurePreset": "ci-linux-s390x",     "generators": ["TGZ"] },
-    { "name": "ci-linux-x86_64",    "configurePreset": "ci-linux-x86_64",    "generators": ["TGZ"] },
-    { "name": "ci-macosx-arm64",    "configurePreset": "ci-macosx-arm64",    "generators": ["TGZ"] },
-    { "name": "ci-macosx-x86_64",   "configurePreset": "ci-macosx-x86_64",   "generators": ["TGZ"] },
-    { "name": "ci-windows-arm",     "configurePreset": "ci-windows-arm",     "generators": ["ZIP"] },
-    { "name": "ci-windows-arm64",   "configurePreset": "ci-windows-arm64",   "generators": ["ZIP"] },
-    { "name": "ci-windows-x86",     "configurePreset": "ci-windows-x86",     "generators": ["ZIP"] },
-    { "name": "ci-windows-x86_64",  "configurePreset": "ci-windows-x86_64",  "generators": ["ZIP"] }
+    {
+      "name": "gcc-debug",
+      "displayName": "GNU C/C++ (Debug)",
+      "configurePreset": "gcc-debug",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "gcc-profile",
+      "displayName": "GNU C/C++ (Profile)",
+      "configurePreset": "gcc-profile",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "gcc-release",
+      "displayName": "GNU C/C++ (Release)",
+      "configurePreset": "gcc-release",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "clang-debug",
+      "displayName": "Clang (LLVM) C/C++ (Debug)",
+      "configurePreset": "clang-debug",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "clang-profile",
+      "displayName": "Clang (LLVM) C/C++ (Profile)",
+      "configurePreset": "clang-profile",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "clang-release",
+      "displayName": "Clang (LLVM) C/C++ (Release)",
+      "configurePreset": "clang-release",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "msvc-debug",
+      "displayName": "Microsoft Visual C/C++ (Debug)",
+      "configurePreset": "msvc-debug",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "msvc-profile",
+      "displayName": "Microsoft Visual C/C++ (Profile)",
+      "configurePreset": "msvc-profile",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "msvc-release",
+      "displayName": "Microsoft Visual C/C++ (Release)",
+      "configurePreset": "msvc-release",
+      "generators": [
+        "ZIP"
+      ]
+    }
   ],
   "workflowPresets": [
     {
-      "name": "ci-linux-arm",
+      "name": "gcc-debug",
+      "displayName": "GNU C/C++ (Debug)",
       "steps": [
-        { "type": "configure", "name": "ci-linux-arm" },
-        { "type": "build",     "name": "ci-linux-arm" },
-        { "type": "test",      "name": "ci-linux-arm" },
-        { "type": "package",   "name": "ci-linux-arm" }
+        {
+          "type": "configure",
+          "name": "gcc-debug"
+        },
+        {
+          "type": "build",
+          "name": "gcc-debug"
+        },
+        {
+          "type": "test",
+          "name": "gcc-debug"
+        },
+        {
+          "type": "package",
+          "name": "gcc-debug"
+        }
       ]
     },
     {
-      "name": "ci-linux-arm64",
+      "name": "gcc-profile",
+      "displayName": "GNU C/C++ (Profile)",
       "steps": [
-        { "type": "configure", "name": "ci-linux-arm64" },
-        { "type": "build",     "name": "ci-linux-arm64" },
-        { "type": "test",      "name": "ci-linux-arm64" },
-        { "type": "package",   "name": "ci-linux-arm64" }
+        {
+          "type": "configure",
+          "name": "gcc-profile"
+        },
+        {
+          "type": "build",
+          "name": "gcc-profile"
+        },
+        {
+          "type": "test",
+          "name": "gcc-profile"
+        },
+        {
+          "type": "package",
+          "name": "gcc-profile"
+        }
       ]
     },
     {
-      "name": "ci-linux-i386",
+      "name": "gcc-release",
+      "displayName": "GNU C/C++ (Release)",
       "steps": [
-        { "type": "configure", "name": "ci-linux-i386" },
-        { "type": "build",     "name": "ci-linux-i386" },
-        { "type": "test",      "name": "ci-linux-i386" },
-        { "type": "package",   "name": "ci-linux-i386" }
+        {
+          "type": "configure",
+          "name": "gcc-release"
+        },
+        {
+          "type": "build",
+          "name": "gcc-release"
+        },
+        {
+          "type": "test",
+          "name": "gcc-release"
+        },
+        {
+          "type": "package",
+          "name": "gcc-release"
+        }
       ]
     },
     {
-      "name": "ci-linux-mips",
+      "name": "clang-debug",
+      "displayName": "Clang (LLVM) C/C++ (Debug)",
       "steps": [
-        { "type": "configure", "name": "ci-linux-mips" },
-        { "type": "build",     "name": "ci-linux-mips" },
-        { "type": "test",      "name": "ci-linux-mips" },
-        { "type": "package",   "name": "ci-linux-mips" }
+        {
+          "type": "configure",
+          "name": "clang-debug"
+        },
+        {
+          "type": "build",
+          "name": "clang-debug"
+        },
+        {
+          "type": "test",
+          "name": "clang-debug"
+        },
+        {
+          "type": "package",
+          "name": "clang-debug"
+        }
       ]
     },
     {
-      "name": "ci-linux-mips64",
+      "name": "clang-profile",
+      "displayName": "Clang (LLVM) C/C++ (Profile)",
       "steps": [
-        { "type": "configure", "name": "ci-linux-mips64" },
-        { "type": "build",     "name": "ci-linux-mips64" },
-        { "type": "test",      "name": "ci-linux-mips64" },
-        { "type": "package",   "name": "ci-linux-mips64" }
+        {
+          "type": "configure",
+          "name": "clang-profile"
+        },
+        {
+          "type": "build",
+          "name": "clang-profile"
+        },
+        {
+          "type": "test",
+          "name": "clang-profile"
+        },
+        {
+          "type": "package",
+          "name": "clang-profile"
+        }
       ]
     },
     {
-      "name": "ci-linux-powerpc",
+      "name": "clang-release",
+      "displayName": "Clang (LLVM) C/C++ (Release)",
       "steps": [
-        { "type": "configure", "name": "ci-linux-powerpc" },
-        { "type": "build",     "name": "ci-linux-powerpc" },
-        { "type": "test",      "name": "ci-linux-powerpc" },
-        { "type": "package",   "name": "ci-linux-powerpc" }
+        {
+          "type": "configure",
+          "name": "clang-release"
+        },
+        {
+          "type": "build",
+          "name": "clang-release"
+        },
+        {
+          "type": "test",
+          "name": "clang-release"
+        },
+        {
+          "type": "package",
+          "name": "clang-release"
+        }
       ]
     },
     {
-      "name": "ci-linux-powerpc64",
+      "name": "msvc-debug",
+      "displayName": "Microsoft Visual C/C++ (Debug)",
       "steps": [
-        { "type": "configure", "name": "ci-linux-powerpc64" },
-        { "type": "build",     "name": "ci-linux-powerpc64" },
-        { "type": "test",      "name": "ci-linux-powerpc64" },
-        { "type": "package",   "name": "ci-linux-powerpc64" }
+        {
+          "type": "configure",
+          "name": "msvc-debug"
+        },
+        {
+          "type": "build",
+          "name": "msvc-debug"
+        },
+        {
+          "type": "test",
+          "name": "msvc-debug"
+        },
+        {
+          "type": "package",
+          "name": "msvc-debug"
+        }
       ]
     },
     {
-      "name": "ci-linux-s390x",
+      "name": "msvc-profile",
+      "displayName": "Microsoft Visual C/C++ (Profile)",
       "steps": [
-        { "type": "configure", "name": "ci-linux-s390x" },
-        { "type": "build",     "name": "ci-linux-s390x" },
-        { "type": "test",      "name": "ci-linux-s390x" },
-        { "type": "package",   "name": "ci-linux-s390x" }
+        {
+          "type": "configure",
+          "name": "msvc-profile"
+        },
+        {
+          "type": "build",
+          "name": "msvc-profile"
+        },
+        {
+          "type": "test",
+          "name": "msvc-profile"
+        },
+        {
+          "type": "package",
+          "name": "msvc-profile"
+        }
       ]
     },
     {
-      "name": "ci-linux-x86_64",
+      "name": "msvc-release",
+      "displayName": "Microsoft Visual C/C++ (Release)",
       "steps": [
-        { "type": "configure", "name": "ci-linux-x86_64" },
-        { "type": "build",     "name": "ci-linux-x86_64" },
-        { "type": "test",      "name": "ci-linux-x86_64" },
-        { "type": "package",   "name": "ci-linux-x86_64" }
-      ]
-    },
-    {
-      "name": "ci-macosx-arm64",
-      "steps": [
-        { "type": "configure", "name": "ci-macosx-arm64" },
-        { "type": "build",     "name": "ci-macosx-arm64" },
-        { "type": "test",      "name": "ci-macosx-arm64" },
-        { "type": "package",   "name": "ci-macosx-arm64" }
-      ]
-    },
-    {
-      "name": "ci-macosx-x86_64",
-      "steps": [
-        { "type": "configure", "name": "ci-macosx-x86_64" },
-        { "type": "build",     "name": "ci-macosx-x86_64" },
-        { "type": "test",      "name": "ci-macosx-x86_64" },
-        { "type": "package",   "name": "ci-macosx-x86_64" }
-      ]
-    },
-    {
-      "name": "ci-windows-arm",
-      "steps": [
-        { "type": "configure", "name": "ci-windows-arm" },
-        { "type": "build",     "name": "ci-windows-arm" },
-        { "type": "test",      "name": "ci-windows-arm" },
-        { "type": "package",   "name": "ci-windows-arm" }
-      ]
-    },
-    {
-      "name": "ci-windows-arm64",
-      "steps": [
-        { "type": "configure", "name": "ci-windows-arm64" },
-        { "type": "build",     "name": "ci-windows-arm64" },
-        { "type": "test",      "name": "ci-windows-arm64" },
-        { "type": "package",   "name": "ci-windows-arm64" }
-      ]
-    },
-    {
-      "name": "ci-windows-x86",
-      "steps": [
-        { "type": "configure", "name": "ci-windows-x86" },
-        { "type": "build",     "name": "ci-windows-x86" },
-        { "type": "test",      "name": "ci-windows-x86" },
-        { "type": "package",   "name": "ci-windows-x86" }
-      ]
-    },
-    {
-      "name": "ci-windows-x86_64",
-      "steps": [
-        { "type": "configure", "name": "ci-windows-x86_64" },
-        { "type": "build",     "name": "ci-windows-x86_64" },
-        { "type": "test",      "name": "ci-windows-x86_64" },
-        { "type": "package",   "name": "ci-windows-x86_64" }
+        {
+          "type": "configure",
+          "name": "msvc-release"
+        },
+        {
+          "type": "build",
+          "name": "msvc-release"
+        },
+        {
+          "type": "test",
+          "name": "msvc-release"
+        },
+        {
+          "type": "package",
+          "name": "msvc-release"
+        }
       ]
     }
   ]
 }
-

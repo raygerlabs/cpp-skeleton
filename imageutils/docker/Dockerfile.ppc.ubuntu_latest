@@ -1,0 +1,48 @@
+# Dockerfile.powerpc.ubuntu_latest
+
+FROM powerpc/ubuntu:latest
+
+# Install system dependencies
+RUN apt-get -qq update \
+    && apt-get -qq install -y --no-install-recommends \
+        software-properties-common \
+        gcc-powerpc-linux-gnu \
+        g++-powerpc-linux-gnu \
+        binutils-powerpc-linux-gnu \
+        python3 \
+        python3-pip \
+        make \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip3 install -q --no-cache-dir conan conan-package-tools cmake --upgrade \
+    && conan profile new default --detect \
+    && conan profile update settings.compiler.libcxx=libstdc++11 default \
+    && conan profile new ppc --detect \
+    && conan profile update settings.arch=powerpc ppc \
+    && conan profile update settings.compiler.libcxx=libstdc++11 ppc \
+    && conan profile update env.CC=/usr/bin/powerpc-linux-gnu-gcc ppc \
+    && conan profile update env.CXX=/usr/bin/powerpc-linux-gnu-g++ ppc \
+    && conan profile update env.CMAKE_C_COMPILER=/usr/bin/powerpc-linux-gnu-gcc ppc \
+    && conan profile update env.CMAKE_CXX_COMPILER=/usr/bin/powerpc-linux-gnu-g++ ppc \
+    && conan profile update env.STRIP=/usr/bin/powerpc-linux-gnu-strip ppc \
+    && conan profile update env.AS=/usr/bin/powerpc-linux-gnu-as ppc \
+    && conan profile update env.AR=/usr/bin/powerpc-linux-gnu-ar ppc \
+    && conan profile update env.LD=/usr/bin/powerpc-linux-gnu-ld ppc \
+    && conan profile update env.FC=/usr/bin/powerpc-linux-gnu-gfortran ppc \
+    && conan profile update env.GCOV=/usr/bin/powerpc-linux-gnu-gcov ppc \
+    && apt-get -qq clean \
+    && apt-get -qq autoclean \
+    && apt-get -qq autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create project workspace
+WORKDIR /app
+COPY . /app
+
+# Install project dependencies
+RUN conan install . -b missing
+
+# Run build
+RUN cmake --workflow --fresh --preset ci-linux-ppc
+
+# Set the default command
+CMD ["/bin/bash"]

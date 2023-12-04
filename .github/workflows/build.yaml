@@ -40,14 +40,16 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Setup environment
+      - name: Install Dependencies
         run: |
           pip3 install --upgrade conan
           conan --version
           conan profile detect
-          conan profile list
-          conan profile show
 
-      - name: Run build
-        run: conan create . --build missing
+      - name: Build
+        run: conan create . -b missing
+        working-directory: ${{ env.working-directory }}
+
+      - name: Integration Tests
+        run: conan test integration imageutils/1.0
         working-directory: ${{ env.working-directory }}

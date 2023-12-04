@@ -1,9 +1,9 @@
 set(_TEST_SOURCES
-  ResourcePath.hpp
-  JPEG_ImageFilterTests.cpp
-  JPEG_ProcessorTests.cpp
-  JPEG_ReaderTests.cpp
-  JPEG_WriterTests.cpp
+  resource_path.hpp
+  image_filter_tests.cpp
+  image_processor_tests.cpp
+  jpeg_read_tests.cpp
+  jpeg_write_tests.cpp
 )
 
 add_executable(unit_tests ${_TEST_SOURCES})

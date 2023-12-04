@@ -5,28 +5,29 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 set(_HEADER_LIST
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Brightness.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Contrast.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_FlipH.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_FlipV.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Grayscale.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Invert.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/JPEG_Resize.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG_Filter.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG_Image.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG_Processor.hpp
-  ${CMAKE_SOURCE_DIR}/include/imageutils/JPEG.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/brightness.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/contrast.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/horizontal_flip.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/vertical_flip.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/invert_colors.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/grayscale.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/filters/resize.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/color.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/image.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/image_filters.hpp
+  ${CMAKE_SOURCE_DIR}/include/imageutils/image_processor.hpp
 )
 
 set(_SOURCE_LIST
-  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Brightness.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Contrast.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_FlipH.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_FlipV.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Invert.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Grayscale.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/filters/JPEG_Resize.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/JPEG_Image.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/brightness.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/contrast.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/horizontal_flip.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/vertical_flip.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/invert_colors.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/grayscale.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters/resize.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/image.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/image_processor.cpp
 )
 
 add_library(imageutils ${_HEADER_LIST} ${_SOURCE_LIST})
