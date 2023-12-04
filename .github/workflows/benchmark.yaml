@@ -12,7 +12,6 @@ jobs:
       fail-fast: true
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        preset: [ profile-gcc, profile-clang, profile-msvc ]
         include:
           - os: ubuntu-latest
             preset: profile-gcc
@@ -55,7 +54,7 @@ jobs:
           conan profile detect
 
       - name: Install project dependencies
-        run: conan install . -b missing
+        run: conan install . -s build_type=RelWithDebInfo -b missing
         working-directory: ${{ env.working-directory }}
 
       - name: Execute benchmark
