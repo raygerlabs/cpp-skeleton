@@ -6,28 +6,12 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  CONAN_LOG_RUN_TO_FILE: true
-  CONAN_LOG_RUN_TO_OUTPUT: false
-  CONAN_SYSREQUIRES_SUDO: false
-
 jobs:
   build:
     strategy:
       fail-fast: true
       matrix:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
-        include:
-          - os: windows-latest
-            preset: ci-msvc
-          - os: ubuntu-latest
-            preset: ci-gcc
-          - os: ubuntu-latest
-            preset: ci-clang
-          - os: macos-latest
-            preset: ci-gcc
-          - os: macos-latest
-            preset: ci-clang
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -51,20 +35,18 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install system dpendencies
+      - name: Install system dependencies, part 1
+        run: |
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            sudo apt-get -y install lcov
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+            brew install lcov
+          fi
+
+      - name: Install system dependencies, part 2
         run: |
           pip3 install conan ninja --upgrade
-          conan --version
-          ninja --version
           conan profile detect
-
-      - name: Install project dependencies
-        run: conan install . -s build_type=Release -b missing
-        working-directory: ${{ env.working-directory }}
-
-      - name: Execute build and unit tests
-        run: cmake --workflow --fresh --preset ${{ matrix.preset }}
-        working-directory: ${{ env.working-directory }}
 
       - name: Perform integration tests
         run: |

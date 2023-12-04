@@ -1,79 +1,77 @@
-import os
+from os.path import join
 
 from conan import ConanFile
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import rmdir, copy
+from conan.tools.cmake import CMakeDeps, cmake_layout
+from conan.tools.files import copy
+
 
 class MainRecipe(ConanFile):
-  name = "imageutils"
-  version = "1.0"
-  settings = "os", "arch", "compiler", "build_type"
-  options = { "shared": [True, False], "fPIC": [True, False] }
-  default_options = { "shared": False, "fPIC": True }
-  build_policy = "missing"
+    name = "imageutils"
+    version = "1.0"
+    settings = "os", "arch", "compiler", "build_type"
+    build_policy = "missing"
 
-  def requirements(self) -> None:
-    self.requires("libjpeg-turbo/3.0.1", transitive_headers=True, transitive_libs=True)
 
-  def build_requirements(self) -> None:
-    self.test_requires("gtest/1.14.0")
-    self.test_requires("benchmark/1.8.3")
-    self.tool_requires("cmake/[>=3.15]")
-    self.tool_requires("doxygen/[>=1.9.4]")
+    @property
+    def _source_subfolder(self):
+        return "source_subfolder"
 
-  def layout(self) -> None:
-    cmake_layout(self)
 
-  def generate(self) -> None:
-    self._generate_toolchain()
-    self._generate_cmake_deps()
+    def export_sources(self):
+        export_list = { 
+          "CMakePresets.json", 
+          "CMakeLists.txt",
+          "cmake/*", 
+          "src/*", 
+          "include/*",
+          "tests/*",
+          "resources/*" 
+        }
+        for pattern in export_list:
+            copy(self, pattern, self.recipe_folder, self.export_sources_folder)
 
-  def build(self) -> None:
-    cmake = self._configure_cmake()
-    cmake.build()
-    if not self.conf.get("tools.build:skip_test", default=False):
-      cmake.test()
 
-  def package(self) -> None:
-    cmake = self._configure_cmake()
-    cmake.install()
-    rmdir(self, os.path.join(self.package_folder, "share"))
+    def layout(self):
+        cmake_layout(self)
 
-  def package_info(self) -> None:
-    self.cpp_info.libs = [self.name]
-    self.cpp_info.set_property("cmake_file_name", self.name)
-    self.cpp_info.set_property("cmake_target_name", f"{self.name}::{self.name}")
-    self.cpp_info.names["cmake_find_package"] = self.name
-    self.cpp_info.names["cmake_find_package_multi"] = self.name
 
-  def export_sources(self) -> None:
-    src_files = [
-      "CMakeLists.txt",
-      "src/*",
-      "include/*",
-      "resources/*",
-      "cmake/*",
-      "docs/*",
-      "tests/*"
-    ]
-    for pattern in src_files:
-      copy(self, pattern, src=self.recipe_folder, dst=self.export_sources_folder)
+    def build_requirements(self):
+        self.tool_requires("cmake/[>=3.15]")
+        self.tool_requires("ninja/1.11.1")
+        self.tool_requires("doxygen/1.9.4")
+        self.test_requires("gtest/1.14.0")
+        self.test_requires("benchmark/1.8.3")
 
-  def _generate_toolchain(self) -> None:
-    tc = CMakeToolchain(self, generator = "Ninja")
-    tc.user_presets_path = False
-    tc.generate()
 
-  def _generate_cmake_deps(self) -> None:
-    deps = CMakeDeps(self)
-    deps.generate()
+    def requirements(self):
+        self.requires("libjpeg-turbo/3.0.1")
 
-  def _configure_cmake(self) -> CMake:
-    cmake = CMake(self)
-    configure_variables = {
-      "BUILD_SHARED_LIBS": self.options.shared,
-      "BUILD_STATIC_LIBS": not self.options.shared,
-      "ENABLE_TESTS": not self.conf.get("tools.build:skip_test", default=False)
-    }
-    cmake.configure(variables=configure_variables)
-    return cmake
+
+    def generate(self):
+        deps = CMakeDeps(self)
+        deps.generate()
+
+
+    def build(self):
+        config_mode = "dev" if self.settings.build_type == "Debug" else "ci"
+        preset_name = f"{config_mode}-{self.settings.compiler}"
+        self.run("cmake --version")
+        self.run("ninja --version")
+        self.run(f"cmake --workflow --fresh --preset {preset_name}", cwd=self.source_folder)
+
+
+    def package(self):
+        copy(self, pattern="*.*",      dst=join(self.package_folder, "include"), src=join(self.source_folder, "include"))
+        copy(self, pattern="*.lib",    dst=join(self.package_folder, "lib"),     src=self.build_folder, keep_path=False)
+        copy(self, pattern="*.a",      dst=join(self.package_folder, "lib"),     src=self.build_folder, keep_path=False)
+        copy(self, pattern="*.dylib*", dst=join(self.package_folder, "lib"),     src=self.build_folder, keep_path=False)
+        copy(self, pattern="*.so*",    dst=join(self.package_folder, "lib"),     src=self.build_folder, keep_path=False)
+        copy(self, pattern="*.dll",    dst=join(self.package_folder, "bin"),     src=self.build_folder, keep_path=False)
+
+
+    def package_info(self):
+        self.cpp_info.libs = [self.name]
+        self.cpp_info.set_property("cmake_file_name", self.name)
+        self.cpp_info.set_property("cmake_target_name", f"{self.name}::{self.name}")
+        self.cpp_info.names["cmake_find_package"] = self.name
+        self.cpp_info.names["cmake_find_package_multi"] = self.name

@@ -9,20 +9,19 @@ on:
 jobs:
   build:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
         include:
           - os: ubuntu-latest
-            preset: profile-gcc
+            preset: perf-gcc
           - os: ubuntu-latest
-            preset: profile-clang
+            preset: perf-clang
           - os: macos-latest
-            preset: profile-gcc
+            preset: perf-gcc
           - os: macos-latest
-            preset: profile-clang
+            preset: perf-clang
           - os: windows-latest
-            preset: profile-msvc
+            preset: perf-msvc
         
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -49,8 +48,6 @@ jobs:
       - name: Install system dependencies
         run: |
           pip3 install conan ninja --upgrade
-          conan --version
-          ninja --version
           conan profile detect
 
       - name: Install project dependencies

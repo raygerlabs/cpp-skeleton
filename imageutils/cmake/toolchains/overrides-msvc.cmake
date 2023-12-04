@@ -1,4 +1,7 @@
-set(MSVC_COMMON_FLAGS)
+include_guard()
+
+set(MSVC_COMMON_FLAGS "")
+
 string(APPEND MSVC_COMMON_FLAGS
   " /permissive- " # Disable non-standard behavior
   " /W4 " # Set warning level 4

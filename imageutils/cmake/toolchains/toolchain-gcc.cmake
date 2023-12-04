@@ -1,12 +1,14 @@
-message(STATUS "*** loading toolchain-gcc.cmake")
+include_guard()
+
+message(STATUS "***** toolchain-gcc.cmake")
 
 if (NOT DEFINED CMAKE_C_COMPILER)
-  set(CMAKE_C_COMPILER gcc)
-endif()
+    set(CMAKE_C_COMPILER gcc)
+endif (NOT DEFINED CMAKE_C_COMPILER)
 
 if (NOT DEFINED CMAKE_CXX_COMPILER)
-  set(CMAKE_CXX_COMPILER g++)
-endif()
+    set(CMAKE_CXX_COMPILER g++)
+endif (NOT DEFINED CMAKE_CXX_COMPILER)
 
 include(${CMAKE_CURRENT_LIST_DIR}/overrides-gcc.cmake)
 
@@ -17,26 +19,26 @@ set(_LINK_TYPES EXE STATIC SHARED MODULE)
 message(STATUS "CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME}")
 message(STATUS "CMAKE_SYSTEM_PROCESSOR = ${CMAKE_SYSTEM_PROCESSOR}")
 
-foreach(_LANGUAGE ${_LANGUAGES})
-  message(STATUS "CMAKE_${_LANGUAGE}_COMPILER = ${CMAKE_${_LANGUAGE}_COMPILER}")
-endforeach()
+foreach (_LANGUAGE ${_LANGUAGES})
+    message(STATUS "CMAKE_${_LANGUAGE}_COMPILER = ${CMAKE_${_LANGUAGE}_COMPILER}")
+endforeach (_LANGUAGE ${_LANGUAGES})
 
 message(STATUS "CMAKE_LINKER = ${CMAKE_LINKER}")
 
-foreach(_LANGUAGE ${_LANGUAGES})
-  message(STATUS "CMAKE_${_LANGUAGE}_LINKER = ${CMAKE_${_LANGUAGE}_LINKER}")
-endforeach()
+foreach (_LANGUAGE ${_LANGUAGES})
+    message(STATUS "CMAKE_${_LANGUAGE}_LINKER = ${CMAKE_${_LANGUAGE}_LINKER}")
+endforeach (_LANGUAGE ${_LANGUAGES})
 
 foreach(_LANGUAGE ${_LANGUAGES})
-  foreach(_BUILD_TYPE ${_BUILD_TYPES})
-    message(STATUS "CMAKE_${_LANGUAGE}_FLAGS${_BUILD_TYPE} = ${CMAKE_${_LANGUAGE}_FLAGS${_BUILD_TYPE}}")
-  endforeach()
-endforeach()
+    foreach(_BUILD_TYPE ${_BUILD_TYPES})
+        message(STATUS "CMAKE_${_LANGUAGE}_FLAGS${_BUILD_TYPE} = ${CMAKE_${_LANGUAGE}_FLAGS${_BUILD_TYPE}}")
+    endforeach (_BUILD_TYPE ${_BUILD_TYPES})
+endforeach (_LANGUAGE ${_LANGUAGES})
 
-foreach(_LINK_TYPE ${_LINK_TYPES})
-  foreach(_BUILD_TYPE ${_BUILD_TYPES})
-    message(STATUS "CMAKE_${_LINK_TYPE}_LINKER_FLAGS${_BUILD_TYPE} = ${CMAKE_${_LINK_TYPE}_LINKER_FLAGS${_BUILD_TYPE}}")
-  endforeach()
-endforeach()
+foreach (_LINK_TYPE ${_LINK_TYPES})
+    foreach (_BUILD_TYPE ${_BUILD_TYPES})
+        message(STATUS "CMAKE_${_LINK_TYPE}_LINKER_FLAGS${_BUILD_TYPE} = ${CMAKE_${_LINK_TYPE}_LINKER_FLAGS${_BUILD_TYPE}}")
+    endforeach (_BUILD_TYPE ${_BUILD_TYPES})
+endforeach (_LINK_TYPE ${_LINK_TYPES})
 
-message(STATUS "*** loaded toolchain-gcc.cmake")
+message(STATUS "***** toolchain-gcc.cmake")

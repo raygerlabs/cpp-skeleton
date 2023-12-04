@@ -1,4 +1,7 @@
-set(GCC_COMMON_FLAGS)
+include_guard()
+
+set(GCC_COMMON_FLAGS "")
+
 string(APPEND GCC_COMMON_FLAGS
   " -pedantic "               # Disable non-standard behavior
   " -Wall "                   # Enable all warnings

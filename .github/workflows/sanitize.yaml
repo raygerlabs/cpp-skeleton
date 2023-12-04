@@ -9,11 +9,34 @@ on:
 jobs:
   build:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
-        preset: [ ci-asan-gcc, ci-tsan-gcc, ci-ubsan-gcc, ci-asan-clang, ci-tsan-clang, ci-ubsan-clang ]
-        
+        include:
+          - os: ubuntu-latest
+            preset: ci-asan-gcc
+          - os: ubuntu-latest
+            preset: ci-tsan-gcc
+          - os: ubuntu-latest
+            preset: ci-ubsan-gcc
+          - os: ubuntu-latest
+            preset: ci-asan-clang
+          - os: ubuntu-latest
+            preset: ci-tsan-clang
+          - os: ubuntu-latest
+            preset: ci-ubsan-clang
+          - os: macos-latest
+            preset: ci-asan-gcc
+          - os: macos-latest
+            preset: ci-tsan-gcc
+          - os: macos-latest
+            preset: ci-ubsan-gcc
+          - os: macos-latest
+            preset: ci-asan-clang
+          - os: macos-latest
+            preset: ci-tsan-clang
+          - os: macos-latest
+            preset: ci-ubsan-clang
+
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
@@ -39,8 +62,6 @@ jobs:
       - name: Install system dependencies
         run: |
           pip3 install conan ninja --upgrade
-          conan --version
-          ninja --version
           conan profile detect
 
       - name: Install project dependencies
