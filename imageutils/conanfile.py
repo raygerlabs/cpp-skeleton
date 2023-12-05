@@ -1,7 +1,7 @@
 import os
 
 from conan import ConanFile
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.cmake import CMakeDeps, cmake_layout
 from conan.tools.files import copy
 
 
@@ -11,9 +11,26 @@ class MainRecipe(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     build_policy = "missing"
 
-    @property
-    def should_test(self):
-        return not self.conf.get("tools.build:skip_test", default=False)
+    options = {
+        "shared": [True,False],
+        "fPIC": [True, False],
+        "with_asan": [True,False],
+        "with_lsan": [True,False],
+        "with_msan": [True,False],
+        "with_tsan": [True,False],
+        "with_ubsan": [True,False]
+    }
+
+    default_options = {
+        "shared": False,
+        "fPIC": True,
+        "with_asan": False,
+        "with_lsan": False,
+        "with_msan": False,
+        "with_tsan": False,
+        "with_ubsan": False
+    }
+
 
     def export_sources(self):
         export_list = { 
@@ -48,24 +65,46 @@ class MainRecipe(ConanFile):
     def generate(self):
         deps = CMakeDeps(self)
         deps.generate()
-        tc = CMakeToolchain(self, generator = "Ninja")
-        tc.variables["ENABLE_TESTS"] = self.should_test
-        tc.user_presets_path = False
-        tc.generate()
 
 
     def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
-        if self.should_test:
-            cmake.test()
+        build_mode = "dev" if self.settings.build_type == "Debug" else "ci"
+        
+        additional_mode = None
+        
+        if self.options.with_asan:
+            additional_mode = "asan"
+        elif self.options.with_lsan:
+            additional_mode = "lsan"
+        elif self.options.with_msan:
+            additional_mode = "msan"
+        elif self.options.with_tsan:
+            additional_mode = "tsan"
+        elif self.options.with_ubsan:
+            additional_mode = "ubsan"
+        
+        if additional_mode:
+            build_mode = f"{build_mode}-{additional_mode}"
+        
+        preset_name = f"{build_mode}-{self.settings.compiler}"
+        
+        self.run(f"cmake --preset {preset_name}", cwd=self.source_folder)
+        self.run(f"cmake --build --preset {preset_name}", cwd=self.source_folder)
+        self.run(f"ctest --preset {preset_name}", cwd=self.source_folder)
 
 
     def package(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.install()
+        
+        self.output.info(f"self.source_folder  = {self.source_folder}")
+        self.output.info(f"self.build_folder   = {self.build_folder}")
+        self.output.info(f"self.package_folder = {self.package_folder}")
+
+        copy(self, "*.hpp",    os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
+        copy(self, "*.dll",    os.path.join(self.build_folder),             os.path.join(self.package_folder, "bin"), keep_path=False)
+        copy(self, "*.so*" ,   os.path.join(self.build_folder),             os.path.join(self.package_folder, "lib"), keep_path=False)
+        copy(self, "*.dylib*", os.path.join(self.build_folder),             os.path.join(self.package_folder, "lib"), keep_path=False)
+        copy(self, "*.lib",    os.path.join(self.build_folder),             os.path.join(self.package_folder, "lib"), keep_path=False)
+        copy(self, "*.a",      os.path.join(self.build_folder),             os.path.join(self.package_folder, "lib"), keep_path=False)
 
 
     def package_info(self):

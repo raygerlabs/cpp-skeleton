@@ -41,6 +41,5 @@ jobs:
 
       - run: |
           conan create . -b missing
-          conan list imageutils
           conan test ./integration imageutils/1.0
         working-directory: ${{ env.working-directory }}

@@ -24,16 +24,15 @@ image::open(const std::string& filename)
 {
   jpeg_decompress_struct cinfo;
   jpeg_error_mgr jerr;
-
-  cinfo.err = jpeg_std_error(&jerr);
-  jpeg_create_decompress(&cinfo);
-
   std::unique_ptr<FILE, decltype(&fclose)> file(fopen(filename.c_str(), "rb"), &fclose);
   if (!file)
   {
     std::cerr << "ERROR: Failed to open \'" << filename << "\'\n";
     return false;
   }
+
+  cinfo.err = jpeg_std_error(&jerr);
+  jpeg_create_decompress(&cinfo);
 
   jpeg_stdio_src(&cinfo, file.get());
   jpeg_read_header(&cinfo, true);
@@ -97,7 +96,7 @@ image::save(const std::string& filename, int quality)
 
   return true;
 }
-} // namespace imageutils
+}  // namespace imageutils
 
 #if defined(_MSC_VER)
 #pragma warning(pop)

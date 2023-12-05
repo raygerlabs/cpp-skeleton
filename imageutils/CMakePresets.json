@@ -1,20 +1,14 @@
-{
+﻿{
   "version": 6,
   "configurePresets": [
-    {
-      "name": "base",
-      "hidden": true,
-      "displayName": "Base",
-      "description": "Preset for basic configuration",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/${presetName}",
-      "installDir": "${sourceDir}/install/${presetName}"
-    },
     {
       "name": "dev",
       "hidden": true,
       "displayName": "Developer Mode (Default)",
       "description": "Preset for development activities and debugging",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/Debug",
+      "installDir": "${sourceDir}/install/Debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_CONFIGURATION_TYPES": "Debug",
@@ -22,94 +16,118 @@
         "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
         "ENABLE_TESTS": true,
         "ENABLE_EXAMPLES": true
-      },
-      "inherits": "base"
+      }
     },
     {
       "name": "ci",
       "hidden": true,
       "displayName": "CI Mode (Default)",
       "description": "Preset for continuous integration",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/Release",
+      "installDir": "${sourceDir}/install/Release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_CONFIGURATION_TYPES": "Release",
         "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
         "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
         "ENABLE_TESTS": true
-      },
-      "inherits": "base"
+      }
     },
     {
       "name": "perf",
       "hidden": true,
       "displayName": "Profiler Mode (Default)",
       "description": "Preset for profiling performance",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/RelWithDebInfo",
+      "installDir": "${sourceDir}/install/RelWithDebInfo",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
         "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
         "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
         "ENABLE_BENCHMARKS": true
-      },
-      "inherits": "base"
+      }
     },
     {
       "name": "doc",
       "displayName": "API Document Generator",
       "description": "Preset for generating API documentation",
-      "cacheVariables": { "ENABLE_DOCUMENTATION": true },
-      "inherits": "base"
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/Release",
+      "installDir": "${sourceDir}/install/Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CONFIGURATION_TYPES": "Release",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "ENABLE_DOCUMENTATION": true
+      }
     },
     {
       "name": "asan",
       "hidden": true,
       "displayName": "Address Sanitizer (Default)",
-      "description": "Preset for performing memory-specific sanity checks",
+      "description": "Preset for enabling address sanitizer",
       "cacheVariables": {
-        "ENABLE_ASAN": true,
-        "ENABLE_LSAN": true,
+        "ENABLE_ASAN": true
+      }
+    },
+    {
+      "name": "lsan",
+      "hidden": true,
+      "displayName": "Leak Sanitizer (Default)",
+      "description": "Preset for enabling leak sanitizer",
+      "cacheVariables": {
+        "ENABLE_LSAN": true
+      }
+    },
+    {
+      "name": "msan",
+      "hidden": true,
+      "displayName": "Memory Sanitizer (Default)",
+      "description": "Preset for enabling memory sanitizer",
+      "cacheVariables": {
         "ENABLE_MSAN": true
-      },
-      "inherits": "base"
+      }
     },
     {
       "name": "tsan",
       "hidden": true,
       "displayName": "Thread Sanitizer (Default)",
-      "description": "Preset for performing thread-specific sanity checks",
+      "description": "Preset for enabling thread sanitizer",
       "cacheVariables": {
         "ENABLE_TSAN": true
-      },
-      "inherits": "base"
+      }
     },
     {
       "name": "ubsan",
       "hidden": true,
       "displayName": "Undefined Sanitizer (Default)",
-      "description": "Preset for performing behavior-specific sanity checks",
+      "description": "Preset for enabling undefined sanitizer",
       "cacheVariables": {
         "ENABLE_UBSAN": true
-      },
-      "inherits": "base"
+      }
     },
     {
       "name": "gcc",
-      "displayName": "GNU C/C++ compiler",
-      "description": "Preset for GNU C/C++ compilers",
+      "displayName": "GNU C/C++",
+      "description": "Preset for GNU C/C++ compiler toolchain",
       "hidden": true,
       "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake"
     },
     {
       "name": "clang",
-      "displayName": "Clang (LLVM) C/C++ compiler",
-      "description": "Preset for Clang (LLVM) C/C++ compilers",
+      "displayName": "Clang (LLVM) C/C++",
+      "description": "Preset for Clang (LLVM) C/C++ compiler toolchain",
       "hidden": true,
       "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-clang.cmake"
     },
     {
       "name": "msvc",
-      "displayName": "Microsoft Visual C/C++ compiler",
-      "description": "Preset for Microsoft Visual C/C++ compilers",
+      "displayName": "Microsoft Visual C/C++",
+      "description": "Preset for Microsoft Visual C/C++ compiler toolchain",
       "hidden": true,
       "condition": {
         "type": "equals",
@@ -121,177 +139,356 @@
     {
       "name": "dev-gcc",
       "displayName": "Developer Mode (GNU C/C++)",
-      "description": "Preset for default developer configuration (GNU C/C++)",
-      "inherits": [ "dev", "gcc" ]
+      "description": "Preset for development activities and debugging",
+      "inherits": [
+        "dev",
+        "gcc"
+      ]
     },
     {
       "name": "dev-asan-gcc",
       "displayName": "Developer Mode - ASAN (GNU C/C++)",
-      "description": "Developer mode + Address sanitizer (GNU C/C++)",
-      "inherits": [ "dev", "asan", "gcc" ]
+      "description": "Preset for development activities and debugging with address sanitizer",
+      "inherits": [
+        "dev",
+        "asan",
+        "gcc"
+      ]
+    },
+    {
+      "name": "dev-lsan-gcc",
+      "displayName": "Developer Mode - LSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with leak sanitizer",
+      "inherits": [
+        "dev",
+        "lsan",
+        "gcc"
+      ]
+    },
+    {
+      "name": "dev-msan-gcc",
+      "displayName": "Developer Mode - MSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with memory sanitizer",
+      "inherits": [
+        "dev",
+        "msan",
+        "gcc"
+      ]
     },
     {
       "name": "dev-tsan-gcc",
       "displayName": "Developer Mode - TSAN (GNU C/C++)",
-      "description": "Developer mode + Thread sanitizer (GNU C/C++)",
-      "inherits": [ "dev", "tsan", "gcc" ]
+      "description": "Preset for development activities and debugging with thread sanitizer",
+      "inherits": [
+        "dev",
+        "tsan",
+        "gcc"
+      ]
     },
     {
       "name": "dev-ubsan-gcc",
       "displayName": "Developer Mode - UBSAN (GNU C/C++)",
-      "description": "Developer mode + Undefined sanitizer (GNU C/C++)",
-      "inherits": [ "dev", "ubsan", "gcc" ]
+      "description": "Preset for development activities and debugging with undefined sanitizer",
+      "inherits": [
+        "dev",
+        "ubsan",
+        "gcc"
+      ]
     },
     {
       "name": "ci-gcc",
       "displayName": "CI Mode (GNU C/C++)",
-      "description": "Continuous integration preset with GNU C/C++",
-      "inherits": [ "ci", "gcc" ]
+      "description": "Preset for continuous integration",
+      "inherits": [
+        "ci",
+        "gcc"
+      ]
     },
     {
       "name": "ci-asan-gcc",
       "displayName": "CI Mode - ASAN (GNU C/C++)",
-      "description": "Continuous integration preset with address sanitizer enabled (GNU C/C++)",
-      "inherits": [ "ci", "asan", "gcc" ]
+      "description": "Preset for continuous integration with address sanitizer",
+      "inherits": [
+        "ci",
+        "asan",
+        "gcc"
+      ]
+    },
+    {
+      "name": "ci-lsan-gcc",
+      "displayName": "CI Mode - LSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with leak sanitizer",
+      "inherits": [
+        "ci",
+        "lsan",
+        "gcc"
+      ]
+    },
+    {
+      "name": "ci-msan-gcc",
+      "displayName": "CI Mode - MSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with memory sanitizer",
+      "inherits": [
+        "ci",
+        "msan",
+        "gcc"
+      ]
     },
     {
       "name": "ci-tsan-gcc",
       "displayName": "CI Mode - TSAN (GNU C/C++)",
-      "description": "Continuous integration preset with thread sanitizer enabled (GNU C/C++)",
-      "inherits": [ "ci", "tsan", "gcc" ]
+      "description": "Preset for continuous integration with thread sanitizer",
+      "inherits": [
+        "ci",
+        "tsan",
+        "gcc"
+      ]
     },
     {
       "name": "ci-ubsan-gcc",
       "displayName": "CI Mode - UBSAN (GNU C/C++)",
-      "description": "Continuous integration preset with undefined sanitizer enabled (GNU C/C++)",
-      "inherits": [ "ci", "ubsan", "gcc" ]
+      "description": "Preset for continuous integration with undefined sanitizer",
+      "inherits": [
+        "ci",
+        "ubsan",
+        "gcc"
+      ]
     },
     {
       "name": "perf-gcc",
       "displayName": "Profiler Mode (GNU C/C++)",
-      "description": "Profiler preset with GNU C/C++",
-      "inherits": [ "perf", "gcc" ]
+      "description": "Preset for profiling performance",
+      "inherits": [
+        "perf",
+        "gcc"
+      ]
     },
     {
       "name": "dev-clang",
       "displayName": "Developer Mode (Clang (LLVM) C/C++)",
-      "description": "Developer preset (Clang (LLVM) C/C++)",
-      "inherits": [ "dev", "clang" ]
+      "description": "Preset for development activities and debugging",
+      "inherits": [
+        "dev",
+        "clang"
+      ]
     },
     {
       "name": "dev-asan-clang",
       "displayName": "Developer Mode - ASAN (Clang (LLVM) C/C++)",
-      "description": "Developer preset with address sanitizer enabled (Clang (LLVM) C/C++)",
-      "inherits": [ "dev", "asan", "clang" ]
+      "description": "Preset for development activities and debugging with address sanitizer",
+      "inherits": [
+        "dev",
+        "asan",
+        "clang"
+      ]
+    },
+    {
+      "name": "dev-lsan-clang",
+      "displayName": "Developer Mode - LSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with leak sanitizer",
+      "inherits": [
+        "dev",
+        "lsan",
+        "clang"
+      ]
+    },
+    {
+      "name": "dev-msan-clang",
+      "displayName": "Developer Mode - MSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with memory sanitizer",
+      "inherits": [
+        "dev",
+        "msan",
+        "clang"
+      ]
     },
     {
       "name": "dev-tsan-clang",
       "displayName": "Developer Mode - TSAN (Clang (LLVM) C/C++)",
-      "description": "Developer preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
-      "inherits": [ "dev", "tsan", "clang" ]
+      "description": "Preset for development activities and debugging with thread sanitizer",
+      "inherits": [
+        "dev",
+        "tsan",
+        "clang"
+      ]
     },
     {
       "name": "dev-ubsan-clang",
       "displayName": "Developer Mode - UBSAN (Clang (LLVM) C/C++)",
-      "description": "Developer preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
-      "inherits": [ "dev", "ubsan", "clang" ]
+      "description": "Preset for development activities and debugging with undefined sanitizer",
+      "inherits": [
+        "dev",
+        "ubsan",
+        "clang"
+      ]
     },
     {
       "name": "ci-clang",
       "displayName": "CI Mode (Clang (LLVM) C/C++)",
-      "description": "Continuous integration preset with Clang (LLVM) C/C++",
-      "inherits": [ "ci", "clang" ]
+      "description": "Preset for continuous integration",
+      "inherits": [
+        "ci",
+        "clang"
+      ]
     },
     {
       "name": "ci-asan-clang",
       "displayName": "CI Mode - ASAN (Clang (LLVM) C/C++)",
-      "description": "Continuous integration preset with address sanitizer enabled (Clang (LLVM) C/C++)",
-      "inherits": [ "ci", "asan", "clang" ]
+      "description": "Preset for continuous integration with address sanitizer",
+      "inherits": [
+        "ci",
+        "asan",
+        "clang"
+      ]
+    },
+    {
+      "name": "ci-lsan-clang",
+      "displayName": "CI Mode - LSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with leak sanitizer",
+      "inherits": [
+        "ci",
+        "lsan",
+        "clang"
+      ]
+    },
+    {
+      "name": "ci-msan-clang",
+      "displayName": "CI Mode - MSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with memory sanitizer",
+      "inherits": [
+        "ci",
+        "msan",
+        "clang"
+      ]
     },
     {
       "name": "ci-tsan-clang",
       "displayName": "CI Mode - TSAN (Clang (LLVM) C/C++)",
-      "description": "Continuous integration preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
-      "inherits": [ "ci", "tsan", "clang" ]
+      "description": "Preset for continuous integration with thread sanitizer",
+      "inherits": [
+        "ci",
+        "tsan",
+        "clang"
+      ]
     },
     {
       "name": "ci-ubsan-clang",
       "displayName": "CI Mode - UBSAN (Clang (LLVM) C/C++)",
-      "description": "Continuous integration preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
-      "inherits": [ "ci", "ubsan", "clang" ]
+      "description": "Preset for continuous integration with undefined sanitizer",
+      "inherits": [
+        "ci",
+        "ubsan",
+        "clang"
+      ]
     },
     {
       "name": "perf-clang",
       "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
-      "description": "Profiler mode preset with Clang (LLVM) C/C++",
-      "inherits": [ "perf", "clang" ]
+      "description": "Preset for profiling performance",
+      "inherits": [
+        "perf",
+        "clang"
+      ]
     },
     {
       "name": "dev-msvc",
       "displayName": "Developer Mode (Microsoft Visual C/C++)",
-      "description": "Developer mode preset (Microsoft Visual C/C++)",
-      "inherits": [ "dev", "msvc" ]
+      "description": "Preset for development activities and debugging",
+      "inherits": [
+        "dev",
+        "msvc"
+      ]
     },
     {
       "name": "ci-msvc",
       "displayName": "CI Mode (Microsoft Visual C/C++)",
-      "description": "CI mode preset with Microsoft Visual C/C++",
-      "inherits": [ "ci", "msvc" ]
+      "description": "Preset for continuous integration",
+      "inherits": [
+        "ci",
+        "msvc"
+      ]
     },
     {
       "name": "perf-msvc",
       "displayName": "Profiler Mode (Microsoft Visual C/C++)",
-      "description": "Profiler mode preset with Microsoft Visual C/C++",
-      "inherits": [ "perf", "msvc" ]
+      "description": "Preset for profiling performance",
+      "inherits": [
+        "perf",
+        "msvc"
+      ]
     }
   ],
   "buildPresets": [
     {
       "name": "dev-gcc",
       "displayName": "Developer Mode (GNU C/C++)",
-      "description": "Developer mode preset (GNU C/C++)",
+      "description": "Preset for development activities and debugging",
       "configurePreset": "dev-gcc"
     },
     {
       "name": "dev-asan-gcc",
       "displayName": "Developer Mode - ASAN (GNU C/C++)",
-      "description": "Developer mode preset with address sanitizer enabled (GNU C/C++)",
+      "description": "Preset for development activities and debugging with address sanitizer",
       "configurePreset": "dev-asan-gcc"
+    },
+    {
+      "name": "dev-lsan-gcc",
+      "displayName": "Developer Mode - LSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with leak sanitizer",
+      "configurePreset": "dev-lsan-gcc"
+    },
+    {
+      "name": "dev-msan-gcc",
+      "displayName": "Developer Mode - MSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with memory sanitizer",
+      "configurePreset": "dev-msan-gcc"
     },
     {
       "name": "dev-tsan-gcc",
       "displayName": "Developer Mode - TSAN (GNU C/C++)",
-      "description": "Developer mode preset with thread sanitizer enabled (GNU C/C++)",
+      "description": "Preset for development activities and debugging with thread sanitizer",
       "configurePreset": "dev-tsan-gcc"
     },
     {
       "name": "dev-ubsan-gcc",
       "displayName": "Developer Mode - UBSAN (GNU C/C++)",
-      "description": "Developer mode preset with undefined sanitizer enabled (GNU C/C++)",
+      "description": "Preset for development activities and debugging with undefined sanitizer",
       "configurePreset": "dev-ubsan-gcc"
     },
     {
       "name": "ci-gcc",
       "displayName": "CI Mode (GNU C/C++)",
-      "description": "CI mode preset with GNU C/C++",
+      "description": "Preset for continuous integration",
       "configurePreset": "ci-gcc"
     },
     {
       "name": "ci-asan-gcc",
       "displayName": "CI Mode - ASAN (GNU C/C++)",
-      "description": "CI mode preset with address sanitizer enabled (GNU C/C++)",
+      "description": "Preset for continuous integration with address sanitizer",
       "configurePreset": "ci-asan-gcc"
+    },
+    {
+      "name": "ci-lsan-gcc",
+      "displayName": "CI Mode - LSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with leak sanitizer",
+      "configurePreset": "ci-lsan-gcc"
+    },
+    {
+      "name": "ci-msan-gcc",
+      "displayName": "CI Mode - MSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with memory sanitizer",
+      "configurePreset": "ci-msan-gcc"
     },
     {
       "name": "ci-tsan-gcc",
       "displayName": "CI Mode - TSAN (GNU C/C++)",
-      "description": "CI mode preset with thread sanitizer enabled (GNU C/C++)",
+      "description": "Preset for continuous integration with thread sanitizer",
       "configurePreset": "ci-tsan-gcc"
     },
     {
       "name": "ci-ubsan-gcc",
       "displayName": "CI Mode - UBSAN (GNU C/C++)",
-      "description": "CI mode preset with undefined sanitizer enabled (GNU C/C++)",
+      "description": "Preset for continuous integration with undefined sanitizer",
       "configurePreset": "ci-ubsan-gcc"
     },
     {
@@ -303,73 +500,97 @@
     {
       "name": "dev-clang",
       "displayName": "Developer Mode (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging",
       "configurePreset": "dev-clang"
     },
     {
       "name": "dev-asan-clang",
       "displayName": "Developer Mode - ASAN (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with address sanitizer",
       "configurePreset": "dev-asan-clang"
+    },
+    {
+      "name": "dev-lsan-clang",
+      "displayName": "Developer Mode - LSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with leak sanitizer",
+      "configurePreset": "dev-lsan-clang"
+    },
+    {
+      "name": "dev-msan-clang",
+      "displayName": "Developer Mode - MSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with memory sanitizer",
+      "configurePreset": "dev-msan-clang"
     },
     {
       "name": "dev-tsan-clang",
       "displayName": "Developer Mode - TSAN (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with thread sanitizer",
       "configurePreset": "dev-tsan-clang"
     },
     {
       "name": "dev-ubsan-clang",
       "displayName": "Developer Mode - UBSAN (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with undefined sanitizer",
       "configurePreset": "dev-ubsan-clang"
     },
     {
       "name": "ci-clang",
       "displayName": "CI Mode (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with Clang (LLVM) C/C++",
+      "description": "Preset for continuous integration",
       "configurePreset": "ci-clang"
     },
     {
       "name": "ci-asan-clang",
       "displayName": "CI Mode - ASAN (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with address sanitizer",
       "configurePreset": "ci-asan-clang"
+    },
+    {
+      "name": "ci-lsan-clang",
+      "displayName": "CI Mode - LSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with leak sanitizer",
+      "configurePreset": "ci-lsan-clang"
+    },
+    {
+      "name": "ci-msan-clang",
+      "displayName": "CI Mode - MSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with memory sanitizer",
+      "configurePreset": "ci-msan-clang"
     },
     {
       "name": "ci-tsan-clang",
       "displayName": "CI Mode - TSAN (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with thread sanitizer",
       "configurePreset": "ci-tsan-clang"
     },
     {
       "name": "ci-ubsan-clang",
       "displayName": "CI Mode - UBSAN (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with undefined sanitizer",
       "configurePreset": "ci-ubsan-clang"
     },
     {
       "name": "perf-clang",
       "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
-      "description": "Profiler mode preset with Clang (LLVM) C/C++",
+      "description": "Preset for profiling performance",
       "configurePreset": "perf-clang"
     },
     {
       "name": "dev-msvc",
       "displayName": "Developer Mode (Microsoft Visual C/C++)",
-      "description": "Developer mode preset (Microsoft Visual C/C++)",
+      "description": "Preset for development activities and debugging",
       "configurePreset": "dev-msvc"
     },
     {
       "name": "ci-msvc",
       "displayName": "CI Mode (Microsoft Visual C/C++)",
-      "description": "CI mode preset with Microsoft Visual C/C++",
+      "description": "Preset for continuous integration",
       "configurePreset": "ci-msvc"
     },
     {
       "name": "perf-msvc",
       "displayName": "Profiler Mode (Microsoft Visual C/C++)",
-      "description": "Profiler mode preset with Microsoft Visual C/C++",
+      "description": "Preset for profiling performance",
       "configurePreset": "perf-msvc"
     },
     {
@@ -381,9 +602,9 @@
   ],
   "testPresets": [
     {
-      "name": "test-base",
-      "displayName": "Test Base",
-      "description": "Base test preset",
+      "name": "test-defaults",
+      "displayName": "Test (Default)",
+      "description": "Preset for default test configuration",
       "output": {
         "outputOnFailure": true
       },
@@ -396,130 +617,250 @@
     {
       "name": "dev-gcc",
       "displayName": "Developer Mode (GNU C/C++)",
-      "description": "Developer mode preset (GNU C/C++)",
+      "description": "Preset for development activities and debugging",
       "configurePreset": "dev-gcc",
-      "inherits": "test-base"
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-asan-gcc",
+      "displayName": "Developer Mode - ASAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with address sanitizer",
+      "configurePreset": "dev-asan-gcc",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-lsan-gcc",
+      "displayName": "Developer Mode - LSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with leak sanitizer",
+      "configurePreset": "dev-lsan-gcc",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-msan-gcc",
+      "displayName": "Developer Mode - MSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with memory sanitizer",
+      "configurePreset": "dev-msan-gcc",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-tsan-gcc",
+      "displayName": "Developer Mode - TSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with thread sanitizer",
+      "configurePreset": "dev-tsan-gcc",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-ubsan-gcc",
+      "displayName": "Developer Mode - UBSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with undefined sanitizer",
+      "configurePreset": "dev-ubsan-gcc",
+      "inherits": "test-defaults"
     },
     {
       "name": "ci-gcc",
       "displayName": "CI Mode (GNU C/C++)",
-      "description": "CI mode preset with GNU C/C++",
+      "description": "Preset for continuous integration",
       "configurePreset": "ci-gcc",
-      "inherits": "test-base"
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-asan-gcc",
+      "displayName": "CI Mode - ASAN (GNU C/C++)",
+      "description": "Preset for continuous integration with address sanitizer",
+      "configurePreset": "ci-asan-gcc",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-lsan-gcc",
+      "displayName": "CI Mode - LSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with leak sanitizer",
+      "configurePreset": "ci-lsan-gcc",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-msan-gcc",
+      "displayName": "CI Mode - MSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with memory sanitizer",
+      "configurePreset": "ci-msan-gcc",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-tsan-gcc",
+      "displayName": "CI Mode - TSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with thread sanitizer",
+      "configurePreset": "ci-tsan-gcc",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-ubsan-gcc",
+      "displayName": "CI Mode - UBSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with undefined sanitizer",
+      "configurePreset": "ci-ubsan-gcc",
+      "inherits": "test-defaults"
     },
     {
       "name": "perf-gcc",
       "displayName": "Profiler Mode (GNU C/C++)",
-      "description": "Profiler mode preset with GNU C/C++",
+      "description": "Preset for profiling performance",
       "configurePreset": "perf-gcc",
-      "inherits": "test-base"
+      "inherits": "test-defaults"
     },
     {
       "name": "dev-clang",
       "displayName": "Developer Mode (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging",
       "configurePreset": "dev-clang",
-      "inherits": "test-base"
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-asan-clang",
+      "displayName": "Developer Mode - ASAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with address sanitizer",
+      "configurePreset": "dev-asan-clang",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-lsan-clang",
+      "displayName": "Developer Mode -LSAN  (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with leak sanitizer",
+      "configurePreset": "dev-lsan-clang",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-msan-clang",
+      "displayName": "Developer Mode - MSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with memory sanitizer",
+      "configurePreset": "dev-msan-clang",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-tsan-clang",
+      "displayName": "Developer Mode - TSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with thread sanitizer",
+      "configurePreset": "dev-tsan-clang",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "dev-ubsan-clang",
+      "displayName": "Developer Mode -UBSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with undefined sanitizer",
+      "configurePreset": "dev-ubsan-clang",
+      "inherits": "test-defaults"
     },
     {
       "name": "ci-clang",
       "displayName": "CI Mode (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with Clang (LLVM) C/C++",
+      "description": "Preset for continuous integration",
       "configurePreset": "ci-clang",
-      "inherits": "test-base"
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-asan-clang",
+      "displayName": "CI Mode - ASAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with address sanitizer",
+      "configurePreset": "ci-asan-clang",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-lsan-clang",
+      "displayName": "CI Mode - LSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with leak sanitizer",
+      "configurePreset": "ci-lsan-clang",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-msan-clang",
+      "displayName": "CI Mode - MSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with memory sanitizer",
+      "configurePreset": "ci-msan-clang",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-tsan-clang",
+      "displayName": "CI Mode - TSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with thread sanitizer",
+      "configurePreset": "ci-tsan-clang",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci-ubsan-clang",
+      "displayName": "CI Mode - UBSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with undefined sanitizer",
+      "configurePreset": "ci-ubsan-clang",
+      "inherits": "test-defaults"
     },
     {
       "name": "perf-clang",
       "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
-      "description": "Profiler mode preset with Clang (LLVM) C/C++",
+      "description": "Preset for profiling performance",
       "configurePreset": "perf-clang",
-      "inherits": "test-base"
+      "inherits": "test-defaults"
     },
     {
       "name": "dev-msvc",
       "displayName": "Developer Mode (Microsoft Visual C/C++)",
-      "description": "Developer mode preset (Microsoft Visual C/C++)",
+      "description": "Preset for development activities and debugging",
       "configurePreset": "dev-msvc",
-      "inherits": "test-base"
+      "inherits": "test-defaults"
     },
     {
       "name": "ci-msvc",
       "displayName": "CI Mode (Microsoft Visual C/C++)",
-      "description": "CI mode preset with Microsoft Visual C/C++",
+      "description": "Preset for continuous integration",
       "configurePreset": "ci-msvc",
-      "inherits": "test-base"
+      "inherits": "test-defaults"
     },
     {
       "name": "perf-msvc",
       "displayName": "Profiler Mode (Microsoft Visual C/C++)",
-      "description": "Profiler mode preset with Microsoft Visual C/C++",
+      "description": "Preset for profiling performance",
       "configurePreset": "perf-msvc",
-      "inherits": "test-base"
+      "inherits": "test-defaults"
     }
   ],
   "packagePresets": [
     {
-      "name": "package-tgz",
-      "displayName": "TGZ Package Mode",
-      "description": "TGZ package mode preset",
-      "generators": [ "TGZ" ],
-      "hidden": true
-    },
-    {
-      "name": "package-zip",
-      "displayName": "ZIP Package Mode",
-      "description": "ZIP package mode preset",
-      "generators": [ "ZIP" ],
-      "hidden": true
-    },
-    {
       "name": "dev-gcc",
       "displayName": "Developer Mode (GNU C/C++)",
-      "description": "Developer mode preset (GNU C/C++)",
-      "configurePreset": "dev-gcc",
-      "inherits": "package-tgz"
+      "description": "Preset for development activities and debugging",
+      "configurePreset": "dev-gcc"
     },
     {
       "name": "ci-gcc",
       "displayName": "CI Mode (GNU C/C++)",
-      "description": "CI mode preset with GNU C/C++",
-      "configurePreset": "ci-gcc",
-      "inherits": "package-tgz"
+      "description": "Preset for continuous integration",
+      "configurePreset": "ci-gcc"
     },
     {
       "name": "dev-clang",
       "displayName": "Developer Mode (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset (Clang (LLVM) C/C++)",
-      "configurePreset": "dev-clang",
-      "inherits": "package-tgz"
+      "description": "Preset for development activities and debugging",
+      "configurePreset": "dev-clang"
     },
     {
       "name": "ci-clang",
       "displayName": "CI Mode (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with Clang (LLVM) C/C++",
-      "configurePreset": "ci-clang",
-      "inherits": "package-tgz"
+      "description": "Preset for continuous integration",
+      "configurePreset": "ci-clang"
     },
     {
       "name": "dev-msvc",
       "displayName": "Developer Mode (Microsoft Visual C/C++)",
-      "description": "Developer mode preset (Microsoft Visual C/C++)",
-      "configurePreset": "dev-msvc",
-      "inherits": "package-zip"
+      "description": "Preset for development activities and debugging",
+      "configurePreset": "dev-msvc"
     },
     {
       "name": "ci-msvc",
       "displayName": "CI Mode (Microsoft Visual C/C++)",
-      "description": "CI mode preset with Microsoft Visual C/C++",
-      "configurePreset": "ci-msvc",
-      "inherits": "package-zip"
+      "description": "Preset for continuous integration",
+      "configurePreset": "ci-msvc"
     }
   ],
   "workflowPresets": [
     {
       "name": "dev-gcc",
       "displayName": "Developer Mode (GNU C/C++)",
-      "description": "Developer mode preset (GNU C/C++)",
+      "description": "Preset for development activities and debugging",
       "steps": [
         {
           "type": "configure",
@@ -542,7 +883,7 @@
     {
       "name": "dev-asan-gcc",
       "displayName": "Developer Mode - ASAN (GNU C/C++)",
-      "description": "Developer mode preset with address sanitizer enabled (GNU C/C++)",
+      "description": "Preset for development activities and debugging with address sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -551,13 +892,55 @@
         {
           "type": "build",
           "name": "dev-asan-gcc"
+        },
+        {
+          "type": "test",
+          "name": "dev-asan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "dev-lsan-gcc",
+      "displayName": "Developer Mode - LSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with leak sanitizer",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-lsan-gcc"
+        },
+        {
+          "type": "build",
+          "name": "dev-lsan-gcc"
+        },
+        {
+          "type": "test",
+          "name": "dev-lsan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "dev-msan-gcc",
+      "displayName": "Developer Mode - MSAN (GNU C/C++)",
+      "description": "Preset for development activities and debugging with memory sanitizer",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-msan-gcc"
+        },
+        {
+          "type": "build",
+          "name": "dev-msan-gcc"
+        },
+        {
+          "type": "test",
+          "name": "dev-msan-gcc"
         }
       ]
     },
     {
       "name": "dev-tsan-gcc",
       "displayName": "Developer Mode - TSAN (GNU C/C++)",
-      "description": "Developer mode preset with thread sanitizer enabled (GNU C/C++)",
+      "description": "Preset for development activities and debugging with thread sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -565,6 +948,10 @@
         },
         {
           "type": "build",
+          "name": "dev-tsan-gcc"
+        },
+        {
+          "type": "test",
           "name": "dev-tsan-gcc"
         }
       ]
@@ -572,7 +959,7 @@
     {
       "name": "dev-ubsan-gcc",
       "displayName": "Developer Mode - UBSAN (GNU C/C++)",
-      "description": "Developer mode preset with undefined sanitizer enabled (GNU C/C++)",
+      "description": "Preset for development activities and debugging with undefined sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -581,13 +968,17 @@
         {
           "type": "build",
           "name": "dev-ubsan-gcc"
+        },
+        {
+          "type": "test",
+          "name": "dev-ubsan-gcc"
         }
       ]
     },
     {
       "name": "ci-gcc",
       "displayName": "CI Mode (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with Clang (LLVM) C/C++",
+      "description": "Preset for continuous integration",
       "steps": [
         {
           "type": "configure",
@@ -610,7 +1001,7 @@
     {
       "name": "ci-asan-gcc",
       "displayName": "CI Mode - ASAN (GNU C/C++)",
-      "description": "CI mode preset with address sanitizer enabled (GNU C/C++)",
+      "description": "Preset for continuous integration with address sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -619,13 +1010,55 @@
         {
           "type": "build",
           "name": "ci-asan-gcc"
+        },
+        {
+          "type": "test",
+          "name": "ci-asan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "ci-lsan-gcc",
+      "displayName": "CI Mode - LSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with leak sanitizer",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-lsan-gcc"
+        },
+        {
+          "type": "build",
+          "name": "ci-lsan-gcc"
+        },
+        {
+          "type": "test",
+          "name": "ci-lsan-gcc"
+        }
+      ]
+    },
+    {
+      "name": "ci-msan-gcc",
+      "displayName": "CI Mode - MSAN (GNU C/C++)",
+      "description": "Preset for continuous integration with memory sanitizer",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-msan-gcc"
+        },
+        {
+          "type": "build",
+          "name": "ci-msan-gcc"
+        },
+        {
+          "type": "test",
+          "name": "ci-msan-gcc"
         }
       ]
     },
     {
       "name": "ci-tsan-gcc",
       "displayName": "CI Mode - TSAN (GNU C/C++)",
-      "description": "CI mode preset with thread sanitizer enabled (GNU C/C++)",
+      "description": "Preset for continuous integration with thread sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -633,6 +1066,10 @@
         },
         {
           "type": "build",
+          "name": "ci-tsan-gcc"
+        },
+        {
+          "type": "test",
           "name": "ci-tsan-gcc"
         }
       ]
@@ -640,7 +1077,7 @@
     {
       "name": "ci-ubsan-gcc",
       "displayName": "CI Mode - UBSAN (GNU C/C++)",
-      "description": "CI mode preset with undefined sanitizer enabled (GNU C/C++)",
+      "description": "Preset for continuous integration with undefined sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -649,13 +1086,17 @@
         {
           "type": "build",
           "name": "ci-ubsan-gcc"
+        },
+        {
+          "type": "test",
+          "name": "ci-ubsan-gcc"
         }
       ]
     },
     {
       "name": "perf-gcc",
       "displayName": "Profiler Mode (GNU C/C++)",
-      "description": "Profiler mode preset with GNU C/C++",
+      "description": "Preset for profiling performance",
       "steps": [
         {
           "type": "configure",
@@ -674,7 +1115,7 @@
     {
       "name": "dev-clang",
       "displayName": "Developer Mode (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging",
       "steps": [
         {
           "type": "configure",
@@ -697,7 +1138,7 @@
     {
       "name": "dev-asan-clang",
       "displayName": "Developer Mode - ASAN (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with address sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -706,13 +1147,55 @@
         {
           "type": "build",
           "name": "dev-asan-clang"
+        },
+        {
+          "type": "test",
+          "name": "dev-asan-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-lsan-clang",
+      "displayName": "Developer Mode - LSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with leak sanitizer",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-lsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-lsan-clang"
+        },
+        {
+          "type": "test",
+          "name": "dev-lsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "dev-msan-clang",
+      "displayName": "Developer Mode - MSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with memory sanitizer",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev-msan-clang"
+        },
+        {
+          "type": "build",
+          "name": "dev-msan-clang"
+        },
+        {
+          "type": "test",
+          "name": "dev-msan-clang"
         }
       ]
     },
     {
       "name": "dev-tsan-clang",
       "displayName": "Developer Mode - TSAN (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with thread sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -720,6 +1203,10 @@
         },
         {
           "type": "build",
+          "name": "dev-tsan-clang"
+        },
+        {
+          "type": "test",
           "name": "dev-tsan-clang"
         }
       ]
@@ -727,7 +1214,7 @@
     {
       "name": "dev-ubsan-clang",
       "displayName": "Developer Mode - UBSAN (Clang (LLVM) C/C++)",
-      "description": "Developer mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for development activities and debugging with undefined sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -736,13 +1223,17 @@
         {
           "type": "build",
           "name": "dev-ubsan-clang"
+        },
+        {
+          "type": "test",
+          "name": "dev-ubsan-clang"
         }
       ]
     },
     {
       "name": "ci-clang",
       "displayName": "CI Mode (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with Clang (LLVM) C/C++",
+      "description": "Preset for continuous integration",
       "steps": [
         {
           "type": "configure",
@@ -765,7 +1256,7 @@
     {
       "name": "ci-asan-clang",
       "displayName": "CI Mode - ASAN (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with address sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with address sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -774,13 +1265,55 @@
         {
           "type": "build",
           "name": "ci-asan-clang"
+        },
+        {
+          "type": "test",
+          "name": "ci-asan-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-lsan-clang",
+      "displayName": "CI Mode - LSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with leak sanitizer",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-lsan-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-lsan-clang"
+        },
+        {
+          "type": "test",
+          "name": "ci-lsan-clang"
+        }
+      ]
+    },
+    {
+      "name": "ci-msan-clang",
+      "displayName": "CI Mode - MSAN (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with memory sanitizer",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci-msan-clang"
+        },
+        {
+          "type": "build",
+          "name": "ci-msan-clang"
+        },
+        {
+          "type": "test",
+          "name": "ci-msan-clang"
         }
       ]
     },
     {
       "name": "ci-tsan-clang",
       "displayName": "CI Mode - TSAN (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with thread sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with thread sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -788,6 +1321,10 @@
         },
         {
           "type": "build",
+          "name": "ci-tsan-clang"
+        },
+        {
+          "type": "test",
           "name": "ci-tsan-clang"
         }
       ]
@@ -795,7 +1332,7 @@
     {
       "name": "ci-ubsan-clang",
       "displayName": "CI Mode - UBSAN (Clang (LLVM) C/C++)",
-      "description": "CI mode preset with undefined sanitizer enabled (Clang (LLVM) C/C++)",
+      "description": "Preset for continuous integration with undefined sanitizer",
       "steps": [
         {
           "type": "configure",
@@ -804,13 +1341,17 @@
         {
           "type": "build",
           "name": "ci-ubsan-clang"
+        },
+        {
+          "type": "test",
+          "name": "ci-ubsan-clang"
         }
       ]
     },
     {
       "name": "perf-clang",
       "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
-      "description": "Profiler mode preset with Clang (LLVM) C/C++",
+      "description": "Preset for profiling performance",
       "steps": [
         {
           "type": "configure",
@@ -829,7 +1370,7 @@
     {
       "name": "dev-msvc",
       "displayName": "Developer Mode (Microsoft Visual C/C++)",
-      "description": "Developer mode preset (Microsoft Visual C/C++)",
+      "description": "Preset for development activities and debugging",
       "steps": [
         {
           "type": "configure",
@@ -852,7 +1393,7 @@
     {
       "name": "ci-msvc",
       "displayName": "CI Mode (Microsoft Visual C/C++)",
-      "description": "CI mode preset with Microsoft Visual C/C++",
+      "description": "Preset for continuous integration",
       "steps": [
         {
           "type": "configure",
@@ -875,7 +1416,7 @@
     {
       "name": "perf-msvc",
       "displayName": "Profiler Mode (Microsoft Visual C/C++)",
-      "description": "Profiler mode preset with Microsoft Visual C/C++",
+      "description": "Preset for profiling performance",
       "steps": [
         {
           "type": "configure",
