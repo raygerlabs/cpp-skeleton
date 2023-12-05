@@ -26,7 +26,7 @@ main()
   image_processor processor;
   processor += make_filter(brightness, 2.0f);
   processor += make_filter(contrast, 2.0f);
-  processor += make_filter(resize, 150, 150);
+  processor += make_filter(resize, 150U, 150U);
   processor += make_filter(vertical_flip);
   processor += make_filter(horizontal_flip);
   processor += make_filter(invert_colors);

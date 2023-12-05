@@ -25,7 +25,7 @@ TEST(image_processor_test, filter_chaining)
   processor += make_filter(grayscale);
   processor += make_filter(horizontal_flip);
   processor += make_filter(invert_colors);
-  processor += make_filter(resize, 75, 75);
+  processor += make_filter(resize, 75U, 75U);
   processor += make_filter(vertical_flip);
 
   image result = processor.apply(sample);

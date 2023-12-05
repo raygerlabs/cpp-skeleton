@@ -97,7 +97,7 @@ TEST_F(image_filter_fixture, check_invert_colors)
 TEST_F(image_filter_fixture, check_resize)
 {
   resource_path path = "lena.resize.jpg";
-  execute_filter(path.absolute_path(), make_filter(resize, 75, 75));
+  execute_filter(path.absolute_path(), make_filter(resize, 75U, 75U));
 }
 
 }  // namespace unit_tests
