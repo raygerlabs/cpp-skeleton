@@ -43,15 +43,12 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install system dependencies
-        run: |
+      - run: |
           pip3 install conan ninja --upgrade
           conan profile detect
 
-      - name: Install project dependencies
-        run: conan install . -s build_type=RelWithDebInfo -b missing
+      - run: conan install . -s build_type=RelWithDebInfo -b missing
         working-directory: ${{ env.working-directory }}
 
-      - name: Execute benchmark
-        run: cmake --workflow --fresh --preset ${{ matrix.preset }}
+      - run: cmake --workflow --fresh --preset ${{ matrix.preset }}
         working-directory: ${{ env.working-directory }}

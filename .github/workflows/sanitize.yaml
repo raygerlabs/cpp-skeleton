@@ -59,15 +59,12 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install system dependencies
-        run: |
+      - run: |
           pip3 install conan ninja --upgrade
           conan profile detect
 
-      - name: Install project dependencies
-        run: conan install . -b missing
+      - run: conan install . -b missing
         working-directory: ${{ env.working-directory }}
 
-      - name: Execute sanity check
-        run: cmake --workflow --fresh --preset ${{ matrix.preset }}
+      - run: cmake --workflow --fresh --preset ${{ matrix.preset }}
         working-directory: ${{ env.working-directory }}

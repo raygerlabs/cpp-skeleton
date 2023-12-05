@@ -35,13 +35,12 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install system dependencies, part 2
-        run: |
+      - run: |
           pip3 install conan ninja --upgrade
           conan profile detect
 
-      - name: Perform integration tests
-        run: |
+      - run: |
           conan create . -b missing
-          conan test integration imageutils/1.0
+          conan list imageutils
+          conan test ./integration imageutils/1.0
         working-directory: ${{ env.working-directory }}
