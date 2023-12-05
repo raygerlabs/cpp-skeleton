@@ -4,7 +4,7 @@ find_package(benchmark CONFIG REQUIRED)
 target_link_libraries(benchmarks
     benchmark::benchmark
     benchmark::benchmark_main
-    imageutils::imageutils
+    imageutils
 )
 
 add_custom_command(TARGET benchmarks

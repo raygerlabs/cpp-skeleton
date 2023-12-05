@@ -20,8 +20,6 @@ jobs:
             preset: perf-gcc
           - os: macos-latest
             preset: perf-clang
-          - os: windows-latest
-            preset: perf-msvc
         
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30

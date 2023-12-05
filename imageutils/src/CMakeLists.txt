@@ -25,7 +25,6 @@ add_library(imageutils
     ${CMAKE_CURRENT_SOURCE_DIR}/image.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/image_processor.cpp
 )
-add_library(imageutils::imageutils ALIAS imageutils)
 
 target_include_directories(imageutils
 PUBLIC

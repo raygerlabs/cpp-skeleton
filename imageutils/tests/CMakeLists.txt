@@ -14,7 +14,7 @@ find_package(GTest CONFIG REQUIRED)
 target_link_libraries(unit_tests
     GTest::gtest 
     GTest::gtest_main 
-    imageutils::imageutils
+    imageutils
 )
 
 add_custom_command( TARGET unit_tests
