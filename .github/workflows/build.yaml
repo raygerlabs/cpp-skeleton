@@ -35,14 +35,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install system dependencies, part 1
-        run: |
-          if [[ "${{ runner.os }}" == "Linux" ]]; then
-            sudo apt-get -y install lcov
-          elif [[ "${{ runner.os }}" == "macOS" ]]; then
-            brew install lcov
-          fi
-
       - name: Install system dependencies, part 2
         run: |
           pip3 install conan ninja --upgrade

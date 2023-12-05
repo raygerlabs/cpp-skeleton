@@ -21,8 +21,7 @@
         "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
         "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
         "ENABLE_TESTS": true,
-        "ENABLE_EXAMPLES": true,
-        "ENABLE_COVERAGE": true
+        "ENABLE_EXAMPLES": true
       },
       "inherits": "base"
     },
@@ -36,8 +35,7 @@
         "CMAKE_CONFIGURATION_TYPES": "Release",
         "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
         "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
-        "ENABLE_TESTS": true,
-        "ENABLE_COVERAGE": true
+        "ENABLE_TESTS": true
       },
       "inherits": "base"
     },
