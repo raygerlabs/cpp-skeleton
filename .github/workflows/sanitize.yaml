@@ -23,8 +23,6 @@ jobs:
           - os: macos-latest
             preset: ci-asan-clang
           - os: macos-latest
-            preset: ci-msan-clang
-          - os: macos-latest
             preset: ci-tsan-clang
           - os: macos-latest
             preset: ci-ubsan-clang
