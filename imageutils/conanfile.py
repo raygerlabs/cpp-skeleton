@@ -1,7 +1,7 @@
 import os
 
 from conan import ConanFile
-from conan.tools.cmake import CMakeDeps, cmake_layout
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 from conan.tools.files import copy
 
 
@@ -11,6 +11,9 @@ class MainRecipe(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     build_policy = "missing"
 
+    @property
+    def should_test(self):
+        return not self.conf.get("tools.build:skip_test", default=False)
 
     def export_sources(self):
         export_list = { 
@@ -45,22 +48,24 @@ class MainRecipe(ConanFile):
     def generate(self):
         deps = CMakeDeps(self)
         deps.generate()
+        tc = CMakeToolchain(self, generator = "Ninja")
+        tc.variables["ENABLE_TESTS"] = self.should_test
+        tc.user_presets_path = False
+        tc.generate()
 
 
     def build(self):
-        config_mode = "dev" if self.settings.build_type == "Debug" else "ci"
-        preset_name = f"{config_mode}-{self.settings.compiler}"
-        self.run(f"cmake --workflow --fresh --preset {preset_name}", cwd=self.source_folder)
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+        if self.should_test:
+            cmake.test()
 
 
     def package(self):
-        copy(self, "*.hpp",    os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
-        copy(self, "*.h",      os.path.join(self.source_folder, "include"), os.path.join(self.package_folder, "include"))
-        copy(self, "*.dll",    os.path.join(self.source_folder, "build"),   os.path.join(self.package_folder, "bin"), keep_path=False)
-        copy(self, "*.so*" ,   os.path.join(self.source_folder, "build"),   os.path.join(self.package_folder, "lib"), keep_path=False)
-        copy(self, "*.dylib*", os.path.join(self.source_folder, "build"),   os.path.join(self.package_folder, "lib"), keep_path=False)
-        copy(self, "*.lib",    os.path.join(self.source_folder, "build"),   os.path.join(self.package_folder, "lib"), keep_path=False)
-        copy(self, "*.a",      os.path.join(self.source_folder, "build"),   os.path.join(self.package_folder, "lib"), keep_path=False)
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.install()
 
 
     def package_info(self):
