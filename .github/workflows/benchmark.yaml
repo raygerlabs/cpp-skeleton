@@ -20,9 +20,7 @@ jobs:
             preset: perf-gcc
           - os: macos-latest
             preset: perf-clang
-          - os: windows-latest
-            preset: perf-msvc
-        
+
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
@@ -45,12 +43,10 @@ jobs:
         with:
           python-version: '3.x'
 
-      - run: |
+      - name: Execute
+        working-directory: ${{ env.working-directory }}
+        run: |
           pip3 install conan ninja --upgrade
           conan profile detect
-
-      - run: conan install . -s build_type=RelWithDebInfo -b missing
-        working-directory: ${{ env.working-directory }}
-
-      - run: cmake --workflow --fresh --preset ${{ matrix.preset }}
-        working-directory: ${{ env.working-directory }}
+          conan install . -s build_type=RelWithDebInfo -b missing
+          cmake --workflow --fresh --preset ${{ matrix.preset }}

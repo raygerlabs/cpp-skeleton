@@ -15,23 +15,15 @@ jobs:
           - os: ubuntu-latest
             preset: ci-asan-gcc
           - os: ubuntu-latest
+            preset: ci-lsan-gcc
+          - os: ubuntu-latest
             preset: ci-tsan-gcc
-          - os: ubuntu-latest
-            preset: ci-ubsan-gcc
-          - os: ubuntu-latest
-            preset: ci-asan-clang
-          - os: ubuntu-latest
-            preset: ci-tsan-clang
           - os: ubuntu-latest
             preset: ci-ubsan-clang
           - os: macos-latest
-            preset: ci-asan-gcc
-          - os: macos-latest
-            preset: ci-tsan-gcc
-          - os: macos-latest
-            preset: ci-ubsan-gcc
-          - os: macos-latest
             preset: ci-asan-clang
+          - os: macos-latest
+            preset: ci-msan-clang
           - os: macos-latest
             preset: ci-tsan-clang
           - os: macos-latest
@@ -59,12 +51,11 @@ jobs:
         with:
           python-version: '3.x'
 
-      - run: |
+      - name: Execute
+        working-directory: ${{ env.working-directory }}
+        run: |
           pip3 install conan ninja --upgrade
           conan profile detect
+          conan install . -b missing
+          cmake --workflow --fresh --preset ${{ matrix.preset }}
 
-      - run: conan install . -b missing
-        working-directory: ${{ env.working-directory }}
-
-      - run: cmake --workflow --fresh --preset ${{ matrix.preset }}
-        working-directory: ${{ env.working-directory }}

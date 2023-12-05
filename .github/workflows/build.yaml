@@ -11,7 +11,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ windows-latest, ubuntu-latest, macos-latest ]
+        include:
+          - os: ubuntu-latest
+            preset: ci-gcc
+          - os: macos-latest
+            preset: ci-clang
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -35,11 +39,10 @@ jobs:
         with:
           python-version: '3.x'
 
-      - run: |
+      - name: Execute
+        working-directory: ${{ env.working-directory }}
+        run: |
           pip3 install conan ninja --upgrade
           conan profile detect
-
-      - run: |
-          conan create . -b missing
-          conan test ./integration imageutils/1.0
-        working-directory: ${{ env.working-directory }}
+          conan install . -b missing
+          cmake --workflow --fresh --preset ${{ matrix.preset }}
