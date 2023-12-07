@@ -13,19 +13,19 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            preset: ci-asan-gcc
+            preset: asan-gcc
           - os: ubuntu-latest
-            preset: ci-lsan-gcc
+            preset: lsan-gcc
           - os: ubuntu-latest
-            preset: ci-tsan-gcc
+            preset: tsan-gcc
           - os: ubuntu-latest
-            preset: ci-ubsan-clang
+            preset: ubsan-clang
           - os: macos-latest
-            preset: ci-asan-clang
+            preset: asan-clang
           - os: macos-latest
-            preset: ci-tsan-clang
+            preset: tsan-clang
           - os: macos-latest
-            preset: ci-ubsan-clang
+            preset: ubsan-clang
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -54,6 +54,6 @@ jobs:
         run: |
           pip3 install conan ninja --upgrade
           conan profile detect
-          conan install . -b missing
+          conan install . -s build_type=Debug -b missing
           cmake --workflow --fresh --preset ${{ matrix.preset }}
 

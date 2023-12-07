@@ -4,15 +4,11 @@ PROJECT_NAME                              = "@PROJECT_NAME@"
 PROJECT_NUMBER                            = "@PROJECT_VERSION@"
 PROJECT_BRIEF                             = "@PROJECT_DESCRIPTION@"
 
-OUTPUT_DIRECTORY                          = "@PROJECT_BINARY_DIR@/docs"
+OUTPUT_DIRECTORY                          = "@PROJECT_BINARY_DIR@/doc"
 
 INPUT                                     = @DOXYGEN_INPUT@
 FILE_PATTERNS                             = *.h *.hpp *.md *.dox
 RECURSIVE                                 = YES
-
-EXAMPLE_PATH                              = @PROJECT_SOURCE_DIR@/examples
-EXAMPLE_PATTERNS                          =
-EXAMPLE_RECURSIVE                         = YES
 
 SHOW_NAMESPACES                           = YES
 EXTRACT_ALL                               = YES
@@ -20,5 +16,3 @@ GENERATE_HTML                             = YES
 
 CALL_GRAPH                                = NO
 HAVE_DOT                                  = NO
-
-IMAGE_PATH                                = images

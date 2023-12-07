@@ -1,44 +1,35 @@
 include_guard()
 
-message(STATUS "***** toolchain-msvc.cmake")
+# Set C and C++ compilers
+set(CMAKE_C_COMPILER cl)
+set(CMAKE_CXX_COMPILER cl)
 
-if (NOT DEFINED CMAKE_C_COMPILER)
-    set(CMAKE_C_COMPILER cl)
-endif (NOT DEFINED CMAKE_C_COMPILER)
+# Adjust the default behaviour of the FIND_XXX() commands
+set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set (CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
-if (NOT DEFINED CMAKE_CXX_COMPILER)
-    set(CMAKE_CXX_COMPILER cl)
-endif (NOT DEFINED CMAKE_CXX_COMPILER)
-
+# Override default compiler and linker flags
 include(${CMAKE_CURRENT_LIST_DIR}/overrides-msvc.cmake)
 
-set(_LANGUAGES C CXX)
-set(_BUILD_TYPES "" _DEBUG _RELEASE _MINSIZEREL _RELWITHDEBINFO)
-set(_LINK_TYPES EXE STATIC SHARED MODULE)
-
+# Output system information
 message(STATUS "CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME}")
 message(STATUS "CMAKE_SYSTEM_PROCESSOR = ${CMAKE_SYSTEM_PROCESSOR}")
-
-foreach(_LANGUAGE ${_LANGUAGES})
-    message(STATUS "CMAKE_${_LANGUAGE}_COMPILER = ${CMAKE_${_LANGUAGE}_COMPILER}")
-endforeach(_LANGUAGE ${_LANGUAGES})
-
-message(STATUS "CMAKE_LINKER = ${CMAKE_LINKER}")
-
-foreach(_LANGUAGE ${_LANGUAGES})
-    message(STATUS "CMAKE_${_LANGUAGE}_LINKER = ${CMAKE_${_LANGUAGE}_LINKER}")
-endforeach(_LANGUAGE ${_LANGUAGES})
-
-foreach(_LANGUAGE ${_LANGUAGES})
-    foreach(_BUILD_TYPE ${_BUILD_TYPES})
-        message(STATUS "CMAKE_${_LANGUAGE}_FLAGS${_BUILD_TYPE} = ${CMAKE_${_LANGUAGE}_FLAGS${_BUILD_TYPE}}")
-    endforeach(_BUILD_TYPE ${_BUILD_TYPES})
-endforeach(_LANGUAGE ${_LANGUAGES})
-
-foreach(_LINK_TYPE ${_LINK_TYPES})
-    foreach(_BUILD_TYPE ${_BUILD_TYPES})
-        message(STATUS "CMAKE_${_LINK_TYPE}_LINKER_FLAGS${_BUILD_TYPE} = ${CMAKE_${_LINK_TYPE}_LINKER_FLAGS${_BUILD_TYPE}}")
-    endforeach(_BUILD_TYPE ${_BUILD_TYPES})
-endforeach(_LINK_TYPE ${_LINK_TYPES})
-
-message(STATUS "***** toolchain-msvc.cmake")
+# Output compiler and linker information
+foreach (_lang IN ITEMS "C" "CXX")
+    message(STATUS "CMAKE_${_lang}_COMPILER = ${CMAKE_${_lang}_COMPILER}")
+    message(STATUS "CMAKE_${_lang}_LINKER = ${CMAKE_${_lang}_LINKER}")
+endforeach()
+# Output compiler flags for different build types
+foreach (_lang IN ITEMS "C" "CXX")
+    foreach (_build_type IN ITEMS "" "_DEBUG" "_RELEASE" "_RELWITHDEBINFO" "_RELEASE")
+        message(STATUS "CMAKE_${_lang}_FLAGS${_build_type} = ${CMAKE_${_lang}_FLAGS${_build_type}}")
+    endforeach()
+endforeach()
+# Output linker flags for different build types
+foreach (_linker IN ITEMS "EXE" "SHARED" "MODULE" "STATIC")
+    foreach (_build_type IN ITEMS "" "_DEBUG" "_RELEASE" "_RELWITHDEBINFO" "_RELEASE")
+        message(STATUS "CMAKE_${_linker}_LINKER_FLAGS${_build_type} = ${CMAKE_${_linker}_LINKER_FLAGS${_build_type}}")
+    endforeach()
+endforeach()
