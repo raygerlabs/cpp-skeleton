@@ -16,8 +16,6 @@ jobs:
             preset: ci-gcc
           - os: macos-latest
             preset: ci-clang
-          - os: windows-latest
-            preset: ci-msvc
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30

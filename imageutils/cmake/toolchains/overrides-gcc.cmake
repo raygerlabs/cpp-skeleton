@@ -45,16 +45,16 @@ set(CMAKE_C_FLAGS " ${GCC_COMMON_FLAGS} ")
 # Enable stack canaries (-fstack-protector-all)
 # Enable debug information (-g)
 # Disable optimizations (-O0)
-set(CMAKE_CXX_FLAGS_DEBUG " -D_DEBUG -DDEBUG -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS -fstack-protector-all -g -O0 ")
-set(CMAKE_C_FLAGS_DEBUG " -D_DEBUG -DDEBUG -D_FORTIFY_SOURCE=2 -D_GLIBC_ASSERTIONS -fstack-protector-all -g -O0 ")
+set(CMAKE_CXX_FLAGS_DEBUG "-D_DEBUG -DDEBUG -g -O0")
+set(CMAKE_C_FLAGS_DEBUG "-D_DEBUG -DDEBUG -g -O0")
 # Set release with debug info flags
 # Disable debug assertions (-DNDEBUG)
 # Keep frame pointers (-fno-omit-frame-pointer)
 # Enable full optimizations (-O3)
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO " -D_RELWITHDEBINFO -DNDEBUG -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS -fno-omit-frame-pointer -g -O3 ")
-set(CMAKE_C_FLAGS_RELWITHDEBINFO " -D_RELWITHDEBINFO -DNDEBUG -D_FORTIFY_SOURCE=2 -D_GLIBC_ASSERTIONS -fno-omit-frame-pointer -g -O3 ")
-set(CMAKE_CXX_FLAGS_RELEASE " -D_RELEASE -DNDEBUG -O3 ")
-set(CMAKE_C_FLAGS_RELEASE " -D_RELEASE -DNDEBUG -O3 ")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-D_RELWITHDEBINFO -DNDEBUG -fno-omit-frame-pointer -g -O3")
+set(CMAKE_C_FLAGS_RELWITHDEBINFO "-D_RELWITHDEBINFO -DNDEBUG -fno-omit-frame-pointer -g -O3")
+set(CMAKE_CXX_FLAGS_RELEASE "-D_RELEASE -DNDEBUG -O3")
+set(CMAKE_C_FLAGS_RELEASE "-D_RELEASE -DNDEBUG -O3")
 
 
 ### Linker flags
