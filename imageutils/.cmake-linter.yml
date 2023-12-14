@@ -1,6 +1,6 @@
 ---
 format:
-  line_width: 80
+  line_width: 120
 lint:
   disabled_codes: []
   function_pattern: '[a-z][a-z0-9_]+'

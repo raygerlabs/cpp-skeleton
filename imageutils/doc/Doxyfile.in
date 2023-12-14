@@ -1,18 +1,90 @@
-DOXYFILE_ENCODING                         = UTF-8
+# This tag specifies the encoding used for all characters in the config file
+# that follow. The default is UTF-8 which is also the encoding used for all text
+# before the first occurrence of this tag. Doxygen uses libiconv (or the iconv
+# built into libc) for the transcoding. See http://www.gnu.org/software/libiconv
+# for the list of possible encodings.
+# The default value is: UTF-8.
+DOXYFILE_ENCODING     = "UTF-8"
 
-PROJECT_NAME                              = "@PROJECT_NAME@"
-PROJECT_NUMBER                            = "@PROJECT_VERSION@"
-PROJECT_BRIEF                             = "@PROJECT_DESCRIPTION@"
+# The PROJECT_NAME tag is a single word (or a sequence of words surrounded by
+# double-quotes, unless you are using Doxywizard) that should identify the
+# project for which the documentation is generated. This name is used in the
+# title of most generated pages and in a few other places.
+# The default value is: My Project.
+PROJECT_NAME          = "@PROJECT_NAME@"
 
-OUTPUT_DIRECTORY                          = "@PROJECT_BINARY_DIR@/doc"
+# The PROJECT_NUMBER tag can be used to enter a project or revision number. This
+# could be handy for archiving the generated documentation or if some version
+# control system is used.
+PROJECT_NUMBER        = "@PROJECT_VERSION@"
 
-INPUT                                     = @DOXYGEN_INPUT@
-FILE_PATTERNS                             = *.h *.hpp *.md *.dox
-RECURSIVE                                 = YES
+# Using the PROJECT_BRIEF tag one can provide an optional one line description
+# for a project that appears at the top of each page and should give viewer a
+# quick idea about the purpose of the project. Keep the description short.
+PROJECT_BRIEF         = "@PROJECT_DESCRIPTION@"
 
-SHOW_NAMESPACES                           = YES
+# The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
+# into which the generated documentation will be written. If a relative path is
+# entered, it will be relative to the location where doxygen was started. If
+# left blank the current directory will be used.
+OUTPUT_DIRECTORY      = "@PROJECT_BINARY_DIR@/doc"
+
+# The INPUT tag is used to specify the files and/or directories that contain
+# documented source files. You may enter file names like myfile.cpp or
+# directories like /usr/src/myproject. Separate the files or directories with
+# spaces.
+# Note: If this tag is empty the current directory is searched.
+INPUT                 = "@PROJECT_SOURCE_DIR@/include" \
+                        "@PROJECT_SOURCE_DIR@/doc"
+
+# If the value of the INPUT tag contains directories, you can use the
+# FILE_PATTERNS tag to specify one or more wildcard patterns (like *.cpp and
+# *.h) to filter out the source-files in the directories. If left blank the
+# following patterns are tested:*.c, *.cc, *.cxx, *.cpp, *.c++, *.java, *.ii,
+# *.ixx, *.ipp, *.i++, *.inl, *.idl, *.ddl, *.odl, *.h, *.hh, *.hxx, *.hpp,
+# *.h++, *.cs, *.d, *.php, *.php4, *.php5, *.phtml, *.inc, *.m, *.markdown,
+# *.md, *.mm, *.dox, *.py, *.f90, *.f, *.for, *.tcl, *.vhd, *.vhdl, *.ucf,
+# *.qsf, *.as and *.js.
+FILE_PATTERNS          = "*.h" "*.hpp" "*.md" "*.dox"
+
+# The RECURSIVE tag can be used to specify whether or not subdirectories should
+# be searched for input files as well.
+# The default value is: NO.
+RECURSIVE              = YES
+
+# Set the SHOW_NAMESPACES tag to NO to disable the generation of the Namespaces
+# page. This will remove the Namespaces entry from the Quick Index and from the
+# Folder Tree View (if specified).
+# The default value is: YES.
+SHOW_NAMESPACES       = YES
+
+# If the EXTRACT_ALL tag is set to YES doxygen will assume all entities in
+# documentation are documented, even if no documentation was available. Private
+# class members and static file members will be hidden unless the
+# EXTRACT_PRIVATE respectively EXTRACT_STATIC tags are set to YES.
+# Note: This will also disable the warnings about undocumented members that are
+# normally produced when WARNINGS is set to YES.
+# The default value is: NO.
 EXTRACT_ALL                               = YES
-GENERATE_HTML                             = YES
 
-CALL_GRAPH                                = NO
-HAVE_DOT                                  = NO
+# If the GENERATE_HTML tag is set to YES doxygen will generate HTML output
+# The default value is: YES.
+GENERATE_HTML         = YES
+
+# If the CALL_GRAPH tag is set to YES then doxygen will generate a call
+# dependency graph for every global function or class method.
+#
+# Note that enabling this option will significantly increase the time of a run.
+# So in most cases it will be better to enable call graphs for selected
+# functions only using the \callgraph command.
+# The default value is: NO.
+# This tag requires that the tag HAVE_DOT is set to YES.
+CALL_GRAPH            = NO
+
+# If you set the HAVE_DOT tag to YES then doxygen will assume the dot tool is
+# available from the path. This tool is part of Graphviz (see:
+# http://www.graphviz.org/), a graph visualization toolkit from AT&T and Lucent
+# Bell Labs. The other options in this section have no effect if this option is
+# set to NO
+# The default value is: NO.
+HAVE_DOT              = NO

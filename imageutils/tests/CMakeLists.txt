@@ -17,8 +17,6 @@ target_link_libraries(unit_tests
     imageutils
 )
 
-target_enable_sanitizing(unit_tests)
-
 add_custom_command( TARGET unit_tests
     PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/resources/ $<TARGET_FILE_DIR:unit_tests>/resources/

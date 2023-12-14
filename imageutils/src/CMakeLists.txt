@@ -36,7 +36,6 @@ PRIVATE
 
 find_package(libjpeg-turbo REQUIRED CONFIG)
 target_link_libraries(imageutils libjpeg-turbo::libjpeg-turbo)
-target_enable_sanitizing(imageutils)
 
 ########################################
 # Installation instructions

@@ -1,63 +1,29 @@
 language: cpp
 
-compiler:
-  - clang
-  - gcc
-  - msvc
-
-arch:
-  - amd64
-  - ppc64le
-  - s390x
-  - arm64
-
 os:
   - linux
   - osx
   - windows
 
-jobs:
-  include:
-    - name: "Linux ARM64"
-      os: linux
-      arch: arm64
-      env: PRESET=ci-linux-arm64
+compiler:
+  - gcc
+  - clang
 
-    - name: "Linux PowerPC64"
-      os: linux
-      arch: ppc64le
-      env: PRESET=ci-linux-powerpc64
+matrix:
+  exclude:
+    - os: windows
+      compiler: gcc
+    - os: windows
+      compiler: clang
 
-    - name: "Linux S390X"
-      os: linux
-      arch: s390x
-      env: PRESET=ci-linux-s390x
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update && sudo apt-get install -y cmake ninja-build; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install cmake ninja; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install cmake ninja; fi
+  - pip install conan
 
-    - name: "Linux x86_64"
-      os: linux
-      arch: amd64
-      env: PRESET=ci-linux-x86_64
-
-    - name: "macOSX ARM64"
-      os: osx
-      arch: arm64
-      env: PRESET=ci-macosx-arm64
-
-    - name: "macOSX x86_64"
-      os: osx
-      arch: amd64
-      env: PRESET=ci-macosx-x86_64
-
-    - name: "Windows ARM64"
-      os: windows
-      arch: arm64
-      env: PRESET=ci-windows-arm64
-
-    - name: "Windows x86_64"
-      os: windows
-      arch: amd64
-      env: PRESET=ci-windows-x86_64
+install:
+  - conan install .
 
 script:
-  - conan install . -b missing
-  - cmake --workflow --fresh --preset $PRESET
+  - cmake --workflow --fresh --preset ci-${CC}

@@ -9,111 +9,6 @@
       "installDir": "${sourceDir}/install/Debug/${presetName}"
     },
     {
-      "name": "dev",
-      "hidden": true,
-      "displayName": "Developer Mode (Default)",
-      "description": "Preset for development activities and debugging",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CONFIGURATION_TYPES": "Debug",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
-        "ENABLE_TESTS": true
-      },
-      "inherits": "base"
-    },
-    {
-      "name": "ci",
-      "hidden": true,
-      "displayName": "CI Mode (Default)",
-      "description": "Preset for continuous integration",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_CONFIGURATION_TYPES": "Release",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
-        "ENABLE_TESTS": true
-      },
-      "inherits": "base"
-    },
-    {
-      "name": "perf",
-      "hidden": true,
-      "displayName": "Profiler Mode (Default)",
-      "description": "Preset for profiling performance",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
-        "ENABLE_BENCHMARKS": true
-      },
-      "inherits": "base"
-    },
-    {
-      "name": "doc",
-      "displayName": "API Document Generator",
-      "description": "Preset for generating API documentation",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_CONFIGURATION_TYPES": "Release",
-        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
-        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
-        "ENABLE_DOC": true
-      },
-      "inherits": "base"
-    },
-    {
-      "name": "asan",
-      "hidden": true,
-      "displayName": "Address Sanitizer (Default)",
-      "description": "Preset for enabling address sanitizer",
-      "cacheVariables": {
-        "ENABLE_ASAN": true
-      },
-      "inherits": "base"
-    },
-    {
-      "name": "lsan",
-      "hidden": true,
-      "displayName": "Leak Sanitizer (Default)",
-      "description": "Preset for enabling leak sanitizer",
-      "cacheVariables": {
-        "ENABLE_LSAN": true
-      },
-      "inherits": "base"
-    },
-    {
-      "name": "msan",
-      "hidden": true,
-      "displayName": "Memory Sanitizer (Default)",
-      "description": "Preset for enabling memory sanitizer",
-      "cacheVariables": {
-        "ENABLE_MSAN": true
-      },
-      "inherits": "base"
-    },
-    {
-      "name": "tsan",
-      "hidden": true,
-      "displayName": "Thread Sanitizer (Default)",
-      "description": "Preset for enabling thread sanitizer",
-      "cacheVariables": {
-        "ENABLE_TSAN": true
-      },
-      "inherits": "base"
-    },
-    {
-      "name": "ubsan",
-      "hidden": true,
-      "displayName": "Undefined Sanitizer (Default)",
-      "description": "Preset for enabling undefined sanitizer",
-      "cacheVariables": {
-        "ENABLE_UBSAN": true
-      },
-      "inherits": "base"
-    },
-    {
       "name": "gcc",
       "displayName": "GNU C/C++",
       "description": "Preset for GNU C/C++ compiler toolchain",
@@ -138,6 +33,105 @@
         "rhs": "Windows"
       },
       "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-msvc.cmake"
+    },
+    {
+      "name": "dev",
+      "displayName": "Developer Mode",
+      "description": "Preset for development activities and debugging",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CONFIGURATION_TYPES": "Debug",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
+        "WITH_TESTS": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "ci",
+      "displayName": "CI Mode",
+      "description": "Preset for continuous integration",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CONFIGURATION_TYPES": "Release",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "WITH_TESTS": true,
+        "WITH_COVERAGE": true,
+        "WITH_DOC": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "profile",
+      "displayName": "Profiler Mode",
+      "description": "Preset for profiling performance",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/RelWithDebInfo/generators",
+        "WITH_BENCHMARKS": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "doc",
+      "displayName": "API Document Generator",
+      "description": "Preset for generating API documentation",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CONFIGURATION_TYPES": "Release",
+        "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+        "WITH_DOC": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "asan",
+      "displayName": "Address Sanitizer",
+      "description": "Preset for enabling address sanitizer",
+      "cacheVariables": {
+        "WITH_ASAN": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "lsan",
+      "displayName": "Leak Sanitizer",
+      "description": "Preset for enabling leak sanitizer",
+      "cacheVariables": {
+        "WITH_LSAN": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "msan",
+      "displayName": "Memory Sanitizer",
+      "description": "Preset for enabling memory sanitizer",
+      "cacheVariables": {
+        "WITH_MSAN": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "tsan",
+      "displayName": "Thread Sanitizer",
+      "description": "Preset for enabling thread sanitizer",
+      "cacheVariables": {
+        "WITH_TSAN": true
+      },
+      "inherits": "base"
+    },
+    {
+      "name": "ubsan",
+      "displayName": "Undefined Behavior Sanitizer",
+      "description": "Preset for enabling undefined behavior sanitizer",
+      "cacheVariables": {
+        "WITH_UBSAN": true
+      },
+      "inherits": "base"
     },
     {
       "name": "dev-gcc",
@@ -191,7 +185,7 @@
     {
       "name": "ubsan-gcc",
       "displayName": "Developer Mode - UBSAN (GNU C/C++)",
-      "description": "Preset for development activities and debugging with undefined sanitizer",
+      "description": "Preset for development activities and debugging with undefined behavior sanitizer",
       "inherits": [
         "dev",
         "ubsan",
@@ -208,11 +202,11 @@
       ]
     },
     {
-      "name": "perf-gcc",
+      "name": "profile-gcc",
       "displayName": "Profiler Mode (GNU C/C++)",
       "description": "Preset for profiling performance",
       "inherits": [
-        "perf",
+        "profile",
         "gcc"
       ]
     },
@@ -285,11 +279,11 @@
       ]
     },
     {
-      "name": "perf-clang",
+      "name": "profile-clang",
       "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
       "description": "Preset for profiling performance",
       "inherits": [
-        "perf",
+        "profile",
         "clang"
       ]
     },
@@ -312,16 +306,40 @@
       ]
     },
     {
-      "name": "perf-msvc",
+      "name": "profile-msvc",
       "displayName": "Profiler Mode (Microsoft Visual C/C++)",
       "description": "Preset for profiling performance",
       "inherits": [
-        "perf",
+        "profile",
         "msvc"
       ]
     }
   ],
   "buildPresets": [
+    {
+      "name": "dev",
+      "displayName": "Developer Mode",
+      "description": "Preset for development activities and debugging",
+      "configurePreset": "dev"
+    },
+    {
+      "name": "ci",
+      "displayName": "CI Mode",
+      "description": "Preset for continuous integration",
+      "configurePreset": "ci"
+    },
+    {
+      "name": "profile",
+      "displayName": "Profiler Mode",
+      "description": "Preset for profiling performance",
+      "configurePreset": "profile"
+    },
+    {
+      "name": "doc",
+      "displayName": "API Document Generator",
+      "description": "Preset for generating API documentation",
+      "configurePreset": "doc"
+    },
     {
       "name": "dev-gcc",
       "displayName": "Developer Mode (GNU C/C++)",
@@ -365,10 +383,10 @@
       "configurePreset": "ci-gcc"
     },
     {
-      "name": "perf-gcc",
+      "name": " profile-gcc",
       "displayName": "Profiler Mode (GNU C/C++)",
       "description": "Profiler mode preset with GNU C/C++",
-      "configurePreset": "perf-gcc"
+      "configurePreset": "profile-gcc"
     },
     {
       "name": "dev-clang",
@@ -413,10 +431,10 @@
       "configurePreset": "ci-clang"
     },
     {
-      "name": "perf-clang",
+      "name": "profile-clang",
       "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
       "description": "Preset for profiling performance",
-      "configurePreset": "perf-clang"
+      "configurePreset": "profile-clang"
     },
     {
       "name": "dev-msvc",
@@ -431,16 +449,10 @@
       "configurePreset": "ci-msvc"
     },
     {
-      "name": "perf-msvc",
+      "name": "profile-msvc",
       "displayName": "Profiler Mode (Microsoft Visual C/C++)",
       "description": "Preset for profiling performance",
-      "configurePreset": "perf-msvc"
-    },
-    {
-      "name": "doc",
-      "displayName": "API Document Generator",
-      "description": "Preset for generating API documentation",
-      "configurePreset": "doc"
+      "configurePreset": "profile-msvc"
     }
   ],
   "testPresets": [
@@ -456,6 +468,27 @@
         "stopOnFailure": true
       },
       "hidden": true
+    },
+    {
+      "name": "dev",
+      "displayName": "Developer Mode",
+      "description": "Preset for development activities and debugging",
+      "configurePreset": "dev",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "ci",
+      "displayName": "CI Mode",
+      "description": "Preset for continuous integration",
+      "configurePreset": "ci",
+      "inherits": "test-defaults"
+    },
+    {
+      "name": "profile",
+      "displayName": "Profiler Mode",
+      "description": "Preset for profiling performance",
+      "configurePreset": "profile",
+      "inherits": "test-defaults"
     },
     {
       "name": "dev-gcc",
@@ -507,10 +540,10 @@
       "inherits": "test-defaults"
     },
     {
-      "name": "perf-gcc",
+      "name": "profile-gcc",
       "displayName": "Profiler Mode (GNU C/C++)",
       "description": "Preset for profiling performance",
-      "configurePreset": "perf-gcc",
+      "configurePreset": "profile-gcc",
       "inherits": "test-defaults"
     },
     {
@@ -563,10 +596,10 @@
       "inherits": "test-defaults"
     },
     {
-      "name": "perf-clang",
+      "name": "profile-clang",
       "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
       "description": "Preset for profiling performance",
-      "configurePreset": "perf-clang",
+      "configurePreset": "profile-clang",
       "inherits": "test-defaults"
     },
     {
@@ -584,14 +617,26 @@
       "inherits": "test-defaults"
     },
     {
-      "name": "perf-msvc",
+      "name": "profile-msvc",
       "displayName": "Profiler Mode (Microsoft Visual C/C++)",
       "description": "Preset for profiling performance",
-      "configurePreset": "perf-msvc",
+      "configurePreset": "profile-msvc",
       "inherits": "test-defaults"
     }
   ],
   "packagePresets": [
+    {
+      "name": "dev",
+      "displayName": "Developer Mode",
+      "description": "Preset for development activities and debugging",
+      "configurePreset": "dev"
+    },
+    {
+      "name": "ci",
+      "displayName": "CI Mode",
+      "description": "Preset for continuous integration",
+      "configurePreset": "ci"
+    },
     {
       "name": "dev-gcc",
       "displayName": "Developer Mode (GNU C/C++)",
@@ -630,6 +675,71 @@
     }
   ],
   "workflowPresets": [
+    {
+      "name": "dev",
+      "displayName": "Developer Mode",
+      "description": "Preset for development activities and debugging",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "dev"
+        },
+        {
+          "type": "build",
+          "name": "dev"
+        },
+        {
+          "type": "test",
+          "name": "dev"
+        },
+        {
+          "type": "package",
+          "name": "dev"
+        }
+      ]
+    },
+    {
+      "name": "ci",
+      "displayName": "CI Mode",
+      "description": "Preset for continuous integration",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ci"
+        },
+        {
+          "type": "build",
+          "name": "ci"
+        },
+        {
+          "type": "test",
+          "name": "ci"
+        },
+        {
+          "type": "package",
+          "name": "ci"
+        }
+      ]
+    },
+    {
+      "name": "profile",
+      "displayName": "Profiler Mode",
+      "description": "Preset for profiling performance",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "profile"
+        },
+        {
+          "type": "build",
+          "name": "profile"
+        },
+        {
+          "type": "test",
+          "name": "profile"
+        }
+      ]
+    },
     {
       "name": "dev-gcc",
       "displayName": "Developer Mode (GNU C/C++)",
@@ -768,25 +878,6 @@
         {
           "type": "package",
           "name": "ci-gcc"
-        }
-      ]
-    },
-    {
-      "name": "perf-gcc",
-      "displayName": "Profiler Mode (GNU C/C++)",
-      "description": "Preset for profiling performance",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "perf-gcc"
-        },
-        {
-          "type": "build",
-          "name": "perf-gcc"
-        },
-        {
-          "type": "test",
-          "name": "perf-gcc"
         }
       ]
     },
@@ -932,21 +1023,21 @@
       ]
     },
     {
-      "name": "perf-clang",
+      "name": "profile-clang",
       "displayName": "Profiler Mode (Clang (LLVM) C/C++)",
       "description": "Preset for profiling performance",
       "steps": [
         {
           "type": "configure",
-          "name": "perf-clang"
+          "name": "profile-clang"
         },
         {
           "type": "build",
-          "name": "perf-clang"
+          "name": "profile-clang"
         },
         {
           "type": "test",
-          "name": "perf-clang"
+          "name": "profile-clang"
         }
       ]
     },
@@ -997,21 +1088,21 @@
       ]
     },
     {
-      "name": "perf-msvc",
+      "name": "profile-msvc",
       "displayName": "Profiler Mode (Microsoft Visual C/C++)",
       "description": "Preset for profiling performance",
       "steps": [
         {
           "type": "configure",
-          "name": "perf-msvc"
+          "name": "profile-msvc"
         },
         {
           "type": "build",
-          "name": "perf-msvc"
+          "name": "profile-msvc"
         },
         {
           "type": "test",
-          "name": "perf-msvc"
+          "name": "profile-msvc"
         }
       ]
     },
