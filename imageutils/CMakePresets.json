@@ -5,8 +5,8 @@
       "name": "base",
       "hidden": true,
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/Debug/${presetName}",
-      "installDir": "${sourceDir}/install/Debug/${presetName}"
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}"
     },
     {
       "name": "gcc",

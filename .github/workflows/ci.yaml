@@ -1,0 +1,154 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  sanitize:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      working-directory: ./imageutils
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            preset: asan-gcc
+          - os: ubuntu-latest
+            preset: lsan-gcc
+          - os: ubuntu-latest
+            preset: tsan-gcc
+          - os: ubuntu-latest
+            preset: ubsan-gcc
+          - os: ubuntu-latest
+            preset: asan-clang
+          - os: ubuntu-latest
+            preset: msan-clang
+          - os: ubuntu-latest
+            preset: tsan-clang
+          - os: ubuntu-latest
+            preset: ubsan-clang
+          - os: macos-latest
+            preset: asan-gcc
+          - os: macos-latest
+            preset: tsan-gcc
+          - os: macos-latest
+            preset: ubsan-gcc
+          - os: macos-latest
+            preset: asan-clang
+          - os: macos-latest
+            preset: tsan-clang
+          - os: macos-latest
+            preset: ubsan-clang
+    steps:
+      - uses: actions/checkout@v4
+      - id: current_branch
+        run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-main
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - working-directory: ${{ env.working-directory }}
+        run: |
+          pip3 install conan ninja --upgrade
+          conan profile detect
+          conan install . -s build_type=Debug -b missing
+          cmake --workflow --fresh --preset ${{ matrix.preset }}
+
+  profile:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      working-directory: ./imageutils
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    steps:
+      - uses: actions/checkout@v4
+      - id: current_branch
+        run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-main
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - working-directory: ${{ env.working-directory }}
+        run: |
+          pip3 install conan ninja --upgrade
+          conan profile detect
+          conan install . -s build_type=RelWithDebInfo -b missing
+          cmake --workflow --fresh --preset profile
+
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      working-directory: ./imageutils
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    steps:
+      - uses: actions/checkout@v4
+      - id: current_branch
+        run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-main
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - working-directory: ${{ env.working-directory }}
+        run: |
+          pip3 install conan ninja --upgrade
+          conan profile detect
+          conan install . -b missing
+          cmake --workflow --fresh --preset ci
+
+  gendoc:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    timeout-minutes: 30
+    env:
+      working-directory: ./imageutils
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - id: current_branch
+        run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-main
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - run: |
+          sudo apt-get -y install lcov genhtml
+      - working-directory: ${{ env.working-directory }}
+        run: |
+          pip3 install conan ninja --upgrade
+          conan profile detect
+          conan install . -b missing
+          cmake --workflow --fresh --preset doc
