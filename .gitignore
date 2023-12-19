@@ -5,6 +5,8 @@
 **/.clangd
 **/.vs
 **/.vscode
+**/CMakeUserPresets.json
+**/ConanPresets.json
 
 # Ignore temporary files
 *.swp

@@ -1,0 +1,493 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Default",
+            "description": "Default preset",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "installDir": "${sourceDir}/install/${presetName}"
+        },
+        {
+            "name": "gcc",
+            "displayName": "GCC",
+            "description": "Preset for using GCC toolchain",
+            "hidden": true,
+            "condition": {
+                "type": "inList",
+                "string": "${hostSystemName}",
+                "list": [
+                    "Linux",
+                    "Darwin"
+                ]
+            },
+            "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake"
+        },
+        {
+            "name": "clang",
+            "displayName": "Clang (LLVM)",
+            "description": "Preset for using Clang (LLVM) toolchain",
+            "hidden": true,
+            "condition": {
+                "type": "inList",
+                "string": "${hostSystemName}",
+                "list": [
+                    "Linux",
+                    "Darwin"
+                ]
+            },
+            "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-clang.cmake"
+        },
+        {
+            "name": "msvc",
+            "displayName": "MSVC",
+            "description": "Preset for using MSVC toolchain",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-msvc.cmake"
+        },
+        {
+            "name": "dev",
+            "displayName": "Developer Mode",
+            "description": "Preset for developer mode",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_CONFIGURATION_TYPES": "Debug",
+                "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
+                "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Debug/generators",
+                "WITH_TESTS": true
+            },
+            "inherits": "default"
+        },
+        {
+            "name": "ci",
+            "displayName": "CI Mode",
+            "description": "Preset for continuous integration",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CONFIGURATION_TYPES": "Release",
+                "CMAKE_PREFIX_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+                "CMAKE_MODULE_PATH": "${sourceDir}/build/generators;${sourceDir}/build/Release/generators",
+                "WITH_TESTS": true
+            },
+            "inherits": "default"
+        },
+        {
+            "name": "dev-gcc",
+            "displayName": "Developer Mode (GCC)",
+            "description": "Preset for developer mode",
+            "inherits": [
+                "dev",
+                "gcc"
+            ]
+        },
+        {
+            "name": "dev-clang",
+            "displayName": "Developer Mode (Clang)",
+            "description": "Preset for developer mode",
+            "inherits": [
+                "dev",
+                "clang"
+            ]
+        },
+        {
+            "name": "dev-msvc",
+            "displayName": "Developer Mode (MSVC)",
+            "description": "Preset for developer mode",
+            "inherits": [
+                "dev",
+                "msvc"
+            ]
+        },
+        {
+            "name": "ci-gcc",
+            "displayName": "CI Mode (GCC)",
+            "description": "Preset for continuous integration",
+            "inherits": [
+                "ci",
+                "gcc"
+            ]
+        },
+        {
+            "name": "ci-clang",
+            "displayName": "CI Mode (Clang)",
+            "description": "Preset for continuous integration",
+            "inherits": [
+                "ci",
+                "clang"
+            ]
+        },
+        {
+            "name": "ci-msvc",
+            "displayName": "CI Mode (MSVC)",
+            "description": "Preset for continuous integration",
+            "inherits": [
+                "ci",
+                "msvc"
+            ]
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "dev",
+            "displayName": "Developer Mode",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev"
+        },
+        {
+            "name": "ci",
+            "displayName": "CI Mode",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci"
+        },
+        {
+            "name": "dev-gcc",
+            "displayName": "Developer Mode (GCC)",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev-gcc"
+        },
+        {
+            "name": "dev-clang",
+            "displayName": "Developer Mode (Clang)",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev-clang"
+        },
+        {
+            "name": "dev-msvc",
+            "displayName": "Developer Mode (MSVC)",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev-msvc"
+        },
+        {
+            "name": "ci-gcc",
+            "displayName": "CI Mode (GCC)",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci-gcc"
+        },
+        {
+            "name": "ci-clang",
+            "displayName": "CI Mode (Clang)",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci-clang"
+        },
+        {
+            "name": "ci-msvc",
+            "displayName": "CI Mode (MSVC)",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci-msvc"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "test-defaults",
+            "displayName": "Test Defaults",
+            "description": "Preset for default test settings",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            },
+            "hidden": true
+        },
+        {
+            "name": "dev",
+            "displayName": "Developer Mode",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev",
+            "inherits": "test-defaults"
+        },
+        {
+            "name": "ci",
+            "displayName": "CI Mode",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci",
+            "inherits": "test-defaults"
+        },
+        {
+            "name": "dev-gcc",
+            "displayName": "Developer Mode (GCC)",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev-gcc",
+            "inherits": "test-defaults"
+        },
+        {
+            "name": "dev-clang",
+            "displayName": "Developer Mode (Clang)",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev-clang",
+            "inherits": "test-defaults"
+        },
+        {
+            "name": "dev-msvc",
+            "displayName": "Developer Mode (MSVC)",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev-msvc",
+            "inherits": "test-defaults"
+        },
+        {
+            "name": "ci-gcc",
+            "displayName": "CI Mode (GCC)",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci-gcc",
+            "inherits": "test-defaults"
+        },
+        {
+            "name": "ci-clang",
+            "displayName": "CI Mode (Clang)",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci-clang",
+            "inherits": "test-defaults"
+        },
+        {
+            "name": "ci-msvc",
+            "displayName": "CI Mode (MSVC)",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci-msvc",
+            "inherits": "test-defaults"
+        }
+    ],
+    "packagePresets": [
+        {
+            "name": "dev",
+            "displayName": "Developer Mode",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev"
+        },
+        {
+            "name": "ci",
+            "displayName": "CI Mode",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci"
+        },
+        {
+            "name": "dev-gcc",
+            "displayName": "Developer Mode (GCC)",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev-gcc"
+        },
+        {
+            "name": "dev-clang",
+            "displayName": "Developer Mode (Clang)",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev-clang"
+        },
+        {
+            "name": "dev-msvc",
+            "displayName": "Developer Mode (MSVC)",
+            "description": "Preset for developer mode",
+            "configurePreset": "dev-msvc"
+        },
+        {
+            "name": "ci-gcc",
+            "displayName": "CI Mode (GCC)",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci-gcc"
+        },
+        {
+            "name": "ci-clang",
+            "displayName": "CI Mode (Clang)",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci-clang"
+        },
+        {
+            "name": "ci-msvc",
+            "displayName": "CI Mode (MSVC)",
+            "description": "Preset for continuous integration",
+            "configurePreset": "ci-msvc"
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "dev",
+            "displayName": "Developer Mode",
+            "description": "Preset for developer mode",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "dev"
+                },
+                {
+                    "type": "build",
+                    "name": "dev"
+                },
+                {
+                    "type": "test",
+                    "name": "dev"
+                },
+                {
+                    "type": "package",
+                    "name": "dev"
+                }
+            ]
+        },
+        {
+            "name": "ci",
+            "displayName": "CI Mode",
+            "description": "Preset for continuous integration",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "ci"
+                },
+                {
+                    "type": "build",
+                    "name": "ci"
+                },
+                {
+                    "type": "test",
+                    "name": "ci"
+                },
+                {
+                    "type": "package",
+                    "name": "ci"
+                }
+            ]
+        },
+        {
+            "name": "dev-gcc",
+            "displayName": "Developer Mode (GCC)",
+            "description": "Preset for developer mode",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "dev-gcc"
+                },
+                {
+                    "type": "build",
+                    "name": "dev-gcc"
+                },
+                {
+                    "type": "test",
+                    "name": "dev-gcc"
+                },
+                {
+                    "type": "package",
+                    "name": "dev-gcc"
+                }
+            ]
+        },
+        {
+            "name": "dev-clang",
+            "displayName": "Developer Mode (Clang)",
+            "description": "Preset for developer mode",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "dev-clang"
+                },
+                {
+                    "type": "build",
+                    "name": "dev-clang"
+                },
+                {
+                    "type": "test",
+                    "name": "dev-clang"
+                },
+                {
+                    "type": "package",
+                    "name": "dev-clang"
+                }
+            ]
+        },
+        {
+            "name": "dev-msvc",
+            "displayName": "Developer Mode (MSVC)",
+            "description": "Preset for developer mode",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "dev-msvc"
+                },
+                {
+                    "type": "build",
+                    "name": "dev-msvc"
+                },
+                {
+                    "type": "test",
+                    "name": "dev-msvc"
+                },
+                {
+                    "type": "package",
+                    "name": "dev-msvc"
+                }
+            ]
+        },
+        {
+            "name": "ci-gcc",
+            "displayName": "CI Mode (GCC)",
+            "description": "Preset for continuous integration",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "ci-gcc"
+                },
+                {
+                    "type": "build",
+                    "name": "ci-gcc"
+                },
+                {
+                    "type": "test",
+                    "name": "ci-gcc"
+                },
+                {
+                    "type": "package",
+                    "name": "ci-gcc"
+                }
+            ]
+        },
+        {
+            "name": "ci-clang",
+            "displayName": "CI Mode (Clang)",
+            "description": "Preset for continuous integration",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "ci-clang"
+                },
+                {
+                    "type": "build",
+                    "name": "ci-clang"
+                },
+                {
+                    "type": "test",
+                    "name": "ci-clang"
+                },
+                {
+                    "type": "package",
+                    "name": "ci-clang"
+                }
+            ]
+        },
+        {
+            "name": "ci-msvc",
+            "displayName": "CI Mode (MSVC)",
+            "description": "Preset for continuous integration",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "ci-msvc"
+                },
+                {
+                    "type": "build",
+                    "name": "ci-msvc"
+                },
+                {
+                    "type": "test",
+                    "name": "ci-msvc"
+                },
+                {
+                    "type": "package",
+                    "name": "ci-msvc"
+                }
+            ]
+        }
+    ]
+}

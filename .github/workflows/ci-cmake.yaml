@@ -1,0 +1,80 @@
+---
+name: ci-cmake
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      working-directory: "${{ github.workspace }}/image
+      build-directory: "${{ github.workspace }}/image/build/ci"
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    steps:
+      - name: Checkout current version
+        uses: actions/checkout@v4
+
+      - name: Get current branch
+        id: get-current-branch
+        run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+
+      - name: Setup Conan cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.get-current-branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-main
+
+      - name: Setup Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install Conan and Ninja
+        run: pip3 install conan ninja --upgrade
+
+      - name: Detect Conan environment
+        run: conan profile detect
+
+     - name: set windows compiler to enviornment variable
+        if: ${{ runner.os == 'Windows' }}
+        uses: ilammy/msvc-dev-cmd@v1.3.0
+
+      - name: Install dependencies
+        working-directory: ${{ env.working-directory }}
+        run: conan install . -b missing
+
+      - name: Perform build
+        working-directory: ${{ env.working-directory }}
+        run: cmake --workflow --fresh --preset ci
+
+      - name: Get project name
+        working-directory: ${{ env.working-directory }}
+        id: project-name-getter
+        run: |
+          echo "PROJECT_NAME=$(cat name.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: Get package name and path
+        id: package-info-getter
+        run: |
+          echo "PACKAGE_NAME=$(basename "$(find ${{ env.build-directory }} -maxdepth 1 -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.zip" -or -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.tar.gz")")" >> $GITHUB_OUTPUT
+          echo "PACKAGE_PATH=$(find ${{ env.build-directory }} -maxdepth 1 -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.zip" -or -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.tar.gz")" >> $GITHUB_OUTPUT
+
+      - name: Upload package
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.package-info-getter.outputs.PACKAGE_NAME }}
+          path: ${{ steps.package-info-getter.outputs.PACKAGE_PATH }}

@@ -1,0 +1,63 @@
+---
+name: ci-conan
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      working-directory: ./image
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    steps:
+      - name: Checkout current version
+        uses: actions/checkout@v4
+
+      - name: Get current branch
+        id: current_branch
+        run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+
+      - name: Setup Conan cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.conan
+          key: conan-package-cache-${{ steps.current_branch.outputs.name }}
+          restore-keys: |
+            conan-package-cache-main
+
+      - name: Setup Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install Conan
+        run: pip3 install conan --upgrade
+
+      - name: Detect Conan environment
+        run: conan profile detect
+
+      - name: Perform build
+        working-directory: ${{ env.working-directory }}
+        run: conan create . -b missing
+
+      - name: Get project name and version
+        id: get-project-info
+        run: |
+          echo "::set-output name=name::$(cat ${{ env.working-directory }}/name.txt)"
+          echo "::set-output name=version::$(cat ${{ env.working-directory }}/version.txt)"
+
+      - name: Perform integration test
+        working-directory: ${{ env.working-directory }}
+        run: conan test integration ${{ steps.get-project-info.outputs.name }}/${{ steps.get-project-info.outputs.version }}

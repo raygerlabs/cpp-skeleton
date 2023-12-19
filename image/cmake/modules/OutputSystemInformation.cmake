@@ -1,0 +1,50 @@
+include_guard(GLOBAL)
+
+# Output current toolchain file
+message(STATUS "CMAKE_TOOLCHAIN_FILE = ${CMAKE_TOOLCHAIN_FILE}")
+
+# Output system information
+message(STATUS "CMAKE_HOST_SYSTEM_NAME = ${CMAKE_HOST_SYSTEM_NAME}")
+message(STATUS "CMAKE_HOST_SYSTEM_PROCESSOR = ${CMAKE_HOST_SYSTEM_PROCESSOR}")
+
+# Output compiler and linker information
+message(STATUS "CMAKE_C_COMPILER = ${CMAKE_C_COMPILER}")
+message(STATUS "CMAKE_C_LINK_EXECUTABLE = ${CMAKE_C_LINK_EXECUTABLE}")
+message(STATUS "CMAKE_CXX_COMPILER = ${CMAKE_CXX_COMPILER}")
+message(STATUS "CMAKE_CXX_LINK_EXECUTABLE = ${CMAKE_CXX_LINK_EXECUTABLE}")
+message(STATUS "CMAKE_LINKER = ${CMAKE_LINKER}")
+
+# Output current compiler flags
+foreach (_lang IN ITEMS "C" "CXX")
+    foreach (_build_type IN ITEMS "" "_DEBUG" "_RELEASE" "_RELWITHDEBINFO" "_RELEASE")
+        message(STATUS "CMAKE_${_lang}_FLAGS${_build_type} = ${CMAKE_${_lang}_FLAGS${_build_type}}")
+    endforeach()
+endforeach()
+
+# Output current linker flags
+foreach (_linker IN ITEMS "EXE" "SHARED" "MODULE" "STATIC")
+    foreach (_build_type IN ITEMS "" "_DEBUG" "_RELEASE" "_RELWITHDEBINFO" "_RELEASE")
+        message(STATUS "CMAKE_${_linker}_LINKER_FLAGS${_build_type} = ${CMAKE_${_linker}_LINKER_FLAGS${_build_type}}")
+    endforeach()
+endforeach()
+
+
+# Output CMake search paths
+message(STATUS "CMAKE_SYSTEM_INCLUDE_PATH = ${CMAKE_SYSTEM_INCLUDE_PATH}")
+message(STATUS "CMAKE_INCLUDE_PATH = ${CMAKE_INCLUDE_PATH}")
+message(STATUS "CMAKE_PREFIX_PATH = ${CMAKE_PREFIX_PATH}")
+message(STATUS "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}")
+
+# Output CMake build paths
+message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY = ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+message(STATUS "CMAKE_LIBRARY_OUTPUT_DIRECTORY = ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+message(STATUS "CMAKE_ARCHIVE_OUTPUT_DIRECTORY = ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
+
+# Output CMake install paths
+message(STATUS "CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "CMAKE_INSTALL_INCLUDEDIR = ${CMAKE_INSTALL_BINDIR}")
+message(STATUS "CMAKE_INSTALL_LIBDIR = ${CMAKE_INSTALL_LIBDIR}")
+message(STATUS "CMAKE_INSTALL_DATAROOTDIR = ${CMAKE_INSTALL_DATAROOTDIR}")
+message(STATUS "CMAKE_INSTALL_DATADIR = ${CMAKE_INSTALL_DATADIR}")
+message(STATUS "CMAKE_INSTALL_MANDIR = ${CMAKE_INSTALL_MANDIR}")
+message(STATUS "CMAKE_INSTALL_DOCDIR = ${CMAKE_INSTALL_DOCDIR}")

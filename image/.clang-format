@@ -1,0 +1,14 @@
+Language                                  : Cpp
+BasedOnStyle                              : LLVM
+
+AllowShortFunctionsOnASingleLine          : 'None'
+AlwaysBreakAfterDefinitionReturnType      : 'All'
+AlwaysBreakAfterReturnType                : 'All'
+AlwaysBreakTemplateDeclarations           : 'true'
+BreakBeforeBraces                         : 'Allman'
+PointerAlignment                          : 'Left'
+PointerBindsToType                        : 'true'
+ColumnLimit                               : '120'
+IndentWidth                               : '2'
+SpacesBeforeTrailingComments              : '2'
+UseTab                                    : 'Never'
