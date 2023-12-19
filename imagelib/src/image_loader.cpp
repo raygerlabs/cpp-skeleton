@@ -42,7 +42,7 @@ load(const std::string& filename)
   fsize = file.tellg();
   file.clear();
   file.seekg(0, std::ios::beg);
-  std::vector<std::uint8_t> data(fsize);
+  std::vector<std::uint8_t> data(static_cast<std::size_t>(fsize));
   file.read(reinterpret_cast<char*>(&data[0]), fsize);
   return decode(std::move(data));
 }
