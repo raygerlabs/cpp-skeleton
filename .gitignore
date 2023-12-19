@@ -1,0 +1,22 @@
+# Ignore auto folders
+**/.DS_Store
+**/.idea
+**/.cache
+**/.clangd
+**/.vs
+**/.vscode
+
+# Ignore temporary files
+*.swp
+*~
+*.orig
+*.rej
+*.pyc
+.*.sw?
+.sw?
+
+# Ignore build folder
+**/build
+
+# Ignore install folder
+**/install
