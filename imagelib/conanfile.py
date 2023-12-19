@@ -1,8 +1,7 @@
 import os
-
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import rmdir, load
+from conan.tools.files import copy, load, rmdir
 
 class MainRecipe(ConanFile):
   settings = "os", "arch", "compiler", "build_type"
@@ -13,6 +12,16 @@ class MainRecipe(ConanFile):
 
   def set_version(self):
     self.version = load(self, os.path.join(self.recipe_folder, "version.txt"))
+
+  def export_sources(self):
+    copy(self, "name.txt", self.recipe_folder, self.export_sources_folder)
+    copy(self, "version.txt", self.recipe_folder, self.export_sources_folder)
+    copy(self, "CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
+    copy(self, "cmake/*", self.recipe_folder, self.export_sources_folder)
+    copy(self, "include/*", self.recipe_folder, self.export_sources_folder)
+    copy(self, "src/*", self.recipe_folder, self.export_sources_folder)
+    copy(self, "tests/*", self.recipe_folder, self.export_sources_folder)
+    copy(self, "resources/*", self.recipe_folder, self.export_sources_folder)
 
   def build_requirements(self):
     self.tool_requires("cmake/[>=3.25]")

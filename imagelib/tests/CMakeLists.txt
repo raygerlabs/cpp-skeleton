@@ -1,8 +1,9 @@
 add_executable(unit_tests)
 target_sources(unit_tests
 PRIVATE
-  image_tests.cpp
-  path_helpers.hpp
+  image_buffer_tests.cpp
+  image_loader_tests.cpp
+  path_tests.cpp
 )
 target_include_directories(unit_tests
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}

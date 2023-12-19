@@ -9,12 +9,12 @@ on:
       - main
 
 jobs:
-  build:
+  ci-cmake:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
-      working-directory: "${{ github.workspace }}/image
-      build-directory: "${{ github.workspace }}/image/build/ci"
+      working-directory: ./imagelib
+      build-directory: ./imagelib/build/ci
     strategy:
       fail-fast: false
       matrix:
@@ -49,7 +49,7 @@ jobs:
       - name: Detect Conan environment
         run: conan profile detect
 
-     - name: set windows compiler to enviornment variable
+      - name: set windows compiler to enviornment variable
         if: ${{ runner.os == 'Windows' }}
         uses: ilammy/msvc-dev-cmd@v1.3.0
 

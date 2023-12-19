@@ -1,24 +1,16 @@
-os: linux
 language: python
 python: "3.7"
-matrix:
-   include:
-       - os: osx 
-         osx_image: xcode7.3 # apple-clang 7.3
-         env:
-       - os: osx 
-         osx_image: xcode7.1 # apple-clang 7.0
-         env:
-       - os: osx
-         osx_image: xcode6.4 # apple-clang 6.1
-         env:
-       - os: osx 
-         osx_image: xcode6.2 # apple-clang 6.0
-         env:
-
+os:
+  - linux
+  - windows
+  - osx
+      
 install:
   - pip install conan
   - conan user
+
+before_script:
+  - cd imagelib
 
 script:
   - conan install . -b missing

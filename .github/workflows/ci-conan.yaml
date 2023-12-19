@@ -9,11 +9,11 @@ on:
       - main
 
 jobs:
-  build:
+  ci-conan:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
-      working-directory: ./image
+      working-directory: ./imagelib
     strategy:
       fail-fast: false
       matrix:

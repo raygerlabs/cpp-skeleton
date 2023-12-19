@@ -3,8 +3,11 @@ add_library(${PROJECT_NAME})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_sources(${PROJECT_NAME}
 PRIVATE
-  ../include/image/image.hpp
-  image.cpp
+  ../include/imagelib/image_buffer.hpp
+  ../include/imagelib/image_loader.hpp
+  ../include/imagelib/paths.hpp
+  image_loader.cpp
+  paths.cpp
 )
 include(GNUInstallDirs)
 target_include_directories(${PROJECT_NAME}
@@ -37,7 +40,7 @@ install(
 )
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/config.cmake.in
+  ${CMAKE_SOURCE_DIR}/cmake/config.cmake.in
   ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
   INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake
 )
