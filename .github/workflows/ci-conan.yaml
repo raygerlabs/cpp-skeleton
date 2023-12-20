@@ -46,7 +46,7 @@ jobs:
         run: pip3 install conan --upgrade
 
       - name: Detect Conan environment
-        run: conan profile detect -vquiet
+        run: conan profile detect -f
 
       - name: Perform build
         working-directory: ${{ env.working-directory }}
