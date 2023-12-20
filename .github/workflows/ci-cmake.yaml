@@ -47,16 +47,16 @@ jobs:
         run: pip3 install cmake conan ninja --upgrade
 
       # NOTE: this is necessary to correctly find and use cl.exe
+      - name: Add msbuild to PATH
+        if: ${{ runner.os == 'Windows' }}
+        uses: microsoft/setup-msbuild@v1.0.1
+    
       - name: setup devcmd
         if: ${{ runner.os == 'Windows' }}
         uses: ilammy/msvc-dev-cmd@v1.3.0
         with:
           arch: x64
           spectre: true
-
-      - name: Add msbuild to PATH
-        if: ${{ runner.os == 'Windows' }}
-        uses: microsoft/setup-msbuild@v1.0.1
 
       - name: Detect Conan environment
         run: conan profile detect
