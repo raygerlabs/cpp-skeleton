@@ -30,7 +30,7 @@ cache:
 
 install:
   - pip3 install cmake ninja conan --upgrade
-  - conan profile detect
+  - conan profile detect -vquiet
 
 before_script:
   - cd imagelib

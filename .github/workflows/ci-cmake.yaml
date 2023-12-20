@@ -58,7 +58,7 @@ jobs:
           spectre: true
 
       - name: Detect Conan environment
-        run: conan profile detect
+        run: conan profile detect -vquiet
 
       - name: Install dependencies
         working-directory: ${{ env.working-directory }}
