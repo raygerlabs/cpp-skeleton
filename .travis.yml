@@ -29,12 +29,12 @@ cache:
     - $HOME/.conan2
 
 install:
-  - pip3 install cmake ninja conan --upgrade --user
+  - pip3 install cmake ninja conan --upgrade
   - conan profile detect
 
 before_script:
   - cd imagelib
 
 script:
-  - conan install . -b missing
+  - conan install . -s build_type=Release -b missing
   - cmake --workflow --fresh --preset ci

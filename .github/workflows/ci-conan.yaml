@@ -43,14 +43,14 @@ jobs:
           python-version: 3.x
 
       - name: Install Conan
-        run: pip3 install conan --upgrade --user
+        run: pip3 install conan --upgrade
 
       - name: Detect Conan environment
         run: conan profile detect
 
       - name: Perform build
         working-directory: ${{ env.working-directory }}
-        run: conan create . -b missing
+        run: conan create . -s build_type=Release -b missing
 
       - name: Get project name and version
         id: get-project-info

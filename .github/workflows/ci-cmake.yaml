@@ -44,9 +44,8 @@ jobs:
           python-version: 3.x
 
       - name: Install CMake, Conan and Ninja
-        run: pip3 install cmake conan ninja --upgrade --user
+        run: pip3 install cmake conan ninja --upgrade
 
-      # NOTE: this is necessary to correctly find and use cl.exe
       - name: Add msbuild to PATH
         if: ${{ runner.os == 'Windows' }}
         uses: microsoft/setup-msbuild@v1.1
@@ -63,7 +62,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{ env.working-directory }}
-        run: conan install . -b missing
+        run: conan install . -s build_type=Release -b missing
 
       - name: Perform build
         working-directory: ${{ env.working-directory }}
