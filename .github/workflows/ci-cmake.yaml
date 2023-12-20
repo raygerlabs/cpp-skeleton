@@ -33,7 +33,7 @@ jobs:
       - name: Setup Conan cache
         uses: actions/cache@v3
         with:
-          path: ~/.conan
+          path: ~/.conan2
           key: conan-package-cache-${{ steps.get-current-branch.outputs.name }}
           restore-keys: |
             conan-package-cache-main
@@ -44,7 +44,7 @@ jobs:
           python-version: 3.x
 
       - name: Install CMake, Conan and Ninja
-        run: pip3 install cmake conan ninja --upgrade
+        run: pip3 install cmake conan ninja --upgrade --user
 
       # NOTE: this is necessary to correctly find and use cl.exe
       - name: Add msbuild to PATH
@@ -74,7 +74,7 @@ jobs:
         id: project-name-getter
         shell: bash
         run: |
-          echo "PROJECT_NAME=$(cat name.txt)" >> "$GITHUB_OUTPUT"
+          echo "PROJECT_NAME=$(cat name.txt)" >> $GITHUB_OUTPUT
 
       - name: Get package name and path
         id: package-info-getter

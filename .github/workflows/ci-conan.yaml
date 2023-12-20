@@ -32,7 +32,7 @@ jobs:
       - name: Setup Conan cache
         uses: actions/cache@v3
         with:
-          path: ~/.conan
+          path: ~/.conan2
           key: conan-package-cache-${{ steps.current_branch.outputs.name }}
           restore-keys: |
             conan-package-cache-main
@@ -43,7 +43,7 @@ jobs:
           python-version: 3.x
 
       - name: Install Conan
-        run: pip3 install conan --upgrade
+        run: pip3 install conan --upgrade --user
 
       - name: Detect Conan environment
         run: conan profile detect
@@ -55,9 +55,9 @@ jobs:
       - name: Get project name and version
         id: get-project-info
         run: |
-          echo "::set-output name=name::$(cat ${{ env.working-directory }}/name.txt)"
-          echo "::set-output name=version::$(cat ${{ env.working-directory }}/version.txt)"
+          echo "PROJECT_NAME=$(cat ${{ env.working-directory }}/name.txt)" >> $GITHUB_OUTPUT
+          echo "PROJECT_VERSION=$(cat ${{ env.working-directory }}/version.txt)" >> $GITHUB_OUTPUT
 
       - name: Perform integration test
         working-directory: ${{ env.working-directory }}
-        run: conan test integration ${{ steps.get-project-info.outputs.name }}/${{ steps.get-project-info.outputs.version }}
+        run: conan test integration ${{ steps.get-project-info.outputs.PROJECT_NAME }}/${{ steps.get-project-info.outputs.PROJECT_VERSION }}
