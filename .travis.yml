@@ -35,7 +35,7 @@ cache:
     - $HOME/Library/Caches/Homebrew
 
 before_install:
-  - sudo pip3 install --upgrade cmake ninja conan
+  - pip install cmake ninja conan --upgrade --user
   - cmake --version
   - ninja --version
   - conan --version
