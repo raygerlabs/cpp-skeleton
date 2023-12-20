@@ -1,13 +1,47 @@
-language: python
-python: "3.7"
-os:
-  - linux
-  - windows
-  - osx
-      
-install:
-  - pip3 install cmake conan ninja --upgrade
+language: cpp
+
+jobs:
+  include:
+    - os: linux
+      dist: bionic
+      compiler: gcc
+    - os: linux
+      dist: bionic
+      compiler: clang
+    - os: osx
+      osx_image: xcode10.2
+      compiler: clang
+
+addons:
+  apt:
+    packages:
+      - ccache
+      - python3-pip
+  homebrew:
+    packages:
+      - ccache
+      - python3
+
+env:
+  global:
+    - CONAN_V2_MODE=1
+    - CONAN_REVISIONS_ENABLED=1
+    - CONAN_SCM_TO_CONANDATA=1
+
+cache:
+  - pip
+  - ccache
+  - directories:
+    - $HOME/Library/Caches/Homebrew
+
+before_install:
+  - sudo pip3 install --upgrade cmake ninja conan
+  - cmake --version
+  - ninja --version
+  - conan --version
   - conan user
+
+install:
   - conan profile detect
 
 before_script:
