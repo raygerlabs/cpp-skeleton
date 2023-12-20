@@ -54,6 +54,7 @@ jobs:
 
       - name: Get project name and version
         id: get-project-info
+        shell: bash
         run: |
           echo "PROJECT_NAME=$(cat ${{ env.working-directory }}/name.txt)" >> $GITHUB_OUTPUT
           echo "PROJECT_VERSION=$(cat ${{ env.working-directory }}/version.txt)" >> $GITHUB_OUTPUT
