@@ -49,11 +49,11 @@ jobs:
       # NOTE: this is necessary to correctly find and use cl.exe
       - name: Add msbuild to PATH
         if: ${{ runner.os == 'Windows' }}
-        uses: microsoft/setup-msbuild@v1.0.1
-    
-      - name: setup devcmd
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Enable Developer Command Prompt
         if: ${{ runner.os == 'Windows' }}
-        uses: ilammy/msvc-dev-cmd@v1.3.0
+        uses: ilammy/msvc-dev-cmd@v1.12.1
         with:
           arch: x64
           spectre: true
