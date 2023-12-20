@@ -72,11 +72,13 @@ jobs:
       - name: Get project name
         working-directory: ${{ env.working-directory }}
         id: project-name-getter
+        shell: bash
         run: |
           echo "PROJECT_NAME=$(cat name.txt)" >> "$GITHUB_OUTPUT"
 
       - name: Get package name and path
         id: package-info-getter
+        shell: bash
         run: |
           echo "PACKAGE_NAME=$(basename "$(find ${{ env.build-directory }} -maxdepth 1 -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.zip" -or -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.tar.gz")")" >> $GITHUB_OUTPUT
           echo "PACKAGE_PATH=$(find ${{ env.build-directory }} -maxdepth 1 -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.zip" -or -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.tar.gz")" >> $GITHUB_OUTPUT
