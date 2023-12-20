@@ -43,14 +43,20 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install CMake
-        run: pip3 install cmake --upgrade
+      - name: Install CMake, Conan and Ninja
+        run: pip3 install cmake conan ninja --upgrade
 
-      - name: Install Ninja
-        uses: seanmiddleditch/gha-setup-ninja@master
+      # NOTE: this is necessary to correctly find and use cl.exe
+      - name: setup devcmd
+        if: ${{ runner.os == 'Windows' }}
+        uses: ilammy/msvc-dev-cmd@v1.3.0
+        with:
+          arch: x64
+          spectre: true
 
-      - name: Install Conan and Ninja
-        run: pip3 install conan --upgrade
+      - name: Add msbuild to PATH
+        if: ${{ runner.os == 'Windows' }}
+        uses: microsoft/setup-msbuild@v1.0.1
 
       - name: Detect Conan environment
         run: conan profile detect
