@@ -39,7 +39,6 @@ before_install:
   - cmake --version
   - ninja --version
   - conan --version
-  - conan user
 
 install:
   - conan profile detect
