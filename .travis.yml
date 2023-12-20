@@ -6,8 +6,9 @@ os:
   - osx
       
 install:
-  - pip install conan
+  - pip3 install cmake conan ninja --upgrade
   - conan user
+  - conan profile detect
 
 before_script:
   - cd imagelib
