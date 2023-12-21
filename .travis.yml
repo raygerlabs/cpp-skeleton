@@ -1,31 +1,70 @@
-language: cpp
+---
+language: minimal
+dist: bionic
 
 matrix:
-  fast_finish: true
   include:
-    - os: linux
-      arch: amd64
-      dist: jammy
-      compiler: gcc
-
-    - os: linux
-      arch: ppc64le
-      dist: jammy
-      compiler: gcc
-
-    - os: linux
+    - name: OSX (xcode11.3 clang-11.0.0)
+      os: osx
+      osx_image: xcode11.3
+    - name: Linux amd64 (gcc-9)
+      os: linux
+      addons:
+        apt:
+          packages: g++-9
+      env:
+        - CXX=g++-9
+        - CC=gcc-9
+    - name: Linux arm64 (gcc-9)
+      os: linux
+      arch: arm64
+      addons:
+        apt:
+          packages: g++-9
+      env:
+        - CXX=g++-9
+        - CC=gcc-9
+    - name: Linux s390x (gcc-9)
+      os: linux
       arch: s390x
-      dist: jammy
-      compiler: gcc
-
-    - os: linux
-      arch: arm64  
-      dist: jammy
-      compiler: gcc
-
-    - os: osx
-      osx_image: xcode14.2
-      compiler: clang
+      addons:
+        apt:
+          packages: g++-9
+      env:
+        - CXX=g++-9
+        - CC=gcc-9
+    - name: Linux ppc64le (gcc-9)
+      os: linux
+      arch: ppc64le
+      addons:
+        apt:
+          packages: g++-9
+      env:
+        - CXX=g++-9
+        - CC=gcc-9
+    - name: Linux amd64 (clang)
+      os: linux
+      env:
+        - CXX=clang++
+        - CC=clang
+    - name: Linux arm64 (clang)
+      os: linux
+      arch: arm64
+      env:
+        - CXX=clang++
+        - CC=clang
+    - name: Linux s390x (clang)
+      os: linux
+      arch: s390x
+      env:
+        - CXX=clang++
+        - CC=clang
+    - name: Linux ppc64le (clang)
+      os: linux
+      arch: ppc64le
+      env:
+        - CXX=clang++
+        - CC=clang
 
 addons:
   apt:
@@ -33,7 +72,6 @@ addons:
       - ccache
       - python3
       - python3-pip
-
   homebrew:
     packages:
       - ccache
@@ -49,7 +87,6 @@ cache:
   - pip
   - ccache
   - directories:
-    - $HOME/Library/Caches/Homebrew
     - $HOME/.conan2/p 
 
 install:
