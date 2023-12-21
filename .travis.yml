@@ -1,33 +1,31 @@
 language: cpp
 
 matrix:
+  fast_finish: true
   include:
     - os: linux
       arch: amd64
-      dist: focal
-    - os: linux
-      arch: ppc64le
-      dist: focal
-    - os: linux
-      arch: s390x
-      dist: focal
-    - os: linux
-      arch: arm64  
-      dist: focal
-    - os: linux
-      arch: amd64
       dist: jammy
+      compiler: gcc
+
     - os: linux
       arch: ppc64le
       dist: jammy
+      compiler: gcc
+
     - os: linux
       arch: s390x
       dist: jammy
+      compiler: gcc
+
     - os: linux
       arch: arm64  
       dist: jammy
+      compiler: gcc
+
     - os: osx
       osx_image: xcode14.2
+      compiler: clang
 
 addons:
   apt:
@@ -48,11 +46,11 @@ env:
     - CONAN_SCM_TO_CONANDATA=1
 
 cache:
+  - pip
+  - ccache
   - directories:
-    - $HOME/.cache/pip
-    - $HOME/.ccache
-    - $HOME/.conan2
     - $HOME/Library/Caches/Homebrew
+    - $HOME/.conan2/p 
 
 install:
   - pip3 install cmake ninja conan --upgrade
