@@ -1,8 +1,33 @@
 language: cpp
 
-os:
-  - linux
-  - osx
+matrix:
+  include:
+    - os: linux
+      arch: amd64
+      dist: focal
+    - os: linux
+      arch: ppc64le
+      dist: focal
+    - os: linux
+      arch: s390x
+      dist: focal
+    - os: linux
+      arch: arm64  
+      dist: focal
+    - os: linux
+      arch: amd64
+      dist: jammy
+    - os: linux
+      arch: ppc64le
+      dist: jammy
+    - os: linux
+      arch: s390x
+      dist: jammy
+    - os: linux
+      arch: arm64  
+      dist: jammy
+    - os: osx
+      osx_image: xcode14.2
 
 addons:
   apt:
@@ -10,6 +35,7 @@ addons:
       - ccache
       - python3
       - python3-pip
+
   homebrew:
     packages:
       - ccache
@@ -23,10 +49,10 @@ env:
 
 cache:
   - directories:
-    - $HOME/Library/Caches/Homebrew
     - $HOME/.cache/pip
     - $HOME/.ccache
     - $HOME/.conan2
+    - $HOME/Library/Caches/Homebrew
 
 install:
   - pip3 install cmake ninja conan --upgrade
