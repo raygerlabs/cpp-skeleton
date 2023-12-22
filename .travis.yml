@@ -92,7 +92,8 @@ cache:
     - $HOME/.conan2/p 
 
 install:
-  - pip3 install cmake ninja conan --upgrade
+  - pip3 install conan --upgrade
+  - conan -v
   - conan profile detect -f
 
 script:

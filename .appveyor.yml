@@ -17,10 +17,10 @@ cache:
   - C:\Users\appveyor\AppData\Local\pip\Cache -> .appveyor.yml
   - /home/appveyor/.cache/pip -> .appveyor.yml
   # conan cache
-  - C:\Users\appveyor\.conan2\p
-  - /home/appveyor/.conan2/p
+  - C:\Users\appveyor\.conan2\p -> .appveyor.yml
+  - /home/appveyor/.conan2/p -> .appveyor.yml
   # CCache cache
-  - /home/appveyor/.cache/ccache
+  - /home/appveyor/.cache/ccache -> .appveyor.yml
 
 image:
   - Visual Studio 2019
@@ -28,10 +28,8 @@ image:
   - macos-monterey
 
 install:
-  - pip install cmake ninja conan --upgrade --user
-  - cmake --version
-  - ninja --version
-  - conan --version
+  - pip install conan --upgrade
+  - conan -v
   - conan profile detect -f
 
 build_script:
