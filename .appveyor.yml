@@ -4,6 +4,7 @@ branches:
     - dev
 
 environment:
+  WORKING_DIRECTORY: ./imagelib
   CONAN_RUN_TESTS: True
   CONAN_V2_MODE: 1
   CONAN_REVISIONS_ENABLED: 1
@@ -20,14 +21,28 @@ image:
   - macos-monterey
 
 install:
-  - pip install cmake conan ninja --upgrade
+  - pip install cmake ninja conan --upgrade
+  - cmake --version
+  - ninja --version
+  - conan --version
   - conan profile detect -f
 
 build_script:
-  - cd imagelib
-  - sh: export PROJECT_NAME=$(cat name.txt)
-  - sh: export PROJECT_VERSION=$(cat version.txt)
-  - ps: $PROJECT_NAME = Get-Content name.txt -Raw
-  - ps: $PROJECT_VERSION = Get-Content version.txt -Raw
-  - conan create . -b missing
-  - conan test integration $PROJECT_NAME/$PROJECT_VERSION
+  - cmd: |
+      cd %WORKING_DIRECTORY%
+      conan create . -b missing
+  - sh: |
+      cd $WORKING_DIRECTORY
+      conan create . -b missing
+
+test_script:
+  - cmd: |
+      cd %WORKING_DIRECTORY%
+      echo | set /p="PROJECT_NAME=" < name.txt
+      echo | set /p="PROJECT_VERSION=" < version.txt
+      conan test integration %PROJECT_NAME%/%PROJECT_VERSION%
+  - sh: |
+      cd $WORKING_DIRECTORY
+      export PROJECT_NAME=$(cat name.txt)
+      export PROJECT_VERSION=$(cat version.txt)
+      conan test integration $PROJECT_NAME/$PROJECT_VERSION

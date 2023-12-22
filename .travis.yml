@@ -79,6 +79,7 @@ addons:
 
 env:
   global:
+    - WORKING_DIRECTORY=./imagelib
     - CONAN_RUN_TESTS=1
     - CONAN_V2_MODE=1
     - CONAN_REVISIONS_ENABLED=1
@@ -94,9 +95,16 @@ install:
   - pip3 install cmake ninja conan --upgrade
   - conan profile detect -f
 
-before_script:
-  - cd imagelib
-
 script:
-  - conan install . -s build_type=Release -b missing
-  - cmake --workflow --fresh --preset ci
+  - cd $WORKING_DIRECTORY
+  - conan create . -b missing
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      export PROJECT_NAME=$(type %WORKING_DIRECTORY%/name.txt)
+      export PROJECT_VERSION=$(type %WORKING_DIRECTORY%/version.txt)
+      conan test integration %PROJECT_NAME%/%PROJECT_VERSION%
+    else
+      export PROJECT_NAME=$(cat $WORKING_DIRECTORY/name.txt)
+      export PROJECT_VERSION=$(cat $WORKING_DIRECTORY/version.txt)
+      conan test integration $PROJECT_NAME/$PROJECT_VERSION
+    fi
+
