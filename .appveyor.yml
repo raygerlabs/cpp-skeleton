@@ -20,7 +20,7 @@ image:
   - macos-monterey
 
 install:
-  - pip install cmake conan ninja --upgrade --user
+  - pip install cmake conan ninja --upgrade
   - conan profile detect -f
 
 build_script:
