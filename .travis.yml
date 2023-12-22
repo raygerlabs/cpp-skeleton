@@ -96,15 +96,16 @@ install:
   - conan profile detect -f
 
 script:
-  - cd $WORKING_DIRECTORY
-  - conan create . -b missing
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-      export PROJECT_NAME=$(type %WORKING_DIRECTORY%/name.txt)
-      export PROJECT_VERSION=$(type %WORKING_DIRECTORY%/version.txt)
+      cd %WORKING_DIRECTORY%
+      set /p PROJECT_NAME=<name.txt
+      set /p PROJECT_VERSION=<version.txt
+      conan create . -b missing
       conan test integration %PROJECT_NAME%/%PROJECT_VERSION%
     else
-      export PROJECT_NAME=$(cat $WORKING_DIRECTORY/name.txt)
-      export PROJECT_VERSION=$(cat $WORKING_DIRECTORY/version.txt)
+      cd $WORKING_DIRECTORY
+      export PROJECT_NAME=$(cat name.txt)
+      export PROJECT_VERSION=$(cat version.txt)
+      conan create . -b missing
       conan test integration $PROJECT_NAME/$PROJECT_VERSION
     fi
-

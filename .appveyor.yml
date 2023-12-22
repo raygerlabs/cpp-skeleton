@@ -1,14 +1,16 @@
 branches:
   only:
     - main
+    - release
     - dev
 
 environment:
-  WORKING_DIRECTORY: ./imagelib
-  CONAN_RUN_TESTS: True
-  CONAN_V2_MODE: 1
-  CONAN_REVISIONS_ENABLED: 1
-  CONAN_SCM_TO_CONANDATA: 1
+  matrix:
+    - WORKING_DIRECTORY: ./imagelib
+      CONAN_RUN_TESTS: True
+      CONAN_V2_MODE: 1
+      CONAN_REVISIONS_ENABLED: 1
+      CONAN_SCM_TO_CONANDATA: 1
 
 cache:
   - "$HOME/.cache/ccache" 
@@ -30,19 +32,13 @@ install:
 build_script:
   - cmd: |
       cd %WORKING_DIRECTORY%
+      set /p PROJECT_NAME=<name.txt
+      set /p PROJECT_VERSION=<version.txt
       conan create . -b missing
-  - sh: |
-      cd $WORKING_DIRECTORY
-      conan create . -b missing
-
-test_script:
-  - cmd: |
-      cd %WORKING_DIRECTORY%
-      echo | set /p="PROJECT_NAME=" < name.txt
-      echo | set /p="PROJECT_VERSION=" < version.txt
       conan test integration %PROJECT_NAME%/%PROJECT_VERSION%
   - sh: |
       cd $WORKING_DIRECTORY
       export PROJECT_NAME=$(cat name.txt)
       export PROJECT_VERSION=$(cat version.txt)
+      conan create . -b missing
       conan test integration $PROJECT_NAME/$PROJECT_VERSION
