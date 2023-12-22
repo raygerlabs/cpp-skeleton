@@ -13,7 +13,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
-      working-directory: ./imagelib
+      WORKING_DIRECTORY: ./imagelib
+      CONAN_RUN_TESTS: True
+      CONAN_V2_MODE: 1
+      CONAN_REVISIONS_ENABLED: 1
+      CONAN_SCM_TO_CONANDATA: 1
     strategy:
       fail-fast: false
       matrix:
@@ -49,16 +53,16 @@ jobs:
         run: conan profile detect -f
 
       - name: Perform build
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: conan create . -s build_type=Release -b missing
 
       - name: Get project name and version
         id: get-project-info
         shell: bash
         run: |
-          echo "PROJECT_NAME=$(cat ${{ env.working-directory }}/name.txt)" >> $GITHUB_OUTPUT
-          echo "PROJECT_VERSION=$(cat ${{ env.working-directory }}/version.txt)" >> $GITHUB_OUTPUT
+          echo "PROJECT_NAME=$(cat ${{ env.WORKING_DIRECTORY }}/name.txt)" >> $GITHUB_OUTPUT
+          echo "PROJECT_VERSION=$(cat ${{ env.WORKING_DIRECTORY }}/version.txt)" >> $GITHUB_OUTPUT
 
       - name: Perform integration test
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: conan test integration ${{ steps.get-project-info.outputs.PROJECT_NAME }}/${{ steps.get-project-info.outputs.PROJECT_VERSION }}

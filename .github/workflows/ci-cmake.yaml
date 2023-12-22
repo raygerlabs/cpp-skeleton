@@ -12,9 +12,15 @@ jobs:
   ci-cmake:
     runs-on: ${{ matrix.config.os }}
     timeout-minutes: 30
+
     env:
-      working-directory: ./imagelib
-      build-directory: ./imagelib/build/ci
+      WORKING_DIRECTORY: ./imagelib
+      BUILD_DIRECTORY: ./imagelib/build/ci
+      CONAN_RUN_TESTS: True
+      CONAN_V2_MODE: 1
+      CONAN_REVISIONS_ENABLED: 1
+      CONAN_SCM_TO_CONANDATA: 1
+
     strategy:
       fail-fast: false
       matrix:
@@ -22,6 +28,7 @@ jobs:
           - { name: "Windows MSVC", os: windows-latest, cc: "cl", cxx: "cl" }
           - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc", cxx: "g++" }
           - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++" }
+
     steps:
       - name: Checkout current version
         uses: actions/checkout@v4
@@ -61,15 +68,15 @@ jobs:
         run: conan profile detect -f
 
       - name: Install dependencies
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: conan install . -s build_type=Release -b missing
 
       - name: Perform build
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: cmake --workflow --fresh --preset ci
 
       - name: Get project name
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         id: project-name-getter
         shell: bash
         run: |
@@ -79,8 +86,8 @@ jobs:
         id: package-info-getter
         shell: bash
         run: |
-          echo "PACKAGE_NAME=$(basename "$(find ${{ env.build-directory }} -maxdepth 1 -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.zip" -or -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.tar.gz")")" >> $GITHUB_OUTPUT
-          echo "PACKAGE_PATH=$(find ${{ env.build-directory }} -maxdepth 1 -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.zip" -or -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.tar.gz")" >> $GITHUB_OUTPUT
+          echo "PACKAGE_NAME=$(basename "$(find ${{ env.BUILD_DIRECTORY }} -maxdepth 1 -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.zip" -or -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.tar.gz")")" >> $GITHUB_OUTPUT
+          echo "PACKAGE_PATH=$(find ${{ env.BUILD_DIRECTORY }} -maxdepth 1 -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.zip" -or -name "${{ steps.project-name-getter.outputs.PROJECT_NAME }}*.tar.gz")" >> $GITHUB_OUTPUT
 
       - name: Upload package
         uses: actions/upload-artifact@v3

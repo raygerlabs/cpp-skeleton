@@ -23,15 +23,9 @@ class MainRecipe(ConanFile):
     copy(self, "tests/*", self.recipe_folder, self.export_sources_folder)
     copy(self, "resources/*", self.recipe_folder, self.export_sources_folder)
 
-  def build_requirements(self):
-    self.tool_requires("cmake/[>=3.25]")
-    self.tool_requires("ninja/[>=1.11]")
-    self.tool_requires("doxygen/[>=1.9]")
-    self.test_requires("gtest/[>=1.14]")
-    self.test_requires("benchmark/[>=1.8]")
-
   def requirements(self):
     self.requires("libjpeg-turbo/[>=3.0]", transitive_headers=True, transitive_libs=True)
+    self.test_requires("gtest/[>=1.14]")
 
   def layout(self):
     cmake_layout(self)

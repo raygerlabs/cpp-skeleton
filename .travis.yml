@@ -79,6 +79,7 @@ addons:
 
 env:
   global:
+    - CONAN_RUN_TESTS=1
     - CONAN_V2_MODE=1
     - CONAN_REVISIONS_ENABLED=1
     - CONAN_SCM_TO_CONANDATA=1
