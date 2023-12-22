@@ -13,9 +13,14 @@ environment:
       CONAN_SCM_TO_CONANDATA: 1
 
 cache:
-  - "$HOME/.cache/ccache" 
-  - "$HOME/.cache/pip"
-  - "$HOME/.conan2/p"
+  # pip cache
+  - C:\Users\appveyor\AppData\Local\pip\Cache -> .appveyor.yml
+  - /home/appveyor/.cache/pip -> .appveyor.yml
+  # conan cache
+  - C:\Users\appveyor\.conan2\p
+  - /home/appveyor/.conan2/p
+  # CCache cache
+  - /home/appveyor/.cache/ccache
 
 image:
   - Visual Studio 2019
@@ -23,7 +28,7 @@ image:
   - macos-monterey
 
 install:
-  - pip install cmake ninja conan --upgrade
+  - pip install cmake ninja conan --upgrade --user
   - cmake --version
   - ninja --version
   - conan --version
