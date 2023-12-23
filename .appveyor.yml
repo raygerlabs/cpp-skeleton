@@ -28,9 +28,16 @@ image:
   - macos-monterey
 
 install:
-  - pip install conan --upgrade
-  - conan -v
-  - conan profile detect -f
+  - cmd: |
+      python -m ensurepip --upgrade
+      python -m pip install conan --upgrade
+      conan -v
+      conan profile detect -f
+  - sh: |
+      python3 -m ensurepip --upgrade
+      python3 -m pip install conan --upgrade
+      conan -v
+      conan profile detect -f
 
 build_script:
   - cmd: |
