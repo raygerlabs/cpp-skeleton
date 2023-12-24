@@ -1,15 +1,8 @@
 ---
 name: ci-conan
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+on: [push, pull_request]
 jobs:
-  ci-conan:
+  build:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
@@ -21,18 +14,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-          - windows-latest
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - name: Checkout current version
         uses: actions/checkout@v4
-
       - name: Get current branch
         id: current_branch
         run: echo "name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
-
       - name: Setup Conan cache
         uses: actions/cache@v3
         with:
@@ -40,29 +28,23 @@ jobs:
           key: conan-package-cache-${{ steps.current_branch.outputs.name }}
           restore-keys: |
             conan-package-cache-main
-
       - name: Setup Python environment
         uses: actions/setup-python@v4
         with:
           python-version: 3.x
-
       - name: Install Conan
         run: pip3 install conan --upgrade
-
       - name: Detect Conan environment
         run: conan profile detect -f
-
       - name: Perform build
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: conan create . -s build_type=Release -b missing
-
       - name: Get project name and version
         id: get-project-info
         shell: bash
         run: |
           echo "PROJECT_NAME=$(cat ${{ env.WORKING_DIRECTORY }}/name.txt)" >> $GITHUB_OUTPUT
           echo "PROJECT_VERSION=$(cat ${{ env.WORKING_DIRECTORY }}/version.txt)" >> $GITHUB_OUTPUT
-
       - name: Perform integration test
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: conan test integration ${{ steps.get-project-info.outputs.PROJECT_NAME }}/${{ steps.get-project-info.outputs.PROJECT_VERSION }}

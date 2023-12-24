@@ -1,0 +1,30 @@
+---
+name: ci-arch
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [aarch64, armv7, ppc64le, riscv64, s390x]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run on architecture
+        uses: uraimo/run-on-arch-action@v2
+        with:
+          arch: ${{ matrix.arch }}
+          distro: ubuntu-latest
+          githubToken: ${{ github.token }}
+          shell: /bin/bash
+          install: |
+            apt-get update -q -y
+            apt-get install -q -y python3 python3-pip build-essential
+            pip install cmake ninja conan --upgrade --user
+          run: |
+            cd imagelib
+            name=$(cat name.txt)
+            ver=$(cat version.txt)
+            conan create . -b missing
+            conan test integration $name/$ver
