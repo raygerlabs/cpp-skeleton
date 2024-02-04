@@ -1,0 +1,23 @@
+# Ignore automatic OS or IDE specific folders
+**/.DS_Store
+**/.idea
+**/.cache
+**/.clangd
+**/.vs
+**/.vscode
+
+# Ignore automatic CMake or Conan files
+**/CMakeUserPresets.json
+**/ConanPresets.json
+
+# Ignore temporary files
+*.swp
+*~
+*.orig
+*.rej
+*.pyc
+.*.sw?
+.sw?
+
+# Ignore build folder
+**/build
